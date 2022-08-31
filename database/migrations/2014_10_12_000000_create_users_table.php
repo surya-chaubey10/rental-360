@@ -19,8 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('organisation_id')->nullable();
             $table->unsignedBigInteger('usertype')->default(1)->comment('0:superadmin, 1:admin (organisation), 2:customer, 3:salesman..., we\'ll add all the users type after confirmation');
             $table->string('parent_id')->nullable()->comment('If the user type is admin then put the admin id here to make it as a group.');
-            $table->string('firstname')->index();
-            $table->string('lastname')->index();
+            $table->string('fullname')->index();
             $table->string('email')->unique()->index();
             $table->string('password');
             $table->string('api_token')->unique();
@@ -31,7 +30,7 @@ return new class extends Migration
             $table->boolean('status')->default(1);
             $table->enum('login_type', ['system', 'google', 'facebook', 'twitter', 'mobile']);
             $table->integer('role_id')->default(2)->comment('1:superadmin, 2 org-admin, 3...');
-            $table->foreign('organisation_id')->references('id')->on('organisations')->onDelete('cascade');
+            // $table->foreign('organisation_id')->references('id')->on('organisations')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

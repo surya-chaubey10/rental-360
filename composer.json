@@ -41,7 +41,8 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "app/Library/helper.php"
+            "app/Library/helper.php",
+            "app/Helpers/Helpers.php"
         ]
     },
     "scripts": {

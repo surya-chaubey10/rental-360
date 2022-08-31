@@ -1,8 +1,5 @@
-@php
-$configData = Helper::applClasses();
-@endphp
 <div
-  class="main-menu menu-fixed {{ $configData['theme'] === 'dark' || $configData['theme'] === 'semi-dark' ? 'menu-dark' : 'menu-light' }} menu-accordion menu-shadow"
+  class="main-menu menu-fixed menu-light menu-accordion menu-shadow"
   data-scroll-to-active="true">
   <div class="navbar-header">
     <ul class="nav navbar-nav flex-row">
@@ -41,7 +38,7 @@ $configData = Helper::applClasses();
               </g>
             </svg>
           </span>
-          <h2 class="brand-text">Vuexy</h2>
+          <h2 class="brand-text">MyRide</h2>
         </a>
       </li>
       <li class="nav-item nav-toggle">

@@ -32,7 +32,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'uuid', 'organisation_id', 'usertype', 'parent_id', 'firstname', 'lastname', 'email', 'password', 'api_token', 'email_verified_at', 'mobile', 'country_id', 'is_approved_by_admin', 'role_id', 'status'
+        'uuid', 'organisation_id', 'usertype', 'parent_id', 'fullname', 'email', 'password', 'api_token', 'email_verified_at', 'mobile', 'country_id', 'is_approved_by_admin', 'role_id', 'status'
     ];
 
     public static function boot()

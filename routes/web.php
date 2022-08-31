@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FrontControllers\BookingController;
+use App\Http\Controllers\FrontControllers\DashboardController;
 use App\Http\Controllers\FrontControllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +23,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/dashboard1', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/bookings', [BookingController::class, 'index'])->name('booking.index');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RoleController::class);

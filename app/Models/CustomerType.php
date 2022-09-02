@@ -22,6 +22,11 @@ class CustomerType extends Model
         });
     }
 
+    public function customer()
+    {
+        return $this->hasOne(Customer::class,  'customer_type', 'id');
+    }
+
     
 
 }

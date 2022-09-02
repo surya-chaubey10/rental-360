@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use Illuminate\Support\Collection;
 use App\Models\User;
+use App\Models\Country;
+use App\Models\CustomerType;
 use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
@@ -14,22 +16,22 @@ class CustomerController extends Controller
 
     public function index(){
        
-        
-        return view('contact.customer.list'); 
+        $country = Country::select('id','name')->get();
+        $customer_type = CustomerType::select('id','type_name')->get();
+      
+        return view('contact.customer.list',compact('country','customer_type')); 
     }
 
     public function json_list(){
-
-         $customer = Customer::with('user')->get();
-
+         $customer = Customer::with('customer_typee','user')->get();
+        
          $details = new Collection();
-
          foreach ($customer as $key => $date) {
-
+      
             $details->push([
                 "id"             => $date->id,
                 "fullname"      => $date->user->fullname,
-                "customer_type"  => $date->customer_type,
+                "customer_type"  => $date->customer_typee->type_name,
                 "email"          => $date->user->email,
                 "contact"        => $date->user->mobile,
                 "status"         => $date->approval_status,

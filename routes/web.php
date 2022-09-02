@@ -31,7 +31,7 @@ Route::get('/bookings', [BookingController::class, 'index'])->name('booking.inde
 Route::get('/customer-list', [CustomerController::class, 'index'])->name('ustomer-list');
 Route::get('data/customer-list-json', [CustomerController::class, 'json_list'])->name('data/customer-list.json');
 Route::get('/app/customer/view/account', [CustomerController::class, 'view'])->name('app/customer/view/account');
-Route::get('/customer-save', [CustomerController::class, 'store'])->name('customer-save');
+Route::post('/customer-save', [CustomerController::class, 'store'])->name('customer-save');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RoleController::class);

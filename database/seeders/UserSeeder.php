@@ -52,7 +52,11 @@ class UserSeeder extends Seeder
             'booking-list',
             'booking-create',
             'booking-edit',
-            'booking-delete'
+            'booking-delete',
+            'customer-list',
+            'customer-create',
+            'customer-edit',
+            'customer-delete'
         ];
 
         foreach ($permissions as $permission) {

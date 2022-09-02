@@ -8,11 +8,13 @@
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/css/extensions/toastr.min.css') }}">
 @endsection
 
 @section('page-style')
   {{-- Page Css files --}}
   <link rel="stylesheet" href="{{ asset('css/base/plugins/forms/form-validation.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-toastr.css') }}">
 @endsection
 
 @section('content')
@@ -109,7 +111,7 @@
     <!-- Modal to add new user starts-->
     <div class="modal modal-slide-in new-user-modal fade" id="modals-slide-in">
       <div class="modal-dialog">
-        <form class="add-new-customer modal-content pt-0" data-toggle="validator" autocomplete="off" id="addCustomerForm" method="post">
+        <form class="add-new-customer modal-content pt-0 form-block" autocomplete="off" id="addCustomerForm" method="post">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
           <div class="modal-header mb-1">
             <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
@@ -122,7 +124,7 @@
                 class="form-control dt-full-name"
                 id="basic-icon-default-fullname"
                 placeholder="John Doe"
-                name="customer-fullname"
+                name="fullname"
               />
             </div>
             <div class="mb-1">
@@ -132,7 +134,7 @@
                 id="basic-icon-default-uname"
                 class="form-control dt-uname"
                 placeholder="Web Developer"
-                name="user-name"
+                name="username"
               />
             </div>
             <div class="mb-1">
@@ -142,7 +144,7 @@
                 id="basic-icon-default-email"
                 class="form-control dt-email"
                 placeholder="john.doe@example.com"
-                name="customer-email"
+                name="email"
               />
             </div>
             <div class="mb-1">
@@ -152,7 +154,7 @@
                 id="basic-icon-default-contact"
                 class="form-control dt-contact"
                 placeholder="+1 (609) 933-44-22"
-                name="customer-contact"
+                name="contact"
               />
             </div>
             <div class="mb-1">
@@ -162,21 +164,21 @@
                 id="basic-icon-default-company"
                 class="form-control dt-contact"
                 placeholder="PIXINVENT"
-                name="customer-company"
+                name="company"
               />
             </div>
             <div class="mb-1">
               <label class="form-label" for="country">Country</label>
-              <select id="country" name="customer-country" class="select2 form-select">
-                <option value="Australia">USA</option>
-                <option value="Bangladesh">Bangladesh</option>
-                <option value="Belarus">Belarus</option>
+              <select id="country" name="country" class="select2 form-select">
+                <option value="1">USA</option>
+                <option value="2">Bangladesh</option>
+                <option value="3">Belarus</option>
                 <option value="Brazil">Brazil</option>
                 <option value="Canada">Canada</option>
                 <option value="China">China</option>
                 <option value="France">France</option>
                 <option value="Germany">Germany</option>
-                <option value="India">India</option>
+                <option value="6">India</option>
                 <option value="Indonesia">Indonesia</option>
                 <option value="Israel">Israel</option>
                 <option value="Italy">Italy</option>
@@ -195,8 +197,8 @@
               </select>
             </div>
             <div class="mb-1">
-              <label class="form-label" for="user-role">Customer Type</label>
-              <select id="user-role" class="select2 form-select">
+              <label class="form-label" for="customer_type">Customer Type</label>
+              <select id="user-role" name="customer_type" class="select2 form-select">
                 <option value="subscriber">Subscriber</option>
                 <option value="editor">Editor</option>
                 <option value="maintainer">Maintainer</option>
@@ -205,7 +207,7 @@
               </select>
             </div>
            
-            <button type="submit" class="btn btn-primary me-1 data-submit">Submit</button>
+            <button id="submit" type="submit" class="btn btn-outline-primary btn-form-block">Submit</button>
             <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
           </div>
         </form>
@@ -234,9 +236,13 @@
   <script src="{{ asset('vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
   <script src="{{ asset('vendors/js/forms/cleave/cleave.min.js') }}"></script>
   <script src="{{ asset('vendors/js/forms/cleave/addons/cleave-phone.us.js') }}"></script>
+  <script src="{{ asset('vendors/js/extensions/toastr.min.js') }}"></script>
+  
 @endsection
 
 @section('page-script')
   {{-- Page js files --}}
  <script src="{{ asset('js/scripts/pages/app-customers-list.js') }}"></script> 
+ <script src="{{ asset('js/scripts/extensions/ext-component-toastr.js') }}"></script>
+ <script src="{{ asset('js/scripts/extensions/ext-component-blockui.js') }}"></script>
 @endsection

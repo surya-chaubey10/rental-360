@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
+use App\Models\Customer;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
@@ -41,6 +42,11 @@ class User extends Authenticatable
         self::creating(function ($model) {
             $model->uuid = (string) Str::uuid();
         });
+    }
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class,  'user_id', 'id');
     }
 
     /**

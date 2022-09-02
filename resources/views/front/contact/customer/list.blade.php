@@ -109,7 +109,7 @@
     <!-- Modal to add new user starts-->
     <div class="modal modal-slide-in new-user-modal fade" id="modals-slide-in">
       <div class="modal-dialog">
-        <form class="add-new-user modal-content pt-0">
+        <form class="add-new-customer modal-content pt-0" data-toggle="validator" autocomplete="off" id="addCustomerForm" method="post">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
           <div class="modal-header mb-1">
             <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>

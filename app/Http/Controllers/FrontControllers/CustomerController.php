@@ -42,7 +42,7 @@ class CustomerController extends Controller
 
     public function store(Request $request)
     {
-        
+        dd($request);
         $customer = new Customer;
         $customer->fullname      = $request->fullname;
         $customer->username      = $request->username;

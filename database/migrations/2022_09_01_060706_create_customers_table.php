@@ -26,7 +26,7 @@ return new class extends Migration
             $table->date('dob')->format('d/m/Y')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('organisation_id')->default(1);
-            $table->enum('status', ['1', '2','3'])->default('1')>comment('1:active, 2:inactive, 3:pending');
+            $table->enum('status', ['1', '2','3'])->default('1')->comment('1:active, 2:inactive, 3:pending');
             $table->string('website')->nullable();
             $table->string('language')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();

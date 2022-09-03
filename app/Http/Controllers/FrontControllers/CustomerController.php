@@ -73,4 +73,11 @@ class CustomerController extends Controller
          }
         
     }
+
+    public function view($id){
+        $customer = Customer::with('customer_typee','user')->where('customers.id',$id)->first();
+    
+        return view('contact.customer.app-user-view-account',compact('customer')); 
+       
+   }
 }

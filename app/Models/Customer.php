@@ -28,7 +28,7 @@ class Customer extends Model
     public function customer_typee()
     {
         return $this->belongsTo(CustomerType::class, 'customer_type', 'id');
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        
     }
 
     public function user()

@@ -34,7 +34,7 @@ $(function () {
 
   if ($('body').attr('data-framework') === 'laravel') {
     assetPath = $('body').attr('data-asset-path');
-    userView = assetPath + 'app/customer/view/account';
+    
   }
 
   select.each(function () {
@@ -173,6 +173,10 @@ $(function () {
           title: 'Actions',
           orderable: false,
           render: function (data, type, full, meta) {
+            var $id = full['id'];
+            userView ='customer-view/'+$id+'';
+            deleteView ='customer-view/'+$id+'';
+
             return (
               '<div class="btn-group">' +
               '<a class="btn btn-sm dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +

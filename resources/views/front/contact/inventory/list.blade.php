@@ -97,7 +97,7 @@
   <div class="card">
     <div class="card-body border-bottom">
       <h4 class="card-title">Inventory</h4>
-       <button type="button" style = "position:relative; left:917px;" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+       <button type="button" style = "position:relative; left:775px;" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
          Import
         </button>
     </div>
@@ -112,7 +112,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <section>
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('inventory-save') }}" method="POST" enctype="multipart/form-data">
+            {{ csrf_field() }}
             <div class="modal-body">
                     <div class="container">
                     <div class="row">
@@ -138,7 +139,7 @@
                                 <p>Drop file here or click to upload</p>
                                    <spam>(CSV or XLSX) </spam>
                             </div>
-                            <input type="file" name="img_logo" class="dropzone">
+                            <input type="file" name="inventory_details" class="dropzone">
                             </div>
                         </div>
                         </div>
@@ -150,18 +151,18 @@
                         </div>
                     </form>
                 </section>
-            
+
+          </div>
         </div>
-        </div>
-    </div>
+      </div>
     </div>
     <!-- Vertical modal end-->
     <div class="card-datatable table-responsive pt-0">
       <table class="inventory-list-table table">
         <thead class="table-light">
           <tr>
-            <th></th>
-             <th>Id</th>
+            <!-- <th></th> -->
+            <th>#</th>
             <th>IMAGE</th>
             <th>BRAND</th>
             <th>MODEL</th>

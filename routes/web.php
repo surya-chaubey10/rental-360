@@ -36,6 +36,7 @@ Route::get('/customer-save', [CustomerController::class, 'store'])->name('custom
 
 Route::get('/inventory-list', [InventoryController::class, 'index'])->name('inventory-list');
 Route::get('/data/inventory-list-json', [InventoryController::class, 'json_list'])->name('data/inventory-list-json');
+Route::post('/inventory-save', [InventoryController::class, 'store'])->name('inventory-save');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RoleController::class);

@@ -27,6 +27,7 @@ $(function () {
     if ($('body').attr('data-framework') === 'laravel') {
       assetPath = $('body').attr('data-asset-path');
       userView = assetPath + 'inventory_edit';
+      userDelete= assetPath + 'inventory_delete';
     }
   
     select.each(function () {
@@ -48,8 +49,7 @@ $(function () {
         ajax: 'data/inventory-list-json', // JSON file to add data
         columns: [
           // columns according to JSON
-          { data: '' },
-          { data: 'id' },
+          { data: 'uuid' },
           { data: 'image' },
           { data: 'brandname' },
           { data: 'modelname' },
@@ -58,33 +58,22 @@ $(function () {
           { data: '' }
         ],
         columnDefs: [
-          {
-            // For Responsive
-            className: 'control',
-            orderable: false,
-            responsivePriority: 2,
-            targets: 0,
-            render: function (data, type, full, meta) {
-              return '';
-            }
-          },
+          
           {
             // Id
             className: 'control',
             orderable: false,
-            responsivePriority: 4,
-            targets: 1,
+            responsivePriority: 1,
+            targets: 0,
             render: function (data, type, full, meta) {
-              var $id = full['id'];
-              return "<span class='text-truncate align-middle'>" + $id + '</span>';
+               //var $id = full['id'];
+              return '';
             }
           },
           {
             // Inventory Image
-            targets: 2,
-          
+            targets: 1,
             render: function (data, type, full, meta) {
-              
               var $image =full['image'];
               if ($image) {
                 // For Avatar image
@@ -118,7 +107,7 @@ $(function () {
           },
           {
             // Brand Name
-            targets: 3,
+            targets: 2,
             render: function (data, type, full, meta) {
               var $brandname = full['brandname'];
               
@@ -126,7 +115,8 @@ $(function () {
             }
           },
           {
-            targets: 4,
+            //Model Name
+            targets: 3,
             render: function (data, type, full, meta) {
               var $modelname = full['modelname'];
   
@@ -134,7 +124,8 @@ $(function () {
             }
           },
           {
-            targets: 5,
+            //Inventory Type
+            targets: 4,
             render: function (data, type, full, meta) {
               var $inventory_type = full['inventory_type'];
   
@@ -143,7 +134,7 @@ $(function () {
           },
           {
             // User Status
-            targets: 6,
+            targets: 5,
             render: function (data, type, full, meta) {
               var $status = full['status'];
               return (
@@ -161,11 +152,11 @@ $(function () {
             title: 'Actions',
             orderable: false,
             render: function (data, type, full, meta) {
-              var $edit = full['id'];
+              var $uuid = full['uuid'];
               return (
                 '<div class="btn-group">' +
                 '<a href="' +
-                userView +'/'+$edit+
+                userView +'/'+$uuid+
                 '" class="dropdown-item">' +
                 feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
                 '</a>' +

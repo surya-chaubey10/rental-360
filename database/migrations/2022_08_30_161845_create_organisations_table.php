@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('org_contact_person_number')->nullable();
             $table->string('org_currency')->default('USD');
             $table->string('org_fasical_year')->nullable();
+            $table->string('gstin_number')->nullable();
             $table->boolean('is_batch_enabled')->default(0)->comment('if 1 then enabled batch module.');
             $table->boolean('is_credit_limit_enabled')->default(0)->comment('if 1 then enabled batch module.');
             $table->string('org_logo')->default('assets/organisation/no-image.png');

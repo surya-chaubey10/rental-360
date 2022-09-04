@@ -35,8 +35,12 @@ $(document).on("submit", ".myForm", function (e) {
     axios
         .post(url, form_data)
         .then((res) => {
+            console.log(res);
             if (res.data.status == "success") {
                 toastr.success(res.data.message);
+            }
+
+            if (res.staus === 204) {
             }
 
             if (res.data.status == "successRedirect") {
@@ -57,13 +61,14 @@ $(document).on("submit", ".myForm", function (e) {
                 }, 2000);
             }
 
-            if (res.data.status == "redirect") {
-                window.location = res.data.message;
-            }
+            // if (res.data.status == "redirect") {
+            //     window.location = res.data.message;
+            // }
             form.find('button[type="submit"]').removeClass("loadingi");
             // NProgress.done();
         })
         .catch(function (e) {
+            console.log(e);
             if (e.response != "undefined") {
                 if (e.response.status == 500) {
                     if (e.response.data.message) {

@@ -11,7 +11,7 @@ use Spatie\Activitylog\LogOptions;
 
 class Organisation extends Model
 {
-    use SoftDeletes, LogsActivity;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -41,16 +41,6 @@ class Organisation extends Model
         'org_status',
         'is_trial_period',
     ];
-
-    protected static $logAttributes = ['*'];
-
-    protected static $logOnlyDirty = false;
-
-    public function getActivitylogOptions()
-    {
-        return LogOptions::defaults()->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
-    }
 
     public static function boot()
     {

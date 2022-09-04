@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rules;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 
@@ -125,11 +126,15 @@ class AuthController extends Controller
             return $response;
         }
 
-        return response()->json([
-            'status' => 'successRedirect',
-            'message' => 'User Login Successfull',
-            'redirect' => route('org.dashboard')
-        ]);
+        // return response()->json([
+        //     'status' => 'successRedirect',
+        //     'message' => 'User Login Successfull',
+        //     'redirect' => route('org.dashboard')
+        // ]);
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect()->intended(route('org.dashboard'));
     }
 
     /**
@@ -212,5 +217,56 @@ class AuthController extends Controller
     protected function loggedOut(Request $request)
     {
         //
+    }
+
+    public function showChangePasswordForm()
+    {
+        return view('auth.passwords.change');
+    }
+
+    public function changePassword(Request $request)
+    {
+
+        $request->validate($this->rules(), $this->validationErrorMessages());
+
+
+        $user = auth()->guard('web')->user();
+
+        if ($user) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Password changed',
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'User not found.',
+        ]);
+    }
+
+    /**
+     * Get the password reset validation rules.
+     *
+     * @return array
+     */
+    protected function rules()
+    {
+        return [
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ];
+    }
+
+    /**
+     * Get the password reset validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+    {
+        return [];
     }
 }

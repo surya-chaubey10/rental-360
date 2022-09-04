@@ -30,6 +30,7 @@
 <link rel="stylesheet" href="{{ asset('css/overrides.css') }}" />
 
 <!-- BEGIN: Custom CSS-->
+<link rel="stylesheet" href="{{ asset('vendors/css/extensions/toastr.min.css') }}" />
 
 @if ($configData['direction'] === 'rtl' && isset($configData['direction']))
   <link rel="stylesheet" href="{{ asset('css-rtl/custom-rtl.css') }}" />

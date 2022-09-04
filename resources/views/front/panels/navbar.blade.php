@@ -288,6 +288,9 @@
             <a class="dropdown-item" href="{{ Route::has('profile.show') ? route('profile.show') : 'javascript:void(0)' }}">
               <i class="me-50" data-feather="user"></i> Profile
             </a>
+            <a class="dropdown-item" href="{{ route('change.password.show') }}">
+              <i class="me-50" data-feather="user"></i> Change Password
+            </a>
             <a class="dropdown-item" href="#">
               <i class="me-50" data-feather="settings"></i> Settings
             </a>

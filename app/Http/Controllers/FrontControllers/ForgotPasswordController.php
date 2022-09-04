@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\FrontControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 
@@ -31,16 +35,34 @@ class ForgotPasswordController extends Controller
     {
         $this->validateEmail($request);
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $response = $this->broker()->sendResetLink(
-            $this->credentials($request)
-        );
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            $t = Str::random(50);
+            DB::table('password_resets')
+                ->where('email', $request->email)
+                ->update([
+                    'token' => $t
+                ]);
 
-        return $response == Password::RESET_LINK_SENT
-            ? $this->sendResetLinkResponse($request, $response)
-            : $this->sendResetLinkFailedResponse($request, $response);
+            $user->link = route('reset.pass.view', $t) . "?email=" . $request->email;
+
+            $data = json_decode(json_encode($user), true);
+
+            Mail::send('emails.forgot', $data, function ($message) use ($data) {
+                $message->to($data["email"], $data["email"])
+                    ->subject('Reset Password Notification');
+            });
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Please check you email we sent you forget link',
+                // 'redirect' => route('login')
+            ]);
+        }
+        return response()->json([
+            'status' => 'error',
+            'message' => 'User not found'
+        ]);
     }
 
     /**

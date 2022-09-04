@@ -35,12 +35,8 @@ $(document).on("submit", ".myForm", function (e) {
     axios
         .post(url, form_data)
         .then((res) => {
-            console.log(res);
             if (res.data.status == "success") {
                 toastr.success(res.data.message);
-            }
-
-            if (res.staus === 204) {
             }
 
             if (res.data.status == "successRedirect") {
@@ -61,14 +57,13 @@ $(document).on("submit", ".myForm", function (e) {
                 }, 2000);
             }
 
-            // if (res.data.status == "redirect") {
-            //     window.location = res.data.message;
-            // }
+            if (res.data.status == "redirect") {
+                window.location = res.data.message;
+            }
             form.find('button[type="submit"]').removeClass("loadingi");
             // NProgress.done();
         })
         .catch(function (e) {
-            console.log(e);
             if (e.response != "undefined") {
                 if (e.response.status == 500) {
                     if (e.response.data.message) {
@@ -79,6 +74,16 @@ $(document).on("submit", ".myForm", function (e) {
                 }
 
                 if (e.response.status == 422) {
+                    if (e.response.data.errors.password.length) {
+                        for (
+                            let i = 0;
+                            i < e.response.data.errors.password.length;
+                            i++
+                        ) {
+                            toast.error(e.response.data.errors.password[i]);
+                        }
+                    }
+
                     if (e.response.data.errors.email.length) {
                         toast.error(
                             e.response.data.errors.email[0] +
@@ -93,6 +98,7 @@ $(document).on("submit", ".myForm", function (e) {
             form.find('button[type="submit"]').removeClass("loadingi");
             // NProgress.done();
         });
+    form.find('button[type="submit"]').removeClass("loadingi");
 });
 
 function formValidate(form) {

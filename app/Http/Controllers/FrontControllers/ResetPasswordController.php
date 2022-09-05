@@ -61,6 +61,8 @@ class ResetPasswordController extends Controller
                     'password' => Hash::make($request->password)
                 ]);
 
+            $password->delete();
+
             return response()->json([
                 'status' => 'successRedirect',
                 'message' => 'Password changed.',

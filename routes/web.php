@@ -25,7 +25,7 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -42,12 +42,17 @@ Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name(
 Route::get('/bookings', [BookingController::class, 'index'])->name('booking.index');
 
 Route::group(['middleware' => ['auth']], function () {
-    // Route::resource('roles', RoleController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('org.dashboard');
     Route::resource('users', UserController::class);
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/password-change', [AuthController::class, 'showChangePasswordForm'])->name('change.password.show');
-    Route::post('/password-change', [AuthController::class, 'changePassword'])->name('change.password.update');
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('/logout', 'logout')->name('logout');
+        Route::get('/password-change', 'showChangePasswordForm')->name('change.password.show');
+        Route::post('/password-change', 'changePassword')->name('change.password.update');
+    });
+
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/users', 'index')->name('user.list');
+    });
 
     Route::controller(CustomerController::class)->group(function () {
         Route::get('/customer-list', 'index')->name('ustomer-list');

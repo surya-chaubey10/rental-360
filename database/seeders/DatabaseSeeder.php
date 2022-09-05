@@ -20,5 +20,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        \DB::unprepared(file_get_contents(storage_path('backups/country_masters.sql')));
+
+        $this->call(OrganisationSeeder::class);
+
+        $this->call(UserSeeder::class);
+
     }
 }

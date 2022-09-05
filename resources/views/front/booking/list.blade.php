@@ -2,17 +2,17 @@
 @section('title', 'Manage Booking')
 
 @section('vendor-style')
-  {{-- Page Css files --}}
-  <link rel="stylesheet" href="{{ asset('vendors/css/forms/select/select2.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
+{{-- Page Css files --}}
+<link rel="stylesheet" href="{{ asset('vendors/css/forms/select/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
+<link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
+<link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
+<link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
 @endsection
 
 @section('page-style')
-  {{-- Page Css files --}}
-  <link rel="stylesheet" href="{{ asset('css/base/plugins/forms/form-validation.css') }}">
+{{-- Page Css files --}}
+<link rel="stylesheet" href="{{ asset('css/base/plugins/forms/form-validation.css') }}">
 @endsection
 
 @section('content')
@@ -115,53 +115,23 @@
           <div class="modal-body flex-grow-1">
             <div class="mb-1">
               <label class="form-label" for="basic-icon-default-fullname">Full Name</label>
-              <input
-                type="text"
-                class="form-control dt-full-name"
-                id="basic-icon-default-fullname"
-                placeholder="John Doe"
-                name="user-fullname"
-              />
+              <input type="text" class="form-control dt-full-name" id="basic-icon-default-fullname" placeholder="John Doe" name="user-fullname" />
             </div>
             <div class="mb-1">
               <label class="form-label" for="basic-icon-default-uname">Username</label>
-              <input
-                type="text"
-                id="basic-icon-default-uname"
-                class="form-control dt-uname"
-                placeholder="Web Developer"
-                name="user-name"
-              />
+              <input type="text" id="basic-icon-default-uname" class="form-control dt-uname" placeholder="Web Developer" name="user-name" />
             </div>
             <div class="mb-1">
               <label class="form-label" for="basic-icon-default-email">Email</label>
-              <input
-                type="text"
-                id="basic-icon-default-email"
-                class="form-control dt-email"
-                placeholder="john.doe@example.com"
-                name="user-email"
-              />
+              <input type="text" id="basic-icon-default-email" class="form-control dt-email" placeholder="john.doe@example.com" name="user-email" />
             </div>
             <div class="mb-1">
               <label class="form-label" for="basic-icon-default-contact">Contact</label>
-              <input
-                type="text"
-                id="basic-icon-default-contact"
-                class="form-control dt-contact"
-                placeholder="+1 (609) 933-44-22"
-                name="user-contact"
-              />
+              <input type="text" id="basic-icon-default-contact" class="form-control dt-contact" placeholder="+1 (609) 933-44-22" name="user-contact" />
             </div>
             <div class="mb-1">
               <label class="form-label" for="basic-icon-default-company">Company</label>
-              <input
-                type="text"
-                id="basic-icon-default-company"
-                class="form-control dt-contact"
-                placeholder="PIXINVENT"
-                name="user-company"
-              />
+              <input type="text" id="basic-icon-default-company" class="form-control dt-contact" placeholder="PIXINVENT" name="user-company" />
             </div>
             <div class="mb-1">
               <label class="form-label" for="country">Country</label>
@@ -224,25 +194,25 @@
 @endsection
 
 @section('vendor-script')
-  {{-- Vendor js files --}}
-  <script src="{{ asset('vendors/js/forms/select/select2.full.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/tables/datatable/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/tables/datatable/dataTables.bootstrap5.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/tables/datatable/dataTables.responsive.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/tables/datatable/responsive.bootstrap5.js') }}"></script>
-  <script src="{{ asset('vendors/js/tables/datatable/datatables.buttons.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/tables/datatable/jszip.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/tables/datatable/pdfmake.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/tables/datatable/vfs_fonts.js') }}"></script>
-  <script src="{{ asset('vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/tables/datatable/dataTables.rowGroup.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/forms/cleave/cleave.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/forms/cleave/addons/cleave-phone.us.js') }}"></script>
+{{-- Vendor js files --}}
+<script src="{{ asset('vendors/js/forms/select/select2.full.min.js') }}"></script>
+<script src="{{ asset('vendors/js/tables/datatable/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('vendors/js/tables/datatable/dataTables.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('vendors/js/tables/datatable/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('vendors/js/tables/datatable/responsive.bootstrap5.js') }}"></script>
+<script src="{{ asset('vendors/js/tables/datatable/datatables.buttons.min.js') }}"></script>
+<script src="{{ asset('vendors/js/tables/datatable/jszip.min.js') }}"></script>
+<script src="{{ asset('vendors/js/tables/datatable/pdfmake.min.js') }}"></script>
+<script src="{{ asset('vendors/js/tables/datatable/vfs_fonts.js') }}"></script>
+<script src="{{ asset('vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
+<script src="{{ asset('vendors/js/tables/datatable/dataTables.rowGroup.min.js') }}"></script>
+<script src="{{ asset('vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('vendors/js/forms/cleave/cleave.min.js') }}"></script>
+<script src="{{ asset('vendors/js/forms/cleave/addons/cleave-phone.us.js') }}"></script>
 @endsection
 
 @section('page-script')
-  {{-- Page js files --}}
-  <script src="{{ asset('js/scripts/pages/app-user-list.js') }}"></script>
+{{-- Page js files --}}
+<script src="{{ asset('js/scripts/pages/app-user-list.js') }}"></script>
 @endsection

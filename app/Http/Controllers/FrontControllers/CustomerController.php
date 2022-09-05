@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 class CustomerController extends Controller
 {
 
+
     public function index(){
        
         $country = Country::select('id','name')->get();
@@ -23,28 +24,30 @@ class CustomerController extends Controller
     }
 
     public function json_list(){
-         $customer = Customer::with('customer_typee','user')->get();
-        
-         $details = new Collection();
-         foreach ($customer as $key => $date) {
-      
-            $details->push([
-                "id"             => $date->id,
-                "fullname"      => $date->user->fullname,
-                "customer_type"  => $date->customer_typee->type_name,
-                "email"          => $date->user->email,
-                "contact"        => $date->user->mobile,
-                "status"         => $date->approval_status,
-              
-            ]);
+        $customer = Customer::with('customer_typee','user')->get();
+       
+        $details = new Collection();
+        foreach ($customer as $key => $date) {
+     
+           $details->push([
+               "id"             => $date->id,
+               "fullname"      => $date->user->fullname,
+               "customer_type"  => $date->customer_typee->type_name,
+               "email"          => $date->user->email,
+               "contact"        => $date->user->mobile,
+               "status"         => $date->approval_status,
+             
+           ]);
 
-         }
-        return array('data' => $details);
-        
-    }
+        }
+       return array('data' => $details);
+       
+   }
+
 
     public function store(Request $request)
     {
+
      DB::beginTransaction();
          try{
                 $user = new User;
@@ -72,6 +75,21 @@ class CustomerController extends Controller
             return ajax_response(false,[], [], $message , $this->internal_server_error);
          }
         
+
+
+        // User
+        // $user = new User;
+
+        $customer = new Customer;
+        $customer->fullname      = $request->fullname;
+        $customer->username      = $request->username;
+        $customer->email         = $request->email;
+        $customer->contact       = $request->contact;
+        $customer->company       = $request->company;
+        $customer->customer_type = $request->customer_type;
+        $customer->country       = $request->country;
+        $customer->save();
+
     }
 
     public function view($id){

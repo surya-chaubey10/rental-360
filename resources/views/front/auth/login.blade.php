@@ -52,13 +52,26 @@
                     <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="mb-1">
-                            <label for="login-email" class="form-label">Email</label>
-                            <input id="email" type="email" placeholder="john@example.com"
-                                class="form-control @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}" required autocomplete="email" autofocus>
-                            @if ($errors->has('email'))
-                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                    <div class="mb-1">
+                        <label for="login-email" class="form-label">Email</label>
+                        <input id="email" type="email" placeholder="john@example.com" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        @if ($errors->has('email'))
+                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                        @endif
+                    </div>
+
+                    <div class="mb-1">
+                        <div class="d-flex justify-content-between">
+                            <label class="form-label" for="login-password">Password</label>
+                            <a href="{{ route('forgot.view') }}">
+                                    <small>Forgot Password?</small>
+                                </a>
+                        </div>
+                        <div class="input-group input-group-merge form-password-toggle">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" required autocomplete="current-password">
+                            <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                            @if ($errors->has('password'))
+                                <span class="text-danger">{{ $errors->first('password') }}</span>
                             @endif
                         </div>
 

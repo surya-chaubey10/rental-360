@@ -15,16 +15,18 @@ $(function () {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
    })
-
+   var isRtl = $('html').attr('data-textdirection') === 'rtl';
   var dtUserTable = $('.customer-list-table'),
+    formBlock = $('.btn-form-block'),
+    formSection = $('.form-block'),
     newUserSidebar = $('.new-customer-modal'),
     newUserForm = $('.add-new-customer'),
     select = $('.select2'),
     dtContact = $('.dt-contact'),
     statusObj = {
-      1: { title: 'Pending', class: 'badge-light-warning' },
-      2: { title: 'Active', class: 'badge-light-success' },
-      3: { title: 'Inactive', class: 'badge-light-secondary' }
+      Pending: { title: 'Pending', class: 'badge-light-warning' },
+      Active: { title: 'Active', class: 'badge-light-success' },
+      Inactive: { title: 'Inactive', class: 'badge-light-secondary' }
     };
 
   var assetPath = '../../../app-assets/',
@@ -32,7 +34,7 @@ $(function () {
 
   if ($('body').attr('data-framework') === 'laravel') {
     assetPath = $('body').attr('data-asset-path');
-    userView = assetPath + 'app/customer/view/account';
+    
   }
 
   select.each(function () {
@@ -171,6 +173,10 @@ $(function () {
           title: 'Actions',
           orderable: false,
           render: function (data, type, full, meta) {
+            var $id = full['id'];
+            userView ='customer-view/'+$id+'';
+            deleteView ='customer-view/'+$id+'';
+
             return (
               '<div class="btn-group">' +
               '<a class="btn btn-sm dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
@@ -386,6 +392,23 @@ $(function () {
   newUserForm.on('submit', function (e) {
     if (!e.isDefaultPrevented()) {
           e.preventDefault()
+        $( "#submit" ).prop( "disabled", true );
+        if (formBlock.length && formSection.length) {
+          formBlock.on('click', function () {
+            formSection.block({
+              message: '<div class="spinner-border text-white" role="status"></div>',
+              timeout: 1000,
+              css: {
+                backgroundColor: 'transparent',
+                color: '#fff',
+                border: '0'
+              },
+              overlayCSS: {
+                opacity: 0.5
+              }
+            });
+          });
+        }
           let formData = new FormData($('#addCustomerForm')[0])
        $.ajax({
               url: 'customer-save', // JSON file to add data,
@@ -395,14 +418,32 @@ $(function () {
               contentType: false,
               processData: false,
               success: function (data) {
-                  if (data.success === true) {
-                    
-                  } else if (data.success === false) {
+                  $( "#submit" ).prop( "disabled", false );
+                  if (data.status === true) {
+
+                      toastr['success'](''+data.message+'', {
+                        closeButton: true,
+                        tapToDismiss: false,
+                        rtl: isRtl
+                      });
+                      location.reload(true); 
+                  } else if (data.status === false) {
+                    $( "#submit" ).prop( "disabled", false );
+                    toastr['error'](''+data.message+'', {
+                      closeButton: true,
+                      tapToDismiss: false,
+                      rtl: isRtl
+                    });
                      
                   }
               },
               error: function (data) {
-                  console.log('Error:', data)
+                $( "#submit" ).prop( "disabled", false );
+                toastr['error'](''+data.message+'', {
+                  closeButton: true,
+                  tapToDismiss: false,
+                  rtl: isRtl
+                });
               }
           })
       }
@@ -413,13 +454,13 @@ if (newUserForm.length) {
   newUserForm.validate({
     errorClass: 'error',
     rules: {
-      'customer-fullname': {
+      'fullname': {
         required: true
       },
-      'user-name': {
+      'username': {
         required: true
       },
-      'customer-email': {
+      'email': {
         required: true
       }
     }

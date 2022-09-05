@@ -54,7 +54,7 @@ class UserSeeder extends Seeder
             'booking-edit',
             'booking-delete',
             'customer-list',
-            'customer-create',
+            'customer-view',
             'customer-edit',
             'customer-delete'
         ];

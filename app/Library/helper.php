@@ -16,6 +16,10 @@ function prepareResult($status, $data, $errors, $msg, $status_code, $pagination 
     return response()->json(['status' => $status, 'data' => $data, 'message' => $msg, 'errors' => $errors, 'pagination' => $pagination], $status_code);
 }
 
+function ajax_response($status, $data, $errors, $msg, $status_code)
+{
+    return response(['status' => $status, 'data' => $data, 'message' => $msg, 'errors' => $errors, 'status_code' => $status_code]);
+}
 
 /**
  * output value if found in object or array

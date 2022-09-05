@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->id();
+        Schema::create('invite_users', function (Blueprint $table) {
             $table->uuid('uuid');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('organisation_id');
-            $table->string('company')->nullable();
+            $table->string('company')->nullable();;
+            $table->string('customer_type')->nullable();
             $table->date('dob')->format('d/m/Y')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('website')->nullable();
@@ -35,14 +35,14 @@ return new class extends Migration
             $table->string('codepen')->nullable();
             $table->string('stack')->nullable();
             $table->enum('contact_option', ['email', 'message', 'phone'])->nullable();
-            
+
             $table->enum('approval_status', ['Active', 'Inacive', 'Pending'])->default('Pending');
             $table->boolean('status')->default(1);
 
             $table->foreign('organisation_id')->references('id')->on('organisations');
-
-            $table->timestamps();
-            $table->softDeletes();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('invited_user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('organisation_roles')->onDelete('cascade');
         });
     }
 
@@ -53,6 +53,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('invite_users');
     }
 };

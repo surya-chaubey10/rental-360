@@ -1,10 +1,10 @@
 @extends('layouts/auth')
 
-@section('title', 'Login')
+@section('title', 'Rest Password')
 @section('content')
     <div class="auth-wrapper auth-basic px-2">
         <div class="auth-inner my-2">
-            <!-- Login basic -->
+            <!-- Reset Password basic -->
             <div class="card mb-0">
                 <div class="card-body">
                     <a href="#" class="brand-logo">
@@ -43,74 +43,62 @@
                                 </g>
                             </g>
                         </svg>
-                        <h2 class="brand-text text-primary ms-1">MyRide</h2>
+                        <h2 class="brand-text text-primary ms-1">Vuexy</h2>
                     </a>
 
-                    <h4 class="card-title mb-1">Welcome to MyRide! 👋</h4>
-                    <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
+                    <h4 class="card-title mb-1">Reset Password 🔒</h4>
+                    <p class="card-text mb-2">Your new password must be different from previously used passwords</p>
 
-                <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
-                    @csrf
+                    <form class="auth-forgot-password-form mt-2 myForm" action="{{ route('password.change') }}"
+                        method="post">
+                        @csrf
 
-                    <div class="mb-1">
-                        <label for="login-email" class="form-label">Email</label>
-                        <input id="email" type="email" placeholder="john@example.com" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                        @if ($errors->has('email'))
-                            <span class="text-danger">{{ $errors->first('email') }}</span>
-                        @endif
-                    </div>
+                        <input type="hidden" name="token" value="{{ $token }}">
+                        <div class="mb-1">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
+                                value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus name="email"
+                                placeholder="john@example.com" required aria-describedby="email" tabindex="1" autofocus />
 
-                    <div class="mb-1">
-                        <div class="d-flex justify-content-between">
-                            <label class="form-label" for="login-password">Password</label>
-                            <a href="{{ route('forgot.view') }}">
-                                    <small>Forgot Password?</small>
-                                </a>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                        <div class="input-group input-group-merge form-password-toggle">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" required autocomplete="current-password">
-                            <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
-                            @if ($errors->has('password'))
-                                <span class="text-danger">{{ $errors->first('password') }}</span>
-                            @endif
-                        </div>
-
                         <div class="mb-1">
                             <div class="d-flex justify-content-between">
-                                <label class="form-label" for="login-password">Password</label>
-                                <a href="{{ route('forgot.view') }}">
-                                    <small>Forgot Password?</small>
-                                </a>
+                                <label class="form-label" for="password">New Password</label>
                             </div>
                             <div class="input-group input-group-merge form-password-toggle">
-                                <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                <input type="password" class="form-control form-control-merge" id="password"
+                                    name="password"
                                     placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                    required autocomplete="current-password">
+                                    aria-describedby="password" tabindex="1" autofocus />
                                 <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
-                                @if ($errors->has('password'))
-                                    <span class="text-danger">{{ $errors->first('password') }}</span>
-                                @endif
                             </div>
                         </div>
                         <div class="mb-1">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="remember-me" tabindex="3" />
-                                <label class="form-check-label" for="remember-me"> Remember Me </label>
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label" for="password-confirm">Confirm Password</label>
+                            </div>
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input type="password" class="form-control form-control-merge" id="password-confirm"
+                                    name="password_confirmation"
+                                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                    aria-describedby="password-confirm" tabindex="2" />
+                                <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                             </div>
                         </div>
-                        <button class="btn btn-primary w-100" tabindex="4">Sign in</button>
+                        <button class="btn btn-primary w-100" tabindex="3">Set New Password</button>
                     </form>
 
-                    <!-- <p class="text-center mt-2">
-                            <span>New on our platform?</span>
-                            <a href="{{ url('auth/register-basic') }}">
-                                <span>Create an account</span>
-                            </a>
-                        </p> -->
+                    <p class="text-center mt-2">
+                        <a href="{{ route('login') }}"> <i data-feather="chevron-left"></i> Back to login </a>
+                    </p>
                 </div>
             </div>
-            <!-- /Login basic -->
+            <!-- /Reset Password basic -->
         </div>
     </div>
 @endsection

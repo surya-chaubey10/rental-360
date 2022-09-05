@@ -12,9 +12,9 @@ use App\Models\CustomerType;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends Model
-{
-    
+{  
     use HasApiTokens, HasFactory, Organisationid, SoftDeletes;
+
     protected $fillable = [
         'uuid',
         'user_id',

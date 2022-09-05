@@ -81,11 +81,13 @@
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/css/extensions/sweetalert2.min.css') }}">
 @endsection
 
 @section('page-style')
   {{-- Page Css files --}}
   <link rel="stylesheet" href="{{ asset('css/base/plugins/forms/form-validation.css') }}">
+  <link rel="stylesheet" href="{{asset('css/base/plugins/extensions/ext-component-sweet-alerts.css')}}">
 @endsection
 
 @section('content')
@@ -96,8 +98,8 @@
   <!-- list and filter start -->
   <div class="card">
     <div class="card-body border-bottom">
-      <h4 class="card-title">Inventory</h4>
-       <button type="button" style = "position:relative; left:775px;" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+      <h4 class="card-title"><b>Inventory</b></h4>
+       <button type="button" style = "position:relative;float: right; margin-top: -45px;" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
          Import
         </button>
     </div>
@@ -195,9 +197,11 @@
   <script src="{{ asset('vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
   <script src="{{ asset('vendors/js/forms/cleave/cleave.min.js') }}"></script>
   <script src="{{ asset('vendors/js/forms/cleave/addons/cleave-phone.us.js') }}"></script>
+  <script src="{{ asset('vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
 @endsection
 
 @section('page-script')
   {{-- Page js files --}}
  <script src="{{ asset('js/scripts/pages/app-inventory-list.js') }}"></script> 
+ <script src="{{ asset('js/scripts/extensions/ext-component-sweet-alerts.js') }}"></script>
 @endsection

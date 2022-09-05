@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'api' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
+
         'admin_user' => [
             'driver' => 'session',
             'provider' => 'admin_user'
@@ -71,6 +76,11 @@ return [
         ],
 
         'admin_user' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
+
+        'api' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],

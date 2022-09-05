@@ -10,6 +10,12 @@
 $(function () {
   ('use strict');
 
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+   })
+
   var dtUserTable = $('.customer-list-table'),
     newUserSidebar = $('.new-customer-modal'),
     newUserForm = $('.add-new-customer'),
@@ -377,39 +383,65 @@ $(function () {
     });
   }
 
-  // Form Validation
-  if (newUserForm.length) {
-    newUserForm.validate({
-      errorClass: 'error',
-      rules: {
-        'user-fullname': {
-          required: true
-        },
-        'user-name': {
-          required: true
-        },
-        'user-email': {
-          required: true
-        }
+  newUserForm.on('submit', function (e) {
+    if (!e.isDefaultPrevented()) {
+          e.preventDefault()
+          let formData = new FormData($('#addCustomerForm')[0])
+       $.ajax({
+              url: 'customer-save', // JSON file to add data,
+              type: 'POST',
+              dataType: 'json',
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function (data) {
+                  if (data.success === true) {
+                    
+                  } else if (data.success === false) {
+                     
+                  }
+              },
+              error: function (data) {
+                  console.log('Error:', data)
+              }
+          })
       }
-    });
+  })
 
-    newUserForm.on('submit', function (e) {
-      var isValid = newUserForm.valid();
-      e.preventDefault();
-      if (isValid) {
-        newUserSidebar.modal('hide');
+// Form Validation
+if (newUserForm.length) {
+  newUserForm.validate({
+    errorClass: 'error',
+    rules: {
+      'customer-fullname': {
+        required: true
+      },
+      'user-name': {
+        required: true
+      },
+      'customer-email': {
+        required: true
       }
-    });
-  }
+    }
+  });
 
-  // Phone Number
-  if (dtContact.length) {
-    dtContact.each(function () {
-      new Cleave($(this), {
-        phone: true,
-        phoneRegionCode: 'US'
-      });
+  newUserForm.on('submit', function (e) {
+    var isValid = newUserForm.valid();
+    e.preventDefault();
+    if (isValid) {
+      newUserSidebar.modal('hide');
+    }
+  });
+}
+
+// Phone Number
+if (dtContact.length) {
+  dtContact.each(function () {
+    new Cleave($(this), {
+      phone: true,
+      phoneRegionCode: 'US'
     });
-  }
+  });
+}
+
 });

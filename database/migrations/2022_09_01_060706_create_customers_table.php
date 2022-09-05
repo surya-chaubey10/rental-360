@@ -16,21 +16,18 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->string('fullname');
-            $table->string('username');
-            $table->string('email')->unique()->index();
-            $table->string('contact')->nullable();
-            $table->string('company')->nullable();;
-            $table->unsignedBigInteger('country')->nullable();;
-            $table->string('customer_type')->nullable();
-            $table->date('dob')->format('d/m/Y')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('organisation_id')->default(1);
+<<<<<<< HEAD
             $table->enum('status', ['1', '2','3'])->default('1')->comment('1:active, 2:inactive, 3:pending');
+=======
+            $table->string('company')->nullable();;
+            $table->string('customer_type')->nullable();
+            $table->date('dob')->format('d/m/Y')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+>>>>>>> 17a95aa7bc4f57d5681c4dea60be51b490530854
             $table->string('website')->nullable();
             $table->string('language')->nullable();
-            $table->enum('gender', ['male', 'female'])->nullable();
-            $table->enum('contact_option', ['email', 'message','phone'])->nullable();
             $table->string('address1')->nullable();
             $table->string('address2')->nullable();
             $table->string('postcode')->nullable();
@@ -42,9 +39,13 @@ return new class extends Migration
             $table->string('github')->nullable();
             $table->string('codepen')->nullable();
             $table->string('stack')->nullable();
+            $table->enum('contact_option', ['email', 'message', 'phone'])->nullable();
+            
+            $table->enum('approval_status', ['Active', 'Inacive', 'Pending'])->default('Pending');
+            $table->boolean('status')->default(1);
+
             $table->foreign('organisation_id')->references('id')->on('organisations');
-          
-            $table->rememberToken();
+
             $table->timestamps();
             $table->softDeletes();
         });

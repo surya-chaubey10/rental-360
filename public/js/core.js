@@ -74,6 +74,16 @@ $(document).on("submit", ".myForm", function (e) {
                 }
 
                 if (e.response.status == 422) {
+                    if (e.response.data.errors.password.length) {
+                        for (
+                            let i = 0;
+                            i < e.response.data.errors.password.length;
+                            i++
+                        ) {
+                            toast.error(e.response.data.errors.password[i]);
+                        }
+                    }
+
                     if (e.response.data.errors.email.length) {
                         toast.error(
                             e.response.data.errors.email[0] +
@@ -88,6 +98,7 @@ $(document).on("submit", ".myForm", function (e) {
             form.find('button[type="submit"]').removeClass("loadingi");
             // NProgress.done();
         });
+    form.find('button[type="submit"]').removeClass("loadingi");
 });
 
 function formValidate(form) {

@@ -160,9 +160,9 @@ $(function () {
                 '" class="dropdown-item">' +
                 feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
                 '</a>' +
-                '<a href="javascript:;" class="dropdown-item delete-record">' +
-                feather.icons['trash-2'].toSvg({ class: 'font-small-4 me-50' }) +
-                '</a></div>' +
+                '<button data-id="'+$uuid+'"  class="dropdown-item delete-record">' +
+                feather.icons['trash'].toSvg({ class: 'font-small-4 me-50' }) +
+                '</button> </div>' +
                 '</div>'
               );
             }
@@ -229,17 +229,6 @@ $(function () {
               }, 50);
             }
           }
-          // {
-          //   text: 'Add New Customer',
-          //   className: 'add-new btn btn-primary',
-          //   attr: {
-          //     'data-bs-toggle': 'modal',
-          //     'data-bs-target': '#modals-slide-in'
-          //   },
-          //   init: function (api, node, config) {
-          //     $(node).removeClass('btn-secondary');
-          //   }
-          // }
         ],
         // For responsive popup
         responsive: {
@@ -395,5 +384,70 @@ $(function () {
         });
       });
     }
+    //Delete Vendor Record
+        // Confirm Color
+   $(document).on('click', '.delete-record', function () {
+    const value_id = $(this).data('id')
+      console.log(value_id);
+      Swal.fire({
+        title: 'Destroy Vendor?',
+        text: 'Are you sure you want to permanently remove this record?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-outline-danger ms-1'
+        },
+        buttonsStyling: false
+      }).then(function (result) {
+        if (result.value) {
+
+          deleteRecord(value_id)
+          
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire({
+            title: 'Cancelled',
+            text: 'Your imaginary file is safe :',
+            icon: 'error',
+            customClass: {
+              confirmButton: 'btn btn-success'
+            }
+          });
+        }
+      });
+    });
+
+    function deleteRecord(value_id) {
+      $.ajax({
+        url: '../inventory_delete'+'/'+value_id, // JSON file to add data,
+        type: 'get',
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data.status === true) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Deleted!',
+                text: 'Your record has been deleted.',
+                customClass: {
+                  confirmButton: 'btn btn-success'
+                }
+                  
+              });
+              
+               location.reload(true);
+            } else if (data.status === false) {
+                
+            }
+        },
+        error: function (data) {
+          
+        }
+    })
+  }
+
   });
+
   

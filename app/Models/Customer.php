@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\User;
+use App\Models\CustomerType;
 
 class Customer extends Model
 {
     use HasApiTokens, HasFactory, Organisationid;
 
     protected $fillable = [
+        'uuid',
         'user_id',
         'organisation_id',
         'company',
@@ -44,6 +47,14 @@ class Customer extends Model
             $model->uuid = (string) Str::uuid();
         });
     }
+
+
+    public function customer_typee()
+    {
+        return $this->belongsTo(CustomerType::class, 'customer_type', 'id');
+        
+    }
+
 
     public function user()
     {

@@ -16,10 +16,9 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('organisation_id')->default(1);
-            $table->string('company')->nullable();;
-            $table->string('customer_type')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('organisation_id');
+            $table->string('company')->nullable();
             $table->date('dob')->format('d/m/Y')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('website')->nullable();

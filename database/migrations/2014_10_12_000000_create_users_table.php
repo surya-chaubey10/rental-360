@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('usertype')->default(1)->comment('0:superadmin, 1:admin (organisation), 2:customer, 3:salesman..., we\'ll add all the users type after confirmation');
             $table->string('parent_id')->nullable()->comment('If the user type is admin then put the admin id here to make it as a group.');
             $table->string('fullname')->index();
+            $table->string('username')->index();
             $table->string('email')->unique()->index();
             $table->string('password');
             $table->string('api_token')->unique();

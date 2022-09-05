@@ -16,11 +16,13 @@ $(function () {
     }
    })
    var isRtl = $('html').attr('data-textdirection') === 'rtl';
+   var confirmColor = $('.delete-record');
   var dtUserTable = $('.customer-list-table'),
     formBlock = $('.btn-form-block'),
     formSection = $('.form-block'),
     newUserSidebar = $('.new-customer-modal'),
     newUserForm = $('.add-new-customer'),
+    
     select = $('.select2'),
     dtContact = $('.dt-contact'),
     statusObj = {
@@ -173,9 +175,9 @@ $(function () {
           title: 'Actions',
           orderable: false,
           render: function (data, type, full, meta) {
-            var $id = full['id'];
+            var $id = full['uuid'];
             userView ='customer-view/'+$id+'';
-            deleteView ='customer-view/'+$id+'';
+            edit ='customer-edit/'+$id+'';
 
             return (
               '<div class="btn-group">' +
@@ -184,13 +186,19 @@ $(function () {
               '</a>' +
               '<div class="dropdown-menu dropdown-menu-end">' +
               '<a href="' +
+              edit +
+              '" class="dropdown-item">' +
+              feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
+              'Edit</a>' +
+
+              '<a href="' +
               userView +
               '" class="dropdown-item">' +
               feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) +
               'Details</a>' +
-              '<a href="javascript:;" class="dropdown-item delete-record">' +
+              '<button data-id="'+$id+'"  class="dropdown-item delete-record">' +
               feather.icons['trash-2'].toSvg({ class: 'font-small-4 me-50' }) +
-              'Delete</a></div>' +
+              'Delete</button></div>' +
               '</div>' +
               '</div>'
             );
@@ -333,30 +341,7 @@ $(function () {
                 select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
               });
           });
-        // Adding plan filter once table initialized
-        this.api()
-          .columns(5)
-          .every(function () {
-            var column = this;
-            var label = $('<label class="form-label" for="CustomerPlan">Plan</label>').appendTo('.customer_plan');
-            var select = $(
-              '<select id="CustomerPlan" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Plan </option></select>'
-            )
-              .appendTo('.customer_plan')
-              .on('change', function () {
-                var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                column.search(val ? '^' + val + '$' : '', true, false).draw();
-              });
-
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
-              });
-          });
-        // Adding status filter once table initialized
+      
         this.api()
           .columns(5)
           .every(function () {
@@ -484,5 +469,71 @@ if (dtContact.length) {
     });
   });
 }
+
+   // Confirm Color
+   $(document).on('click', '.delete-record', function () {
+    const value_id = $(this).data('id')
+      console.log(value_id);
+      Swal.fire({
+        title: 'Destroy Customer?',
+        text: 'Are you sure you want to permanently remove this record?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-outline-danger ms-1'
+        },
+        buttonsStyling: false
+      }).then(function (result) {
+        if (result.value) {
+
+          deleteRecord(value_id)
+          
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire({
+            title: 'Cancelled',
+            text: 'Your imaginary file is safe :)',
+            icon: 'error',
+            customClass: {
+              confirmButton: 'btn btn-success'
+            }
+          });
+        }
+      });
+    });
+
+    function deleteRecord(value_id) {
+      $.ajax({
+        url: 'customer-delete'+'/'+value_id, // JSON file to add data,
+        type: 'get',
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data.status === true) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Deleted!',
+                text: 'Your record has been deleted.',
+                customClass: {
+                  confirmButton: 'btn btn-success'
+                }
+                  
+              });
+              
+              location.reload(true);
+            } else if (data.status === false) {
+              
+               
+            }
+        },
+        error: function (data) {
+          
+         
+        }
+    })
+  }
+  
 
 });

@@ -49,8 +49,8 @@
                     <h4 class="card-title mb-1">Welcome to MyRide! 👋</h4>
                     <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
 
-                    <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
-                        @csrf
+                <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
+                    @csrf
 
                     <div class="mb-1">
                         <label for="login-email" class="form-label">Email</label>

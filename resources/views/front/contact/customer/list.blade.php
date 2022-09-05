@@ -8,13 +8,17 @@
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/css/animate/animate.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/extensions/toastr.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/css/extensions/sweetalert2.min.css') }}">
+
 @endsection
 
 @section('page-style')
   {{-- Page Css files --}}
   <link rel="stylesheet" href="{{ asset('css/base/plugins/forms/form-validation.css') }}">
   <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-toastr.css') }}">
+  <link rel="stylesheet" href="{{asset('css/base/plugins/extensions/ext-component-sweet-alerts.css')}}">
 @endsection
 
 @section('content')
@@ -89,7 +93,7 @@
       <h4 class="card-title">Search & Filter</h4>
       <div class="row">
         <div class="col-md-4 customer_type"></div>
-        <div class="col-md-4 customer_plan"></div>
+      
         <div class="col-md-4 customer_status"></div>
       </div>
     </div>
@@ -216,6 +220,8 @@
   <script src="{{ asset('vendors/js/forms/cleave/cleave.min.js') }}"></script>
   <script src="{{ asset('vendors/js/forms/cleave/addons/cleave-phone.us.js') }}"></script>
   <script src="{{ asset('vendors/js/extensions/toastr.min.js') }}"></script>
+  <script src="{{ asset('vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
+  <script src="{{ asset('vendors/js/extensions/polyfill.min.js') }}"></script>
   
 @endsection
 
@@ -224,4 +230,6 @@
  <script src="{{ asset('js/scripts/pages/app-customers-list.js') }}"></script> 
  <script src="{{ asset('js/scripts/extensions/ext-component-toastr.js') }}"></script>
  <script src="{{ asset('js/scripts/extensions/ext-component-blockui.js') }}"></script>
+ <script src="{{ asset('js/scripts/extensions/ext-component-sweet-alerts.js') }}"></script>
+ 
 @endsection

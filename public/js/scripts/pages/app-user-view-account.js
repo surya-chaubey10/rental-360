@@ -391,4 +391,71 @@ $(function () {
     selector: '[data-bs-toggle="tooltip"]',
     container: 'body'
   });
+
+     // Confirm Color
+     $(document).on('click', '.delete-record', function () {
+      const value_id = $(this).data('id')
+        console.log(value_id);
+        Swal.fire({
+          title: 'Destroy Customer?',
+          text: 'Are you sure you want to permanently remove this record?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          customClass: {
+            confirmButton: 'btn btn-primary',
+            cancelButton: 'btn btn-outline-danger ms-1'
+          },
+          buttonsStyling: false
+        }).then(function (result) {
+          if (result.value) {
+  
+            deleteRecord(value_id) 
+            
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire({
+              title: 'Cancelled',
+              text: 'Your imaginary file is safe :)',
+              icon: 'error',
+              customClass: {
+                confirmButton: 'btn btn-success'
+              }
+            });
+          }
+        });
+      });
+      
+      function deleteRecord(value_id) {
+        $.ajax({
+          url: '../customer-delete'+'/'+value_id, // JSON file to add data,
+          type: 'get',
+          dataType: 'json',
+          contentType: false,
+          processData: false,
+          success: function (data) {
+              if (data.status === true) {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Deleted!',
+                  text: 'Your record has been deleted.',
+                  customClass: {
+                    confirmButton: 'btn btn-success'
+                  }
+                    
+                });
+                
+                window.location = "/customer-list";
+
+              } else if (data.status === false) {
+                
+                 
+              }
+          },
+          error: function (data) {
+            
+           
+          }
+      })
+    }
+
 });

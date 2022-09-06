@@ -8,6 +8,8 @@ use App\Http\Controllers\FrontControllers\CustomerController;
 use App\Http\Controllers\FrontControllers\ForgotPasswordController;
 use App\Http\Controllers\FrontControllers\VendorController;
 use App\Http\Controllers\FrontControllers\ResetPasswordController;
+use App\Http\Controllers\FrontControllers\BookingCalenderController;
+use App\Http\Controllers\FrontControllers\OfferCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,5 +71,22 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/vendor-delete/{uuid}', 'destroy')->name('vendor-delete');  
         Route::get('/vendor-view/{uuid}', 'view')->name('vendor-view');   
     });
-    
+
+    Route::controller(BookingCalenderController::class)->group(function () {
+        Route::get('/booking-calender', 'index')->name('booking-calender'); 
+        
+    });
+
+
+    Route::controller(OfferCategoryController::class)->group(function () {
+        Route::get('/offer-category-list','index')->name('offer-category-list');   
+        Route::get('data/offer-category-json','json_list')->name('data/offer-category-json');
+        Route::get('/offer-category','create')->name('offer-category');
+        Route::post('/offer-category-save','store')->name('offer-category-save'); 
+        Route::get('/update-offer-category/{uuid}','edit')->name('update-offer-category');
+        Route::get('/offer-category-delete/{uuid}','destroy')->name('offer-category-delete');  
+        Route::post('/offer-category-update','update')->name('offer-category-update'); 
+        
+    });
+
 });

@@ -41,16 +41,22 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('reset.pass.view');
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.change');
 
-
 Route::get('/bookings', [BookingController::class, 'index'])->name('booking.index');
 
 Route::group(['middleware' => ['auth']], function () {
+
     // Route::resource('roles', RoleController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('org.dashboard');
-    Route::resource('users', UserController::class);
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/password-change', [AuthController::class, 'showChangePasswordForm'])->name('change.password.show');
-    Route::post('/password-change', [AuthController::class, 'changePassword'])->name('change.password.update');
+    Route::resource('users', UserController::class);  
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('/logout', 'logout')->name('logout');
+        Route::get('/password-change', 'showChangePasswordForm')->name('change.password.show');
+        Route::post('/password-change', 'changePassword')->name('change.password.update');
+    });
+
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/users', 'index')->name('user.list');
+    });
 
     Route::controller(CustomerController::class)->group(function () {
         Route::get('/customer-list', 'index')->name('ustomer-list');
@@ -70,7 +76,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/vendor-update', 'update')->name('vendor-update');  
         Route::get('/vendor-delete/{uuid}', 'destroy')->name('vendor-delete');  
         Route::get('/vendor-view/{uuid}', 'view')->name('vendor-view');   
+        Route::get('/app/customer/view/account', 'view')->name('app/customer/view/account');
+        Route::post('/customer-save', 'store')->name('customer-save');
     });
+<<<<<<< HEAD
 
     Route::controller(BookingCalenderController::class)->group(function () {
         Route::get('/booking-calender', 'index')->name('booking-calender'); 
@@ -89,4 +98,6 @@ Route::group(['middleware' => ['auth']], function () {
         
     });
 
+=======
+>>>>>>> 39507573a969b2c5b09746147c3e50e914a83785
 });

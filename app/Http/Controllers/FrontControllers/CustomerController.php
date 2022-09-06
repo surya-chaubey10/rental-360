@@ -28,6 +28,7 @@ class CustomerController extends Controller
        
         $details = new Collection();
         foreach ($customer as $key => $date) {
+
             
            $details->push([
                "id"             => $date->id,
@@ -36,10 +37,8 @@ class CustomerController extends Controller
                "customer_type"  => ($date->customer_typee ? $date->customer_typee->type_name:''),
                "email"          => ($date->user ? $date->user->email:''),
                "contact"        => ($date->user ? $date->user->mobile:''),
-               "status"         => $date->approval_status,
-             
+               "status"         => $date->approval_status,             
            ]);
-
         }
        return array('data' => $details);
        
@@ -75,7 +74,18 @@ class CustomerController extends Controller
             $message = $e->getMessage();
             return ajax_response(false,[], [], $message , $this->internal_server_error);
          }
+        // User
+        // $user = new User;
 
+        $customer = new Customer;
+        $customer->fullname      = $request->fullname;
+        $customer->username      = $request->username;
+        $customer->email         = $request->email;
+        $customer->contact       = $request->contact;
+        $customer->company       = $request->company;
+        $customer->customer_type = $request->customer_type;
+        $customer->country       = $request->country;
+        $customer->save();
     }
 
     public function customerEdit($uuid)

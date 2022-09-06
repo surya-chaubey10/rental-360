@@ -8,11 +8,17 @@
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/css/animate/animate.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/css/extensions/toastr.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/css/extensions/sweetalert2.min.css') }}">
+
 @endsection
 
 @section('page-style')
   {{-- Page Css files --}}
   <link rel="stylesheet" href="{{ asset('css/base/plugins/forms/form-validation.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-toastr.css') }}">
+  <link rel="stylesheet" href="{{asset('css/base/plugins/extensions/ext-component-sweet-alerts.css')}}">
 @endsection
 
 @section('content')
@@ -87,7 +93,7 @@
       <h4 class="card-title">Search & Filter</h4>
       <div class="row">
         <div class="col-md-4 customer_type"></div>
-        <div class="col-md-4 customer_plan"></div>
+      
         <div class="col-md-4 customer_status"></div>
       </div>
     </div>
@@ -109,7 +115,7 @@
     <!-- Modal to add new user starts-->
     <div class="modal modal-slide-in new-user-modal fade" id="modals-slide-in">
       <div class="modal-dialog">
-        <form class="add-new-customer modal-content pt-0" data-toggle="validator" autocomplete="off" id="addCustomerForm" method="post">
+        <form class="add-new-customer modal-content pt-0 form-block" autocomplete="off" id="addCustomerForm" method="post">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
           <div class="modal-header mb-1">
             <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
@@ -122,7 +128,7 @@
                 class="form-control dt-full-name"
                 id="basic-icon-default-fullname"
                 placeholder="John Doe"
-                name="customer-fullname"
+                name="fullname"
               />
             </div>
             <div class="mb-1">
@@ -132,7 +138,7 @@
                 id="basic-icon-default-uname"
                 class="form-control dt-uname"
                 placeholder="Web Developer"
-                name="user-name"
+                name="username"
               />
             </div>
             <div class="mb-1">
@@ -142,7 +148,7 @@
                 id="basic-icon-default-email"
                 class="form-control dt-email"
                 placeholder="john.doe@example.com"
-                name="customer-email"
+                name="email"
               />
             </div>
             <div class="mb-1">
@@ -152,7 +158,7 @@
                 id="basic-icon-default-contact"
                 class="form-control dt-contact"
                 placeholder="+1 (609) 933-44-22"
-                name="customer-contact"
+                name="contact"
               />
             </div>
             <div class="mb-1">
@@ -162,50 +168,29 @@
                 id="basic-icon-default-company"
                 class="form-control dt-contact"
                 placeholder="PIXINVENT"
-                name="customer-company"
+                name="company"
               />
             </div>
             <div class="mb-1">
               <label class="form-label" for="country">Country</label>
-              <select id="country" name="customer-country" class="select2 form-select">
-                <option value="Australia">USA</option>
-                <option value="Bangladesh">Bangladesh</option>
-                <option value="Belarus">Belarus</option>
-                <option value="Brazil">Brazil</option>
-                <option value="Canada">Canada</option>
-                <option value="China">China</option>
-                <option value="France">France</option>
-                <option value="Germany">Germany</option>
-                <option value="India">India</option>
-                <option value="Indonesia">Indonesia</option>
-                <option value="Israel">Israel</option>
-                <option value="Italy">Italy</option>
-                <option value="Japan">Japan</option>
-                <option value="Korea">Korea, Republic of</option>
-                <option value="Mexico">Mexico</option>
-                <option value="Philippines">Philippines</option>
-                <option value="Russia">Russian Federation</option>
-                <option value="South Africa">South Africa</option>
-                <option value="Thailand">Thailand</option>
-                <option value="Turkey">Turkey</option>
-                <option value="Ukraine">Ukraine</option>
-                <option value="United Arab Emirates">United Arab Emirates</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="United States">United States</option>
+              <select id="country" name="country" class="select2 form-select">
+              <option value=""></option>
+                @foreach($country as $country) 
+                <option value="{{$country->id}}">{{$country->name}}</option>
+                @endforeach
               </select>
             </div>
             <div class="mb-1">
-              <label class="form-label" for="user-role">Customer Type</label>
-              <select id="user-role" class="select2 form-select">
-                <option value="subscriber">Subscriber</option>
-                <option value="editor">Editor</option>
-                <option value="maintainer">Maintainer</option>
-                <option value="author">Author</option>
-                <option value="admin">Admin</option>
+              <label class="form-label" for="customer_type">Customer Type</label>
+              <select id="user-role" name="customer_type" class="select2 form-select">
+              <option value=""></option>
+                @foreach($customer_type as $cust_type) 
+                 <option value="{{$cust_type->id}}">{{$cust_type->type_name}}</option>
+                @endforeach
               </select>
             </div>
            
-            <button type="submit" class="btn btn-primary me-1 data-submit">Submit</button>
+            <button id="submit" type="submit" class="btn btn-outline-primary btn-form-block">Submit</button>
             <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
           </div>
         </form>
@@ -234,9 +219,17 @@
   <script src="{{ asset('vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
   <script src="{{ asset('vendors/js/forms/cleave/cleave.min.js') }}"></script>
   <script src="{{ asset('vendors/js/forms/cleave/addons/cleave-phone.us.js') }}"></script>
+  <script src="{{ asset('vendors/js/extensions/toastr.min.js') }}"></script>
+  <script src="{{ asset('vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
+  <script src="{{ asset('vendors/js/extensions/polyfill.min.js') }}"></script>
+  
 @endsection
 
 @section('page-script')
   {{-- Page js files --}}
  <script src="{{ asset('js/scripts/pages/app-customers-list.js') }}"></script> 
+ <script src="{{ asset('js/scripts/extensions/ext-component-toastr.js') }}"></script>
+ <script src="{{ asset('js/scripts/extensions/ext-component-blockui.js') }}"></script>
+ <script src="{{ asset('js/scripts/extensions/ext-component-sweet-alerts.js') }}"></script>
+ 
 @endsection

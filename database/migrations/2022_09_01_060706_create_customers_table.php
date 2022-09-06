@@ -16,16 +16,11 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
+
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('organisation_id')->default(1);
-<<<<<<< HEAD
-            $table->enum('status', ['1', '2','3'])->default('1')->comment('1:active, 2:inactive, 3:pending');
-=======
-            $table->string('company')->nullable();;
-            $table->string('customer_type')->nullable();
             $table->date('dob')->format('d/m/Y')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
->>>>>>> 17a95aa7bc4f57d5681c4dea60be51b490530854
             $table->string('website')->nullable();
             $table->string('language')->nullable();
             $table->string('address1')->nullable();
@@ -40,7 +35,6 @@ return new class extends Migration
             $table->string('codepen')->nullable();
             $table->string('stack')->nullable();
             $table->enum('contact_option', ['email', 'message', 'phone'])->nullable();
-            
             $table->enum('approval_status', ['Active', 'Inacive', 'Pending'])->default('Pending');
             $table->boolean('status')->default(1);
 

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
-
+use Illuminate\Support\Carbon;
 
 class ForgotPasswordController extends Controller
 {
@@ -38,11 +38,27 @@ class ForgotPasswordController extends Controller
         $user = User::where('email', $request->email)->first();
         if ($user) {
             $t = Str::random(50);
-            DB::table('password_resets')
+
+            $pass = DB::table('password_resets')
+            ->where('email', $request->email)
+            ->first();
+
+            if (!$pass) {
+                DB::table('password_resets')
+                ->insert(
+                    [
+                        'email' => $request->email,
+                        'token' => $t,
+                        'created_at' => Carbon::now(),
+                    ]
+                );
+            } else {
+                DB::table('password_resets')
                 ->where('email', $request->email)
                 ->update([
                     'token' => $t
                 ]);
+            }
 
             $user->link = route('reset.pass.view', $t) . "?email=" . $request->email;
 

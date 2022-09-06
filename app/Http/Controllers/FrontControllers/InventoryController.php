@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Inventory;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Storage;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -13,8 +14,7 @@ class InventoryController extends Controller
 {
     public function index(){
        
-        //$customer = Customer::paginate(10);
-        return view('contact.inventory.list', ['customer' => '']); 
+        return view('contact.inventory.list'); 
     }
     public function json_list(){
 
@@ -65,7 +65,7 @@ class InventoryController extends Controller
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
              { 
                 
-                if($i>0)
+                if($i>0 && $data[3]!='')
                 {
                     $url = "$data[3]";
                     $info = pathinfo($url);
@@ -114,11 +114,61 @@ class InventoryController extends Controller
             }
             return redirect()->route('inventory-list');
         }
-   }
+    }
    public function delete($uuid){
        
-        Inventory::where('uuid', $uuid)->delete();
-        return redirect()->route('inventory-list');
+        $inventory_data = Inventory::where('uuid', $uuid)->first();
+
+        if (is_object($inventory_data)) {
+            $inventory_data->delete();
+            return prepareResult(true, [], [], "Record delete successfully", $this->success);
+        }
+
+        return prepareResult(false, [], [], "Unauthorized access", $this->unauthorized);
+   
     }
+   public function edit($uuid)
+    { 
+      $inventory = Inventory::where('uuid',$uuid)->get();
+
+      return view('contact.inventory.edit',compact('inventory'));    
+   } 
+
+   public function update(Request $request)
+    {   
+        $path = public_path('../public/images/inventory_images/');
+        if (! file_exists($path) ) {
+            mkdir($path, 0777, true);
+         }
+
+        $file = $request->file('img_path');
+        $fileName = uniqid() . '_' . trim($file->getClientOriginalName());
+        $file->move($path, $fileName);
+       
+        \DB::beginTransaction();
+        try {
+            $Inventory_updated = Inventory::find($request->inventory_updated_id); 
+            $Inventory_updated->brand_name      = $request->brand_name;
+            $Inventory_updated->model_name      = $request->model_name;
+            $Inventory_updated->inventory_type  = $request->inventory_type;
+            $Inventory_updated->img             = $fileName;
+            $Inventory_updated->status          = $request->status;
+            $Inventory_updated->save(); 
+ 
+            \DB::commit();  
+            return ajax_response(true, $Inventory_updated, [], "Inventory Update Successfully", $this->success);
+        } catch (\Exception $exception) {
+            \DB::rollback();
+            $message = $exception->getMessage();
+
+            return ajax_response(false, $message, [],  "Inventory Update Unsuccessfully", $this->internal_server_error);
+        } catch (\Throwable $exception) {
+            \DB::rollback();
+            $message = $exception->getMessage();
+
+            return ajax_response(false, $message, [],  "Inventory Update Unsuccessfully", $this->internal_server_error);
+
+        } 
+    } 
 
 } 

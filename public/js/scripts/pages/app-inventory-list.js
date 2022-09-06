@@ -10,10 +10,19 @@
 $(function () {
     ('use strict');
     
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+     })
+
+    var isRtl = $('html').attr('data-textdirection') === 'rtl';
     var dtTableinventory = $('.inventory-menu');
     var dtUserTable = $('.inventory-list-table'),
-      newUserSidebar = $('.new-inventory-modal'),
-      newUserForm = $('.add-new-inventory'),
+      formBlock = $('.btn-form-block'),
+      formSection = $('.form-block'),
+      newUserSidebar = $('.new-vendor-modal'),
+      newUserForm = $('.update-new-inventory'),
       select = $('.select2'),
       dtContact = $('.dt-contact'),
       statusObj = {
@@ -269,98 +278,97 @@ $(function () {
             next: '&nbsp;'
           }
         },
-        initComplete: function () {
-          // Adding role filter once table initialized
-          this.api()
-            .columns(2)
-            .every(function () {
-              var column = this;
-              var label = $('<label class="form-label" for="Type">Type</label>').appendTo('.customer_type');
-              var select = $(
-                '<select id="UserType" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Type </option></select>'
-              )
-                .appendTo('.customer_type')
-                .on('change', function () {
-                  var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                  column.search(val ? '^' + val + '$' : '', true, false).draw();
-                });
-  
-              column
-                .data()
-                .unique()
-                .sort()
-                .each(function (d, j) {
-                  select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
-                });
-            });
-          // Adding plan filter once table initialized
-          this.api()
-            .columns(5)
-            .every(function () {
-              var column = this;
-              var label = $('<label class="form-label" for="CustomerPlan">Plan</label>').appendTo('.customer_plan');
-              var select = $(
-                '<select id="CustomerPlan" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Plan </option></select>'
-              )
-                .appendTo('.customer_plan')
-                .on('change', function () {
-                  var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                  column.search(val ? '^' + val + '$' : '', true, false).draw();
-                });
-  
-              column
-                .data()
-                .unique()
-                .sort()
-                .each(function (d, j) {
-                  select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
-                });
-            });
-          // Adding status filter once table initialized
-          // this.api()
-          //   .columns(5)
-           //  .every(function () {
-          //     var column = this;
-          //     var label = $('<label class="form-label" for="FilterTransaction">Status</label>').appendTo('.customer_status');
-          //     var select = $(
-          //       '<select id="FilterTransaction" class="form-select text-capitalize mb-md-0 mb-2xx"><option value=""> Select Status </option></select>'
-          //     )
-          //       .appendTo('.customer_status')
-          //       .on('change', function () {
-          //         var val = $.fn.dataTable.util.escapeRegex($(this).val());
-          //         column.search(val ? '^' + val + '$' : '', true, false).draw();
-          //       });
-  
-          //     column
-          //       .data()
-          //       .unique()
-          //       .sort()
-          //       .each(function (d, j) {
-          //         select.append(
-          //           '<option value="' +
-          //             statusObj[d].title +
-          //             '" class="text-capitalize">' +
-          //             statusObj[d].title +
-          //             '</option>'
-          //         );
-          //       });
-          //   });
-        }
+        
       });
     }
+    select.each(function () {
+      var $this = $(this);
+      $this.wrap('<div class="position-relative"></div>');
+      $this.select2({
+        // the following code is used to disable x-scrollbar when click in select input and
+        // take 100% width in responsive also
+        dropdownAutoWidth: true,
+        width: '100%',
+        dropdownParent: $this.parent()
+      });
+    }); 
   
+    //Update Inventory
+    newUserForm.on('submit', function (e) {
+      if (!e.isDefaultPrevented()) {
+            e.preventDefault()
+          $( "#submit" ).prop( "disabled", true );
+          if (formBlock.length && formSection.length) {
+            formBlock.on('click', function () {
+              formSection.block({
+                message: '<div class="spinner-border text-white" role="status"></div>',
+                timeout: 1000,
+                css: {
+                  backgroundColor: 'transparent',
+                  color: '#fff',
+                  border: '0'
+                },
+                overlayCSS: {
+                  opacity: 0.5
+                }
+              });
+            });
+          }
+           let formData = new FormData($('#form_idd')[0])
+          $.ajax({
+                url: '/inventory_update', // JSON file to add data,
+                type: 'POST',
+                dataType: 'json',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $( "#submit" ).prop( "disabled", false );
+                    if (data.status === true) {  
+                        toastr['success'](''+data.message+'', {
+                          closeButton: true,
+                          tapToDismiss: false,
+                          rtl: isRtl
+                        });
+                        window.location = "/inventory-list";
+
+                    } else if (data.status === false) {
+                      $( "#submit" ).prop( "disabled", false );
+                      toastr['error'](''+data.message+'', {
+                        closeButton: true,
+                        tapToDismiss: false,
+                        rtl: isRtl
+                      });
+                       
+                    }
+                },
+                error: function (data) {
+                  $( "#submit" ).prop( "disabled", false );
+                  toastr['error'](''+data.message+'', {
+                    closeButton: true,
+                    tapToDismiss: false,
+                    rtl: isRtl
+                  });
+                }
+            })
+        }
+    })
+
     // Form Validation
     if (newUserForm.length) {
       newUserForm.validate({
         errorClass: 'error',
         rules: {
-          'user-fullname': {
+          'brand_name': {
             required: true
           },
-          'user-name': {
+          'model_name': {
             required: true
           },
-          'user-email': {
+          'status': {
+            required: true
+          },
+          'img_path': {
             required: true
           }
         }
@@ -375,15 +383,6 @@ $(function () {
       });
     }
   
-    // Phone Number
-    if (dtContact.length) {
-      dtContact.each(function () {
-        new Cleave($(this), {
-          phone: true,
-          phoneRegionCode: 'US'
-        });
-      });
-    }
     //Delete Vendor Record
         // Confirm Color
    $(document).on('click', '.delete-record', function () {

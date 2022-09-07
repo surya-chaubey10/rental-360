@@ -9,7 +9,6 @@
  **/
 
 'use-strict';
-
 // RTL Support
 var direction = 'ltr',
   assetPath = '../../../app-assets/';
@@ -216,33 +215,31 @@ document.addEventListener('DOMContentLoaded', function () {
   // * This will be called by fullCalendar to fetch events. Also this can be used to refetch events.
   // --------------------------------------------------------------------------------------------------
   function fetchEvents(info, successCallback) {
-    // Fetch Events from API endpoint reference
-    /* $.ajax(
+    
+      $.ajax(
       {
-        url: '../../../app-assets/data/app-calendar-events.js',
+        url: assetPath + 'data/fullcalendar/json/events.json',
         type: 'GET',
         success: function (result) {
-          // Get requested calendars as Array
+          
           var calendars = selectedCalendars();
+           console.log(events);
+          selectedEvents = events.filter(function (event) {
+            return calendars.includes(event.extendedProps.calendar.toLowerCase());
+          }); 
+      
+          // if (selectedEvents.length > 0) {
+          successCallback(selectedEvents);
+          // }
 
-          return [result.events.filter(event => calendars.includes(event.extendedProps.calendar))];
         },
         error: function (error) {
           console.log(error);
         }
       }
-    ); */
-
-    var calendars = selectedCalendars();
-    // We are reading event object from app-calendar-events.js file directly by including that file above app-calendar file.
-    // You should make an API call, look into above commented API call for reference
-    selectedEvents = events.filter(function (event) {
-      // console.log(event.extendedProps.calendar.toLowerCase());
-      return calendars.includes(event.extendedProps.calendar.toLowerCase());
-    });
-    // if (selectedEvents.length > 0) {
-    successCallback(selectedEvents);
-    // }
+    ); 
+ 
+    
   }
 
   // Calendar plugins

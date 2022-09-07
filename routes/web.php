@@ -77,12 +77,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/vendor-delete/{uuid}', 'destroy')->name('vendor-delete');  
         Route::get('/vendor-view/{uuid}', 'view')->name('vendor-view');   
         Route::get('/app/customer/view/account', 'view')->name('app/customer/view/account');
-        Route::post('/customer-save', 'store')->name('customer-save');
     });
-<<<<<<< HEAD
 
     Route::controller(BookingCalenderController::class)->group(function () {
         Route::get('/booking-calender', 'index')->name('booking-calender'); 
+        Route::get('/get-calender', 'get_calender')->name('get-calender'); 
         
     });
 
@@ -98,6 +97,4 @@ Route::group(['middleware' => ['auth']], function () {
         
     });
 
-=======
->>>>>>> 39507573a969b2c5b09746147c3e50e914a83785
 });

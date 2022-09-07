@@ -10,6 +10,9 @@ use App\Http\Controllers\FrontControllers\VendorController;
 use App\Http\Controllers\FrontControllers\ResetPasswordController;
 use App\Http\Controllers\FrontControllers\BookingCalenderController;
 use App\Http\Controllers\FrontControllers\OfferCategoryController;
+use App\Http\Controllers\FrontControllers\OfferPartnersController;
+use App\Http\Controllers\FrontControllers\ManageBookingsController;
+ 
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,7 +79,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/vendor-update', 'update')->name('vendor-update');  
         Route::get('/vendor-delete/{uuid}', 'destroy')->name('vendor-delete');  
         Route::get('/vendor-view/{uuid}', 'view')->name('vendor-view');   
-        Route::get('/app/customer/view/account', 'view')->name('app/customer/view/account');
+        Route::get('/app/customer/view/account', 'view')->name('app/customer/view/account'); 
     });
 
     Route::controller(BookingCalenderController::class)->group(function () {
@@ -97,4 +100,21 @@ Route::group(['middleware' => ['auth']], function () {
         
     });
 
+    Route::controller(OfferPartnersController::class)->group(function () {
+        Route::get('/offer-partner-list','index')->name('offer-partner-list'); 
+        Route::get('/offer-partner','create')->name('offer-partner');
+        Route::post('/offer-partner-save','store')->name('offer-partner-save');  
+        Route::get('/update-offer-partner/{uuid}','edit')->name('update-offer-partner');
+        Route::get('/offer-partner-delete/{uuid}','destroy')->name('offer-partner-delete');  
+        Route::post('/offer-partner-update','update')->name('offer-partner-update'); 
+        
+    });
+
+    Route::controller(ManageBookingsController::class)->group(function () {
+        Route::get('/manage-booking-list','index')->name('manage-booking-list');  
+        Route::get('/manage-booking','create')->name('manage-booking');  
+        
+    });
+
+    Route::get('/manage-booking-list', [ManageBookingsController::class, 'index'])->name('manage-booking-list');
 });

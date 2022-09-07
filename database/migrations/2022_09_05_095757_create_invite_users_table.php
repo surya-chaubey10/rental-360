@@ -14,9 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('invite_users', function (Blueprint $table) {
+            $table->id();
             $table->uuid('uuid');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('organisation_id');
+            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('invited_user_id');
             $table->string('company')->nullable();;
             $table->string('customer_type')->nullable();
             $table->date('dob')->format('d/m/Y')->nullable();

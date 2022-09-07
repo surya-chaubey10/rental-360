@@ -26,6 +26,8 @@ class Controller extends BaseController
         $this->unprocessableEntity          = 422;
         $this->internal_server_error        = 500;
         $this->paginate                     = 15;
+
+        $this->user = getUser();
     }
         
 }

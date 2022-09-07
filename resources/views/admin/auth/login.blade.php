@@ -49,7 +49,7 @@
                     <h4 class="card-title mb-1">Welcome to MyRide! 👋</h4>
                     <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
 
-                    <form class="auth-login-form mt-2" method="POST" action="{{ route('admin.login.process') }}">
+                    <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="mb-1">
@@ -61,7 +61,7 @@
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
                         </div>
-
+                        
                         <div class="mb-1">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="login-password">Password</label>
@@ -90,11 +90,11 @@
                     </form>
 
                     <!-- <p class="text-center mt-2">
-                                <span>New on our platform?</span>
-                                <a href="{{ url('auth/register-basic') }}">
-                                    <span>Create an account</span>
-                                </a>
-                            </p> -->
+                                    <span>New on our platform?</span>
+                                    <a href="{{ url('auth/register-basic') }}">
+                                        <span>Create an account</span>
+                                    </a>
+                                </p> -->
                 </div>
             </div>
             <!-- /Login basic -->

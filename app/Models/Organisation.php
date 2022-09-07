@@ -54,4 +54,5 @@ class Organisation extends Model
     {
         return $this->hasMany(User::class,  'organisation_id', 'id');
     }
+    
 }

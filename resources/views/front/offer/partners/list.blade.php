@@ -27,17 +27,18 @@
   <div class="card">
   <div class="card-body border-bottom">
      <div class="card-header"> 
-      <h4><b>Offer Category</b></h4>
-       <a href="{{route('offer-category')}}" class="btn btn-danger" >New Record</a> 
+      <h4 ><b>Partners</b></h4>
+       <a href="{{route('offer-partner')}}" class="btn btn-danger" >New Record</a> 
     </div>
     </div>
     <div class="card-datatable table-responsive pt-0">
-      <table class="offer-category-table table"> 
+      <table class="offer-partner-table table"> 
         <thead class="table-light">
           <tr>   
             <th></th>  
             <th>#</th> 
             <th>Package Name</th> 
+            <th>Created Date</th> 
             <th>Status</th> 
             <th>Actions</th>
           </tr> 
@@ -73,9 +74,9 @@
 
 @section('page-script')
   {{-- Page js files --}}
-  <script src="{{ asset('js/scripts/pages/offer-category-list.js') }}"></script>     
+  <script src="{{ asset('js/scripts/pages/offer-partners-list.js') }}"></script>     
   <script src="{{ asset('js/scripts/extensions/ext-component-toastr.js') }}"></script>
  <script src="{{ asset('js/scripts/extensions/ext-component-blockui.js') }}"></script>
  <script src="{{ asset('js/scripts/extensions/ext-component-sweet-alerts.js') }}"></script>
-
+ 
 @endsection

@@ -12,4 +12,8 @@ class BookingCalenderController extends Controller
     
          return view('booking.bookingCalender.booking-calender'); 
     }
+    public function get_calender(){
+    
+        //calling json callender
+   }
 }

@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('organisation_id');
-            $table->string('company')->nullable();
+
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('organisation_id')->default(1);
             $table->date('dob')->format('d/m/Y')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('website')->nullable();
@@ -35,7 +35,6 @@ return new class extends Migration
             $table->string('codepen')->nullable();
             $table->string('stack')->nullable();
             $table->enum('contact_option', ['email', 'message', 'phone'])->nullable();
-            
             $table->enum('approval_status', ['Active', 'Inacive', 'Pending'])->default('Pending');
             $table->boolean('status')->default(1);
 

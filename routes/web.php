@@ -5,6 +5,8 @@ use App\Http\Controllers\FrontControllers\BookingController;
 use App\Http\Controllers\FrontControllers\DashboardController;
 use App\Http\Controllers\FrontControllers\UserController;
 use App\Http\Controllers\FrontControllers\CustomerController;
+use App\Http\Controllers\FrontControllers\InventoryController;
+
 use App\Http\Controllers\FrontControllers\ForgotPasswordController;
 use App\Http\Controllers\FrontControllers\VendorController;
 use App\Http\Controllers\FrontControllers\ResetPasswordController;
@@ -12,7 +14,6 @@ use App\Http\Controllers\FrontControllers\BookingCalenderController;
 use App\Http\Controllers\FrontControllers\OfferCategoryController;
 use App\Http\Controllers\FrontControllers\OfferPartnersController;
 use App\Http\Controllers\FrontControllers\ManageBookingsController;
- 
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +46,15 @@ Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showRese
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.change');
 
 Route::get('/bookings', [BookingController::class, 'index'])->name('booking.index');
+
+Route::controller(InventoryController::class)->group(function () {
+    Route::get('/inventory-list', 'index')->name('inventory-list');
+    Route::get('data/inventory-list-json', 'json_list')->name('data/inventory-list-json');
+    Route::post('/inventory-save', 'store')->name('inventory-save');
+    Route::get('/inventory_delete/{uuid}', 'delete')->name('inventory_delete');
+    Route::get('/inventory_edit/{uuid}',  'edit')->name('inventory_edit'); 
+    Route::post('/inventory_update',  'update')->name('inventory_update');  
+});
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -99,7 +109,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/offer-category-update','update')->name('offer-category-update'); 
         
     });
-
     Route::controller(OfferPartnersController::class)->group(function () {
         Route::get('/offer-partner-list','index')->name('offer-partner-list'); 
         Route::get('/offer-partner','create')->name('offer-partner');

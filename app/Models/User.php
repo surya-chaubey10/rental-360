@@ -11,13 +11,14 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
 use App\Models\Customer;
 use App\Models\Country;
+use App\Traits\Organisationid;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles ,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles ,SoftDeletes, Organisationid;
 
     protected static $logAttributes = ['*'];
 

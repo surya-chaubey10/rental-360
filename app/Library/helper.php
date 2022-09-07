@@ -66,3 +66,11 @@ function sr($data)
     $data = str_replace(']', '', $data);
     return $data;
 }
+
+function getUser()
+{
+    if (auth()->check()) {
+        return auth()->guard('web')->user();
+    }
+    // return auth('api')->user() ?? ;
+}

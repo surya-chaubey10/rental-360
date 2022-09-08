@@ -16,6 +16,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
+     
         $country = CountryMaster::select('id', 'name')->get();
         $customer_type = CustomerType::select('id', 'type_name')->get();
 

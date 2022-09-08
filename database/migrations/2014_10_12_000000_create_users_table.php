@@ -31,7 +31,7 @@ return new class extends Migration
             $table->boolean('status')->default(1);
             $table->enum('login_type', ['system', 'google', 'facebook', 'twitter', 'mobile']);
             $table->integer('role_id')->default(2)->comment('1:superadmin, 2 org-admin, 3...');
-            // $table->foreign('organisation_id')->references('id')->on('organisations')->onDelete('cascade');
+            $table->foreign('organisation_id')->references('id')->on('organisations')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

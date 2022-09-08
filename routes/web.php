@@ -11,7 +11,10 @@ use App\Http\Controllers\FrontControllers\ForgotPasswordController;
 use App\Http\Controllers\FrontControllers\VendorController;
 use App\Http\Controllers\FrontControllers\OfferController;
 use App\Http\Controllers\FrontControllers\ResetPasswordController;
-
+use App\Http\Controllers\FrontControllers\BookingCalenderController;
+use App\Http\Controllers\FrontControllers\OfferCategoryController;
+use App\Http\Controllers\FrontControllers\OfferPartnersController;
+use App\Http\Controllers\FrontControllers\ManageBookingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -79,8 +82,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/vendor-update', 'update')->name('vendor-update');  
         Route::get('/vendor-delete/{uuid}', 'destroy')->name('vendor-delete');  
         Route::get('/vendor-view/{uuid}', 'view')->name('vendor-view');   
-        Route::get('/app/customer/view/account', 'view')->name('app/customer/view/account');
-        Route::post('/customer-save', 'store')->name('customer-save');
+        Route::get('/app/customer/view/account', 'view')->name('app/customer/view/account'); 
     });
 
         Route::controller(InventoryController::class)->group(function () {
@@ -97,6 +99,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::controller(OfferController::class)->group(function () {
             Route::get('/offer-list', 'index')->name('offer-list');
             Route::get('/add-list', 'add')->name('add-list');
+            Route::post('/offer-save', 'store')->name('offer-save');
+            Route::post('/offer-update', 'update')->name('offer-update');
+            Route::get('/offer-delete/{uuid}', 'delete')->name('offer-delete');
+            Route::get('/offer-edit/{uuid}',  'edit')->name('offer-edit'); 
+            Route::get('/offer-copy/{uuid}',  'copy')->name('offer-copy'); 
         });
     
 });

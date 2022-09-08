@@ -1,16 +1,15 @@
 @extends('layouts.main')
-@section('title', '')
+@section('title', 'Offer Category')
 
-@section('vendor-style')
+@section('category-style')
   {{-- Page Css files --}}
   <link rel="stylesheet" href="{{ asset('vendors/css/forms/select/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendors/css/animate/animate.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/extensions/toastr.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendors/css/extensions/sweetalert2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/css/extensions/sweetalert2.min.css') }}"> 
 
 @endsection
 
@@ -21,33 +20,34 @@
   <link rel="stylesheet" href="{{asset('css/base/plugins/extensions/ext-component-sweet-alerts.css')}}">
 @endsection
 
-@section('content')
-
-<section class="app-user-list">
+@section('content') 
+<section class="app-vendor-list">
+  <div class="row"> 
   <!-- list and filter start -->
   <div class="card">
-    <div class="card-body border-bottom">
-      <h4 class="card-title"><b>Offer</b></h4>
-        <a href="{{route('add-list')}}" class="btn btn-xs btn-danger" style="float: right; margin-top: -45px;" >New Record</a>
+  <div class="card-body border-bottom">
+     <div class="card-header"> 
+      <h4><b>Offer Category</b></h4>
+       <a href="{{route('offer-category')}}" class="btn btn-danger" >New Record</a> 
+    </div>
     </div>
     <div class="card-datatable table-responsive pt-0">
-      <table class="offer-list-table table">
+      <table class="offer-category-table table"> 
         <thead class="table-light">
-          <tr>
-            <th></th>
-            <th>Offer Category</th>
-            <th>Vehicle</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Status</th>
+          <tr>   
+            <th></th>  
+            <th>#</th> 
+            <th>Package Name</th> 
+            <th>Status</th> 
             <th>Actions</th>
-          </tr>
+          </tr> 
         </thead>
       </table>
     </div>
+    
   </div>
   <!-- list and filter end -->
-</section>
+</section> 
 @endsection
 
 @section('vendor-script')
@@ -68,16 +68,14 @@
   <script src="{{ asset('vendors/js/forms/cleave/cleave.min.js') }}"></script>
   <script src="{{ asset('vendors/js/forms/cleave/addons/cleave-phone.us.js') }}"></script>
   <script src="{{ asset('vendors/js/extensions/toastr.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/extensions/polyfill.min.js') }}"></script>
-  
+  <script src="{{ asset('vendors/js/extensions/sweetalert2.all.min.js') }}"></script> 
 @endsection
 
 @section('page-script')
   {{-- Page js files --}}
- <script src="{{ asset('js/scripts/pages/app-offer-list.js') }}"></script> 
- <script src="{{ asset('js/scripts/extensions/ext-component-toastr.js') }}"></script>
+  <script src="{{ asset('js/scripts/pages/offer-category-list.js') }}"></script>     
+  <script src="{{ asset('js/scripts/extensions/ext-component-toastr.js') }}"></script>
  <script src="{{ asset('js/scripts/extensions/ext-component-blockui.js') }}"></script>
  <script src="{{ asset('js/scripts/extensions/ext-component-sweet-alerts.js') }}"></script>
- 
+
 @endsection

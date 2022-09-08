@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Vehicle;
+use App\Models\OfferCategory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Offer extends Model
@@ -23,5 +25,14 @@ class Offer extends Model
         self::creating(function ($model) {
             $model->uuid = (string) Str::uuid();
         });
+    }
+    public function offercategory()
+    {
+        return $this->belongsTo(OfferCategory::class, 'offer_category_id', 'id');
+        
+    }
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class, 'vehicle_id', 'id');
     }
 }

@@ -19,7 +19,6 @@
 @endsection
 
 @section('content')
- 
 <section class="app-user-view-account">
   <div class="row">
     <!-- User Sidebar -->
@@ -30,7 +29,7 @@
         <form class="add-new-offer modal-content pt-0 form-block" autocomplete="off" id="form_idd" method="post">
  
                 <div class="card-header">
-                  <h4 style="font-size: 1.750rem;"><b>Create Offer</b></h4>
+                  <h4 style="font-size: 1.750rem;"><b>Add Offer</b></h4>
                   <button  id="submit" name="submit" type="submit" class="btn btn-danger me-1 btn-form-block">Submit</button>
                 </div>
                 <hr>
@@ -48,7 +47,7 @@
                                         <select class="form-select" id="offer_category" name="offer_category">
                                           <option>Select</option>
                                           @foreach($offercategory as $offercategory) 
-                                          <option  value="{{$offercategory->id}}">{{$offercategory->category_name}}</option>
+                                          <option  {{$offercategory->id == $offer->offer_category_id ? 'selected' : ''  }} value="{{$offercategory->id}}">{{$offercategory->category_name}}</option>
                                          @endforeach
                                         </select>                                     
                                     </div>
@@ -71,7 +70,7 @@
                                       <select class="form-select" id="vehicle" name="vehicle">
                                           <option>Select</option>
                                           @foreach($vehicle as $vehicle) 
-                                          <option  value="{{$vehicle->id}}">{{$vehicle->vehicle_name}}</option>
+                                          <option {{$vehicle->id == $offer->vehicle_id ? 'selected' : ''  }} value="{{$vehicle->id}}">{{$vehicle->vehicle_name}}</option>
                                          @endforeach
                                         </select>                
                                     </div>
@@ -84,7 +83,7 @@
                                         id="startdate"
                                         class="form-control"
                                         name="startdate"
-                                        value="" 
+                                        value="{{$offer->startdate}}" 
                                       />
                                     </div>
                                   </div> 
@@ -96,7 +95,7 @@
                                         id="enddate"
                                         class="form-control"
                                         name="enddate"
-                                        value=""
+                                        value="{{$offer->enddate}}"
                                       />
                                     </div>
                                   </div>
@@ -108,7 +107,7 @@
                                         id="starttime"
                                         class="form-control"
                                         name="starttime"
-                                        value="" 
+                                        value="{{$offer->starttime}}" 
                                       />
                                     </div>
                                   </div>
@@ -120,7 +119,7 @@
                                         id="endtime"
                                         class="form-control"
                                         name="endtime"
-                                        value="" 
+                                        value="{{$offer->endtime}}" 
                                       />
                                     </div>
                                   </div> 
@@ -129,8 +128,8 @@
                                       <label class="form-label" for="discount_type"><b>Discount Type</b></label>
                                       <select class="form-select" id="discount_type" name="discount_type" >
                                           <option>Select Type</option>
-                                          <option value="1">Percentage</option>
-                                          <option value="2">Amount</option>
+                                          <option {{$offer->discount_type == '1' ? 'selected' : ''  }} value="1">Percentage</option>
+                                          <option {{$offer->discount_type == '2' ? 'selected' : ''  }} value="2">Amount</option>
                                         </select>     
                                     </div>
                                   </div> 
@@ -142,7 +141,7 @@
                                         id="minimum"
                                         class="form-control"
                                         name="minimum"
-                                        value="" 
+                                        value="{{$offer->minimum_value}}" 
                                         placeholder="Minimum"
                                       />
                                     </div>
@@ -155,7 +154,7 @@
                                         id="maximum"
                                         class="form-control"
                                         name="maximum"
-                                        value="" 
+                                        value="{{$offer->maximum_value}}" 
                                         placeholder="Maximum"
                                       />
                                     </div>
@@ -164,8 +163,8 @@
                                     <div class="mb-1">
                                       <label class="form-label" for="status-column"><b>Status</b></b></label>
                                         <select class="form-select" id="status" name="status">
-                                          <option  value="1">Enable</option>
-                                          <option  value="2">Disable</option>
+                                          <option {{$offer->status == '1' ? 'selected' : ''  }} value="1">Enable</option>
+                                          <option {{$offer->status == '2' ? 'selected' : ''  }} value="2">Disable</option>
                                         </select>
                                     </div>
                                   </div>

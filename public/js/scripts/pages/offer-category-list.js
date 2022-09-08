@@ -9,25 +9,22 @@
 ==========================================================================================*/
 $(function () {
     ('use strict');
-  
     $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
      })
-     var isRtl = $('html').attr('data-textdirection') === 'rtl';
-     var confirmColor = $('.delete-record');
-    var dtUserTable = $('.offer-list-table'),
+     var isRtl = $('html').attr('data-textdirection') === 'rtl'; 
+     var dtUserTable = $('.offer-category-table'),
       formBlock = $('.btn-form-block'),
-      formSection = $('.form-block'),
-      newUserForm = $('.add-new-offer'),
-      
-      
-      select = $('.select2'),
+      formSection = $('.form-block'), 
+      newUserSidebar = $('.new-vendor-modal'),
+      newUserForm = $('.add-offer-category'), 
+      select = $('.select2'), 
       dtContact = $('.dt-contact'),
       statusObj = {
-        1: { title: 'Enable', class: 'badge-light-success' },
-        2: { title: 'Disable', class: 'badge-light-warning' }
+        1: { title: 'Enable', class: 'badge-light-warning' },
+        2: { title: 'Disable', class: 'badge-light-success' }, 
       };
   
     var assetPath = '../../../app-assets/',
@@ -35,9 +32,7 @@ $(function () {
   
     if ($('body').attr('data-framework') === 'laravel') {
       assetPath = $('body').attr('data-asset-path');
-      userView = assetPath + 'offer-edit';
-      offercopy = assetPath + 'offer-copy';
-      
+      userView = assetPath + 'app/vendor/view/account';
     }
   
     select.each(function () {
@@ -52,21 +47,16 @@ $(function () {
       });
     });
   
-  
     // Users List datatable
     if (dtUserTable.length) {
       dtUserTable.DataTable({
-        ajax: assetPath + "data/offer/offer-json/" + org_id + "_offer-list.json", // JSON file to add data
-        //add data
+        ajax: assetPath + 'data/offer-category-json', // JSON file to add data
         columns: [
           // columns according to JSON
-          { data: '' },
-          { data: 'category_name' },
-          { data: 'vehicle_name' },
-          { data: 'startdate' },
-          { data: 'enddate' },
+          { data: '' }, 
+          { data: 'category_name' }, 
           { data: 'status' },
-          { data: 'uuid' }
+          { data: '' }
         ],
         columnDefs: [
           {
@@ -76,84 +66,63 @@ $(function () {
             responsivePriority: 2,
             targets: 0,
             render: function (data, type, full, meta) {
+              
               return '';
             }
-          },
+          },  
+          
           {
             // User full name and username
-            targets: 1,
-            responsivePriority: 4,
+            targets: 1, 
             render: function (data, type, full, meta) {
-              var $category_name = full['category_name'];
-            
-              return "<span class='text-truncate align-middle'>" + $category_name + '</span>';
+              var $num = full['num']; 
+              return '<span class="text-nowrap">' + $num + '</span>'; 
             }
           },
           {
-            // User Role
-            targets: 2,
-            render: function (data, type, full, meta) {
-              var $vehicle_name = full['vehicle_name'];
-            
-              return "<span class='text-truncate align-middle'>" + $vehicle_name + '</span>';
-            }
-          },
+          targets: 2, 
+          render: function (data, type, full, meta) {
+            var $category_name = full['category_name']; 
+            return '<span class="text-nowrap">' + $category_name + '</span>'; 
+          }
+        },
           {
+            // User Status 
             targets: 3,
             render: function (data, type, full, meta) {
-              var $startdate = full['startdate'];
-  
-              return '<span class="text-nowrap">' + $startdate + '</span>';
-            }
-          },
-          {
-            targets: 4,
-            render: function (data, type, full, meta) {
-              var enddate = full['enddate'];
-          
-              return '<span class="text-nowrap">' + enddate + '</span>';
-            }
-          },
-          {
-            // User Status
-            targets: 5,
-            render: function (data, type, full, meta) {
-                var $status = full['status'];
-                return (
-                  '<span class="badge rounded-pill ' +
-                  statusObj[$status].class +
-                  '" text-capitalized>' +
-                  statusObj[$status].title +
-                  '</span>'
-                );
+              var $status = full['status'];
+              return (
+                '<span class="badge rounded-pill ' +
+                statusObj[$status].class +
+                '" text-capitalized>' +
+                statusObj[$status].title +
+                '</span>'
+              );
             }
           },
           {
             // Actions
-            targets: -1,
+            targets: 4,
             title: 'Actions',
             orderable: false,
             render: function (data, type, full, meta) {
-              var $uuid = full['uuid'];
+              var $id = full['id'];
               return (
-                '<div class="btn-group">' +
-                '<a href="' +
-                userView +'/'+$uuid+
+                '<div class="btn-group">' + 
+               
+                '<a href="update-offer-category/' +
+                $id +
                 '" class="dropdown-item">' +
-                feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
-                '</a>' +
-                '<button data-id="'+$uuid+'"  class="dropdown-item delete-record">' +
-                feather.icons['trash'].toSvg({ class: 'font-small-4 me-50' }) +
-                '</button>'+'<a href="' +
-                offercopy +'/'+$uuid+
-                '"  class="dropdown-item ">' +
-                feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) +
-                '</a></div>' +
+                feather.icons['edit-2'].toSvg({ class: 'font-small-4 me-50' }) +
+                ' </a>' + 
+                '<button data-id="'+$id+'"  class="dropdown-item delete-record">' +
+                feather.icons['trash-2'].toSvg({ class: 'font-small-4 me-50' }) +
+                ' </button>' +
                 '</div>'
               );
             }
           }
-        ],
+        ], 
         order: [[1, 'desc']],
         dom:
           '<"d-flex justify-content-between align-items-center header-actions mx-2 row mt-75"' +
@@ -214,7 +183,18 @@ $(function () {
                 $(node).closest('.dt-buttons').removeClass('btn-group').addClass('d-inline-flex mt-50');
               }, 50);
             }
-           }
+          } 
+          // {
+          //   text: 'Add New Vendor',
+          //   className: 'add-new btn btn-primary',
+          //   attr: { 
+          //     'data-bs-toggle': 'modal',
+          //     'data-bs-target': '#modals-slide-in'
+          //   },
+          //   init: function (api, node, config) {
+          //     $(node).removeClass('btn-secondary');
+          //   }
+          // }
         ],
         // For responsive popup
         responsive: {
@@ -222,7 +202,7 @@ $(function () {
             display: $.fn.dataTable.Responsive.display.modal({
               header: function (row) {
                 var data = row.data();
-                return 'Details of ' + data['full_name'];
+                return 'Details of ' + data['category_name'];
               }
             }),
             type: 'column',
@@ -254,10 +234,11 @@ $(function () {
             previous: '&nbsp;',
             next: '&nbsp;'
           }
-        }
+        },
+         
       });
     }
-  
+
     newUserForm.on('submit', function (e) {
       if (!e.isDefaultPrevented()) {
             e.preventDefault()
@@ -278,9 +259,9 @@ $(function () {
               });
             });
           }
-            let formData = new FormData($('#form_idd')[0])
+            let formData = new FormData($('#addoffercategory')[0])
          $.ajax({
-                url: '/../offer-save', // JSON file to add data,
+                url: 'offer-category-save', // JSON file to add data,
                 type: 'POST',
                 dataType: 'json',
                 data: formData,
@@ -295,9 +276,7 @@ $(function () {
                           tapToDismiss: false,
                           rtl: isRtl
                         });
-
-                        window.location = "/offer-list";
-
+                        window.location = "/offer-category-list"; 
                     } else if (data.status === false) {
                       $( "#submit" ).prop( "disabled", false );
                       toastr['error'](''+data.message+'', {
@@ -317,104 +296,113 @@ $(function () {
                   });
                 }
             })
+            
         }
-    })
-    
-  // Form Validation
-  if (newUserForm.length) {
-    newUserForm.validate({
-      errorClass: 'error',
-      rules: {
-        'offer_category': {
-          required: true
+    })   ;
+  
+  
+
+      //Delete Vendor Record
+        // Confirm Color
+   $(document).on('click', '.delete-record', function () {
+    const value_id = $(this).data('id')
+      console.log(value_id);
+      Swal.fire({
+        title: 'Destroy Category?',
+        text: 'Are you sure you want to permanently remove this record?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-outline-danger ms-1'
         },
-        'image_path': {
-          required: true
-        },
-        'startdate': {
-          required: true
-        },'enddate': {
-          required: true
-        },
-        'starttime': {
-          required: true
-        },'endtime': {
-          required: true
-        },
-        'minimum': {
-          required: true
-        },'maximum': {
-          required: true
-        },'status': {
-          required: true
+        buttonsStyling: false
+      }).then(function (result) {
+        if (result.value) {
+
+          deleteRecord(value_id)
+          
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire({
+            title: 'Cancelled',
+            text: 'Your imaginary file is safe :',
+            icon: 'error',
+            customClass: {
+              confirmButton: 'btn btn-success'
+            }
+          });
         }
-      }
+      });
     });
 
+    function deleteRecord(value_id) { 
+      $.ajax({
+        url: '../offer-category-delete'+'/'+value_id, // JSON file to add data,
+        type: 'get',
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data.status === true) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Deleted!',
+                text: 'Your record has been deleted.',
+                customClass: {
+                  confirmButton: 'btn btn-success'
+                }
+                  
+              });
+              
+              location.reload(true);
+            } else if (data.status === false) {
+              
+               
+            }
+        },
+        error: function (data) {
+          
+         
+        }
+    })
   }
   
-     // Confirm Color
-     $(document).on('click', '.delete-record', function () {
-      const value_id = $(this).data('id')
-        console.log(value_id);
-        Swal.fire({
-          title: 'Destroy Offer?',
-          text: 'Are you sure you want to permanently remove this record?',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Yes, delete it!',
-          customClass: {
-            confirmButton: 'btn btn-primary',
-            cancelButton: 'btn btn-outline-danger ms-1'
-          },
-          buttonsStyling: false
-        }).then(function (result) {
-          if (result.value) {
-  
-            deleteRecord(value_id)
-            
-          } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire({
-              title: 'Cancelled',
-              text: 'Your imaginary file is safe :)',
-              icon: 'error',
-              customClass: {
-                confirmButton: 'btn btn-success'
-              }
-            });
-          }
-        });
+      newUserForm.on('submit', function (e) {
+        var isValid = newUserForm.valid();
+        e.preventDefault();
+        if (isValid) {
+          newUserSidebar.modal('hide');
+        } 
       });
   
-      function deleteRecord(value_id) {
-        $.ajax({
-          url: 'offer-delete'+'/'+value_id, // JSON file to add data,
-          type: 'get',
-          dataType: 'json',
-          contentType: false,
-          processData: false,
-          success: function (data) {
-              if (data.status === true) {
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Deleted!',
-                  text: 'Your record has been deleted.',
-                  customClass: {
-                    confirmButton: 'btn btn-success'
-                  }
-                    
-                });
-                
-                location.reload(true);
-              } else if (data.status === false) {
-                
-                 
-              }
-          },
-          error: function (data) {
-            
-          }
-      })
+    // Phone Number
+    if (dtContact.length) {
+      dtContact.each(function () {
+        new Cleave($(this), {
+          phone: true,
+          phoneRegionCode: 'US'
+        });
+      });
     }
-  });
-  
+      // Form Validation
+      if (newUserForm.length) {
+        newUserForm.validate({
+          errorClass: 'error',
+          rules: {
+            'user-fullname': {
+              required: true
+            },
+            'user-name': {
+              required: true
+            }, 
+            'user-email': {
+              required: true
+            }
+          }
+          }) ;
+        }
+      });
+       
+   
+    

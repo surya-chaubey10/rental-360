@@ -19,7 +19,45 @@ class CustomerController extends Controller
         $country = CountryMaster::select('id', 'name')->get();
         $customer_type = CustomerType::select('id', 'type_name')->get();
 
-        return view('contact.customer.list', compact('country', 'customer_type'));
+        $pageConfigs = ['pageHeader' => false];
+
+        $path = public_path() . '/data/customer-json';
+
+        if (!file_exists($path)) {
+            \File::makeDirectory($path, 0777, true, true);
+        }
+
+        if (file_exists($path . '/' . getUser()->organisation_id . '_customer-list.json')) {
+            \File::delete($path . '/' . getUser()->organisation_id . '_customer-list.json');
+        }
+
+        if (!file_exists($path . '/' . getUser()->organisation_id . '_customer-list.json')) {
+            $user = $this->jsonCustomerList();
+            $data = array('data' => $user);
+            \File::put($path . '/' . getUser()->organisation_id . '_customer-list.json', collect($data));
+        }
+
+        return view('contact.customer.list', ['pageConfigs' => $pageConfigs, 'country'=>$country,'customer_type'=>$customer_type]);
+
+    }
+
+    private function jsonCustomerList()
+    {
+      return Customer::select('customers.id','customers.uuid', 'ors.name as role', 'user.fullname','user.mobile as contact','user.email', 'user.mobile','customers.approval_status as status','cust_type.type_name as customer_type')
+            ->join('users as user', function ($join) {
+                $join->on('user.id', '=', 'customers.user_id');
+            })
+            ->leftjoin('organisation_roles as ors', function ($join) {
+                $join->on('ors.id', '=', 'user.role_id');
+            })
+            ->leftjoin('customer_types as cust_type', function ($join) {
+                $join->on('cust_type.id', '=', 'customers.customer_type');
+            })
+            ->withoutGlobalScope('organisation_id')
+            ->where('user.usertype', 2)
+            ->where('customers.organisation_id', getUser()->organisation_id)
+            ->get();
+         
     }
 
     public function json_list()
@@ -47,13 +85,14 @@ class CustomerController extends Controller
 
     public function store(Request $request)
     {
-
+      
         DB::beginTransaction();
         try {
             $user = new User;
             $user->fullname      = $request->fullname;
             $user->username      = $request->username;
             $user->email         = $request->email;
+            $user->usertype      = 2;
             $user->mobile        = $request->contact;
             $user->api_token = \Str::random(35);
             $user->password      = \Hash::make('123456');
@@ -99,7 +138,7 @@ class CustomerController extends Controller
     {
 
         if ($request->language != null) {
-            $language = implode(',', $request->contact_option);
+            $language = implode(',', $request->language);
         } else {
             $language = null;
         }

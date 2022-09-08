@@ -1,5 +1,4 @@
-@extends('layouts.main')
-@section('title', '')
+@extends('layouts.main') 
 
 @section('vendor-style')
   {{-- Page Css files --}}
@@ -8,46 +7,39 @@
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendors/css/animate/animate.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendors/css/extensions/toastr.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendors/css/extensions/sweetalert2.min.css') }}">
-
 @endsection
 
 @section('page-style')
   {{-- Page Css files --}}
   <link rel="stylesheet" href="{{ asset('css/base/plugins/forms/form-validation.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-toastr.css') }}">
-  <link rel="stylesheet" href="{{asset('css/base/plugins/extensions/ext-component-sweet-alerts.css')}}">
 @endsection
 
 @section('content')
-
-<section class="app-user-list">
-  <!-- list and filter start -->
-  <div class="card">
-    <div class="card-body border-bottom">
-      <h4 class="card-title"><b>Offer</b></h4>
-        <a href="{{route('add-list')}}" class="btn btn-xs btn-danger" style="float: right; margin-top: -45px;" >New Record</a>
-    </div>
-    <div class="card-datatable table-responsive pt-0">
-      <table class="offer-list-table table">
-        <thead class="table-light">
-          <tr>
-            <th></th>
-            <th>Offer Category</th>
-            <th>Vehicle</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-      </table>
+ 
+  <div class="row">
+    <div class="col-12">
+      <div class="card"> 
+        <table class="datatables-basic table">
+          <thead>
+            <tr>
+              <th></th> 
+              <th></th>
+              <th>customer</th>
+              <th>pickup address</th>
+              <th>drop-off address</th>
+              <th>pickup date&time</th>
+              <th>dropoff date&time</th> 
+              <th>Action</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
   </div>
-  <!-- list and filter end -->
-</section>
+    
+</div> 
+</div>
+
 @endsection
 
 @section('vendor-script')
@@ -67,17 +59,10 @@
   <script src="{{ asset('vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
   <script src="{{ asset('vendors/js/forms/cleave/cleave.min.js') }}"></script>
   <script src="{{ asset('vendors/js/forms/cleave/addons/cleave-phone.us.js') }}"></script>
-  <script src="{{ asset('vendors/js/extensions/toastr.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
-  <script src="{{ asset('vendors/js/extensions/polyfill.min.js') }}"></script>
-  
 @endsection
 
 @section('page-script')
   {{-- Page js files --}}
- <script src="{{ asset('js/scripts/pages/app-offer-list.js') }}"></script> 
- <script src="{{ asset('js/scripts/extensions/ext-component-toastr.js') }}"></script>
- <script src="{{ asset('js/scripts/extensions/ext-component-blockui.js') }}"></script>
- <script src="{{ asset('js/scripts/extensions/ext-component-sweet-alerts.js') }}"></script>
- 
+  <script src="{{ asset('js/scripts/tables/table-datatables-basic-copy.js') }}"></script>
+   
 @endsection

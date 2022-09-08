@@ -16,7 +16,7 @@ var events = [
     id: 1,
     url: '',
     title: 'Design Review1',
-    start: 'Tue Sep 06 2022 15:23:13 GMT+0530 (India Standard Time)',
+    start: date,
     end: nextDay,
     allDay: false,
     extendedProps: {

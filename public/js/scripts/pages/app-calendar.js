@@ -218,16 +218,22 @@ document.addEventListener('DOMContentLoaded', function () {
     
       $.ajax(
       {
-        url: 'get-calender',
+        url: assetPath + "data/fullcalendar/json/events.json",
         type: 'GET',
         success: function (result) {
-          
+          arr = [];
+            result.forEach(myFunction11);
+           function myFunction11(value) {
+            arr.push(value.start)
+            }
+            console.log(arr)
           var calendars = selectedCalendars();
-           console.log(result);
           selectedEvents = events.filter(function (event) {
+            
             return calendars.includes(event.extendedProps.calendar.toLowerCase());
           }); 
       
+          
           // if (selectedEvents.length > 0) {
           successCallback(selectedEvents);
           // }

@@ -13,21 +13,23 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('inventories', function (Blueprint $table) {
+        Schema::create('offer_packages', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->string('brand_name');
-            $table->string('model_name');
-            $table->string('inventory_type')->nullable();
-            $table->string('img');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('organisation_id')->default(1);
+            $table->string('package_name');
+            $table->string('package_price');
+            $table->string('days_limit');
+            $table->string('term_condition');
+            $table->string('offer_image');
+            $table->unsignedBigInteger('zero_deposit')->nullable();
+            $table->string('discount_precentage');
             $table->enum('status', ['1', '2'])->default('1')->comment('1:enable, 2:disable');
             $table->foreign('organisation_id')->references('id')->on('organisations');
-           
-            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+            
         });
     }
 
@@ -38,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventories');
+        Schema::dropIfExists('offer_packages');
     }
 };

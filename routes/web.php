@@ -15,6 +15,10 @@ use App\Http\Controllers\FrontControllers\BookingCalenderController;
 use App\Http\Controllers\FrontControllers\OfferCategoryController;
 use App\Http\Controllers\FrontControllers\OfferPartnersController;
 use App\Http\Controllers\FrontControllers\ManageBookingsController;
+use App\Http\Controllers\FrontControllers\VehicleBrandController;
+use App\Http\Controllers\FrontControllers\VehicleTypeController;
+
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -85,7 +89,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/app/customer/view/account', 'view')->name('app/customer/view/account'); 
     });
 
-        Route::controller(InventoryController::class)->group(function () {
+    Route::controller(BookingCalenderController::class)->group(function () {
+        Route::get('/booking-calender', 'index')->name('booking-calender'); 
+        Route::get('/get-calender', 'get_calender')->name('get-calender'); 
+        
+    });
+    
+     Route::controller(InventoryController::class)->group(function () {
             Route::get('/inventory-list', 'index')->name('inventory-list');
             Route::get('data/inventory-list-json', 'json_list')->name('data/inventory-list-json');
             Route::post('/inventory-save', 'store')->name('inventory-save');
@@ -105,5 +115,54 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/offer-edit/{uuid}',  'edit')->name('offer-edit'); 
             Route::get('/offer-copy/{uuid}',  'copy')->name('offer-copy'); 
         });
-    
-});
+
+
+    Route::controller(OfferCategoryController::class)->group(function () {
+        Route::get('/offer-category-list','index')->name('offer-category-list');   
+        Route::get('data/offer-category-json','json_list')->name('data/offer-category-json');
+        Route::get('/offer-category','create')->name('offer-category');
+        Route::post('/offer-category-save','store')->name('offer-category-save'); 
+        Route::get('/update-offer-category/{uuid}','edit')->name('update-offer-category');
+        Route::get('/offer-category-delete/{uuid}','destroy')->name('offer-category-delete');  
+        Route::post('/offer-category-update','update')->name('offer-category-update'); 
+        
+    });
+    Route::controller(OfferPartnersController::class)->group(function () {
+        Route::get('/offer-partner-list','index')->name('offer-partner-list'); 
+        Route::get('/offer-partner','create')->name('offer-partner');
+        Route::post('/offer-partner-save','store')->name('offer-partner-save');  
+        Route::get('/update-offer-partner/{uuid}','edit')->name('update-offer-partner');
+        Route::get('/offer-partner-delete/{uuid}','destroy')->name('offer-partner-delete');  
+        Route::post('/offer-partner-update','update')->name('offer-partner-update'); 
+        
+    });
+
+    Route::controller(ManageBookingsController::class)->group(function () {
+        Route::get('/manage-booking-list','index')->name('manage-booking-list');  
+        Route::get('/manage-booking','create')->name('manage-booking');  
+        
+    });
+
+    Route::controller(VehicleBrandController::class)->group(function () {
+        Route::get('/vehicle-brand-list','index')->name('vehicle-brand-list');  
+        Route::get('/add-vehicle-brand','create')->name('add-vehicle-brand');   
+        Route::post('/store-vehicle-brand','store')->name('store-vehicle-brand');   
+        Route::get('/data/vehicle_brand.json', 'ajax_list_data')->name('data.vehicle_brand.json');   
+        Route::get('/edit-vehicle-brand/{uuid}','edit')->name('edit-vehicle-brand');   
+        Route::get('/vehicle-brand-delete/{uuid}','destroy')->name('vehicle-brand-delete');  
+        Route::post('/vehicle-brand-update','update')->name('vehicle-brand-update'); 
+        
+    });
+
+    Route::controller(VehicleTypeController::class)->group(function () {
+        Route::get('/vehicle-type-list','index')->name('vehicle-type-list');  
+        Route::get('/add-vehicle-type','create')->name('add-vehicle-type');   
+        Route::post('/store-vehicle-type','store')->name('store-vehicle-type');   
+        Route::get('/data/vehicle_type.json', 'ajax_list_data')->name('data.vehicle_type.json');   
+        Route::get('/edit-vehicle-type/{uuid}','edit')->name('edit-vehicle-type');   
+        Route::get('/vehicle-type-delete/{uuid}','destroy')->name('vehicle-type-delete');  
+        Route::post('/vehicle-type-update','update')->name('vehicle-type-update'); 
+        
+    });
+ 
+}); 

@@ -150,7 +150,7 @@
                                   <div class="row">
                                     <div class="col-md-4 col-12">
                                       <div class="mb-1">
-                                        <label class="form-label" for="add_field_name-column">No. of Travellers (Including Children)</label>
+                                        <label class="form-label" for="add_field_name-column">Add User Define Field</label>
                                         <input
                                           type="text"
                                           id="add_field_name-column"

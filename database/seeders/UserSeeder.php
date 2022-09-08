@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
         $superAdminUser->usertype               = 0;
         $superAdminUser->fullname               = 'Super Admin';
         $superAdminUser->email                  = 'superadmin@admin.com';
+        $superAdminUser->username               = 'SuperAdmin';
         $superAdminUser->email_verified_at      = date('Y-m-d H:i:s');
         $superAdminUser->password               = \Hash::make('123456');
         $superAdminUser->country_id             = 1;
@@ -36,6 +37,7 @@ class UserSeeder extends Seeder
         $orgAdminUser->usertype           = 1;
         $orgAdminUser->organisation_id    = 1;
         $orgAdminUser->fullname           = 'Demo';
+        $orgAdminUser->username           = 'Admin';
         $orgAdminUser->email              = 'demo@gmail.com';
         $orgAdminUser->email_verified_at  = date('Y-m-d H:i:s');
         $orgAdminUser->password           = \Hash::make('123456');

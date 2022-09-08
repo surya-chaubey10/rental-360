@@ -14,6 +14,10 @@ use App\Http\Controllers\FrontControllers\BookingCalenderController;
 use App\Http\Controllers\FrontControllers\OfferCategoryController;
 use App\Http\Controllers\FrontControllers\OfferPartnersController;
 use App\Http\Controllers\FrontControllers\ManageBookingsController;
+use App\Http\Controllers\FrontControllers\VehicleBrandController;
+use App\Http\Controllers\FrontControllers\VehicleTypeController;
+
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -125,5 +129,27 @@ Route::group(['middleware' => ['auth']], function () {
         
     });
 
-    Route::get('/manage-booking-list', [ManageBookingsController::class, 'index'])->name('manage-booking-list');
-});
+    Route::controller(VehicleBrandController::class)->group(function () {
+        Route::get('/vehicle-brand-list','index')->name('vehicle-brand-list');  
+        Route::get('/add-vehicle-brand','create')->name('add-vehicle-brand');   
+        Route::post('/store-vehicle-brand','store')->name('store-vehicle-brand');   
+        Route::get('/data/vehicle_brand.json', 'ajax_list_data')->name('data.vehicle_brand.json');   
+        Route::get('/edit-vehicle-brand/{uuid}','edit')->name('edit-vehicle-brand');   
+        Route::get('/vehicle-brand-delete/{uuid}','destroy')->name('vehicle-brand-delete');  
+        Route::post('/vehicle-brand-update','update')->name('vehicle-brand-update'); 
+        
+    });
+
+    Route::controller(VehicleTypeController::class)->group(function () {
+        Route::get('/vehicle-type-list','index')->name('vehicle-type-list');  
+        Route::get('/add-vehicle-type','create')->name('add-vehicle-type');   
+        Route::post('/store-vehicle-type','store')->name('store-vehicle-type');   
+        Route::get('/data/vehicle_type.json', 'ajax_list_data')->name('data.vehicle_type.json');   
+        Route::get('/edit-vehicle-type/{uuid}','edit')->name('edit-vehicle-type');   
+        Route::get('/vehicle-type-delete/{uuid}','destroy')->name('vehicle-type-delete');  
+        Route::post('/vehicle-type-update','update')->name('vehicle-type-update'); 
+        
+    });
+ 
+}); 
+  

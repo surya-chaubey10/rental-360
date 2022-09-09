@@ -44,7 +44,7 @@ $(function () {
     // Users List datatable
     if (dtUserTable.length) {
         dtUserTable.DataTable({
-            ajax: assetPath + "data/partner-json/" /* + org_id + "_user-list.json" */, // JSON file to add data
+            ajax: assetPath + 'data/user-json/'  + org_id + "_user-list.json", // JSON file to add data
             columns: [
                 // columns according to JSON
                 { data: "" },

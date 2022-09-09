@@ -16,7 +16,10 @@ class CustomerController extends Controller
 {
     public function index()
     {
-     
+        if (checkPermission('customer-list')) {
+            return redirect(route('dashboard'))->withErrors(['msg' => 'You do not have required authorization.']);
+        }
+
         $country = CountryMaster::select('id', 'name')->get();
         $customer_type = CustomerType::select('id', 'type_name')->get();
 
@@ -38,27 +41,25 @@ class CustomerController extends Controller
             \File::put($path . '/' . getUser()->organisation_id . '_customer-list.json', collect($data));
         }
 
-        return view('contact.customer.list', ['pageConfigs' => $pageConfigs, 'country'=>$country,'customer_type'=>$customer_type]);
-
+        return view('contact.customer.list', ['pageConfigs' => $pageConfigs, 'country' => $country, 'customer_type' => $customer_type]);
     }
 
     private function jsonCustomerList()
     {
-      return Customer::select('customers.id','customers.uuid', 'ors.name as role', 'user.fullname','user.mobile as contact','user.email', 'user.mobile','customers.approval_status as status','cust_type.type_name as customer_type')
+        return Customer::select('customers.id', 'customers.uuid', 'roles.name as role', 'user.fullname', 'user.mobile as contact', 'user.email', 'user.mobile', 'customers.approval_status as status', 'cust_type.type_name as customer_type')
             ->join('users as user', function ($join) {
                 $join->on('user.id', '=', 'customers.user_id');
             })
-            ->leftjoin('organisation_roles as ors', function ($join) {
-                $join->on('ors.id', '=', 'user.role_id');
+            ->leftjoin('default_roles as roles', function ($join) {
+                $join->on('roles.id', '=', 'user.role_id');
             })
             ->leftjoin('customer_types as cust_type', function ($join) {
                 $join->on('cust_type.id', '=', 'customers.customer_type');
             })
             ->withoutGlobalScope('organisation_id')
-            ->where('user.usertype', 2)
             ->where('customers.organisation_id', getUser()->organisation_id)
+            ->where('user.usertype', 2)
             ->get();
-         
     }
 
     public function json_list()
@@ -67,7 +68,6 @@ class CustomerController extends Controller
 
         $details = new Collection();
         foreach ($customer as $key => $date) {
-
 
             $details->push([
                 "id"             => $date->id,
@@ -83,10 +83,9 @@ class CustomerController extends Controller
         return array('data' => $details);
     }
 
-
     public function store(Request $request)
     {
-      
+
         DB::beginTransaction();
         try {
             $user = new User;
@@ -112,26 +111,23 @@ class CustomerController extends Controller
             DB::rollback();
             $message = $e->getMessage();
             return ajax_response(false, [], [], $message, $this->internal_server_error);
+        } catch (\Throwable $e) {
+            DB::rollback();
+            $message = $e->getMessage();
+            return ajax_response(false, [], [], $message, $this->internal_server_error);
         }
-        // User
-        // $user = new User;
-
-        $customer = new Customer;
-        $customer->fullname      = $request->fullname;
-        $customer->username      = $request->username;
-        $customer->email         = $request->email;
-        $customer->contact       = $request->contact;
-        $customer->company       = $request->company;
-        $customer->customer_type = $request->customer_type;
-        $customer->country       = $request->country;
-        $customer->save();
     }
 
-    public function customerEdit($uuid)
+    public function edit($uuid)
     {
-        $customers = Customer::with('customer_typee', 'user.country')->where('customers.uuid', $uuid)->first();
+        $customers = Customer::with('customer_typee', 'user.country')
+            ->where('customers.uuid', $uuid)
+            ->first();
+
         $country = Country::select('id', 'name')->get();
+
         $customer_type = CustomerType::select('id', 'type_name')->get();
+
         return view('contact.customer.edit', compact('country', 'customer_type', 'customers'));
     }
 
@@ -189,34 +185,30 @@ class CustomerController extends Controller
         } catch (\Exception $exception) {
             \DB::rollback();
             $message = $exception->getMessage();
-
             return ajax_response(false, $message, [],  "Customer Update Unsuccessfully", $this->internal_server_error);
         } catch (\Throwable $exception) {
             \DB::rollback();
             $message = $exception->getMessage();
-
             return ajax_response(false, $message, [],  "Customer Update Unsuccessfully", $this->internal_server_error);
         }
     }
 
-
-
-    public function view($uuid)
+    public function show($uuid)
     {
         $customer = Customer::with('customer_typee', 'user.country')->where('customers.uuid', $uuid)->first();
+
         return view('contact.customer.app-user-view-account', compact('customer'));
     }
 
-    public function delete($uuid)
+    public function destroy($uuid)
     {
         $customer = Customer::where('uuid', $uuid)->first();
 
-        $user = $customer->user;
+        if (is_object($customer)) {
 
-        if (is_object($user)) {
-            $user->delete();
-            $customer->delete();
+            $customer->user->delete();
         }
+
         return ajax_response(true, [], [], "Customer Deleted Successfully", $this->success);
     }
 }

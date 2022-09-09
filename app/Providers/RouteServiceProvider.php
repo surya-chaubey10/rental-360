@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
             }
 
             if ($this->app->scope === 'admin') {
-                Route::middleware('admin_user')
+                Route::middleware('web')
                     ->group(base_path('routes/admin.php'));
             }
         });

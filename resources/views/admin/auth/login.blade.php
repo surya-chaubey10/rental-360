@@ -43,15 +43,14 @@
                                 </g>
                             </g>
                         </svg>
-                        <h2 class="brand-text text-primary ms-1">MyRide</h2>
+                        <h2 class="brand-text text-primary ms-1">Rent - 365</h2>
                     </a>
 
-                    <h4 class="card-title mb-1">Welcome to MyRide! 👋</h4>
+                    <h4 class="card-title mb-1">Welcome to Rent - 365! 👋</h4>
                     <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
 
-                    <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
+                    <form class="auth-login-form mt-2" method="POST" action="{{ route('admin.login') }}">
                         @csrf
-
                         <div class="mb-1">
                             <label for="login-email" class="form-label">Email</label>
                             <input id="email" type="email" placeholder="john@example.com"
@@ -61,11 +60,11 @@
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
                         </div>
-                        
+
                         <div class="mb-1">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="login-password">Password</label>
-                                <a href="{{ route('forgot.view') }}">
+                                <a href="{{ route('admin.forgot.view') }}">
                                     <small>Forgot Password?</small>
                                 </a>
                             </div>
@@ -82,19 +81,12 @@
                         </div>
                         <div class="mb-1">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="remember-me" tabindex="3" />
-                                <label class="form-check-label" for="remember-me"> Remember Me </label>
+                                <input class="form-check-input" type="checkbox" id="keep_active" tabindex="3" />
+                                <label class="form-check-label" for="keep_active"> Remember Me </label>
                             </div>
                         </div>
                         <button class="btn btn-primary w-100" tabindex="4">Sign in</button>
                     </form>
-
-                    <!-- <p class="text-center mt-2">
-                                    <span>New on our platform?</span>
-                                    <a href="{{ url('auth/register-basic') }}">
-                                        <span>Create an account</span>
-                                    </a>
-                                </p> -->
                 </div>
             </div>
             <!-- /Login basic -->

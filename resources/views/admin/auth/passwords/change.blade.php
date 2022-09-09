@@ -11,7 +11,7 @@
                 <div class="col-md-5 order-md-0 order-1">
                     <div class="card-body">
                         <!-- form -->
-                        <form id="createApiForm" method="post" action="{{ route('change.password.update') }}" class="myForm">
+                        <form id="createApiForm" method="post" action="{{ route('super.change.password.update') }}" class="myForm">
                             @csrf
                             <div class="mb-2">
                                 <label for="password" class="form-label">New Password</label>

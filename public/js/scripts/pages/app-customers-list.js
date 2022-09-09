@@ -448,6 +448,7 @@ if (newUserForm.length) {
       'email': {
         required: true
       }
+      
     }
   });
 

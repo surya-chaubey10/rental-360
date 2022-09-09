@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return es;
       }
     });
-  }
+  } 
 
   // Guests select
   if (eventGuests.length) {
@@ -207,6 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
     $('.calendar-events-filter input:checked').each(function () {
       selected.push($(this).attr('data-value'));
     });
+    
     return selected;
   }
 
@@ -221,20 +222,33 @@ document.addEventListener('DOMContentLoaded', function () {
         url: assetPath + "data/fullcalendar/json/events.json",
         type: 'GET',
         success: function (result) {
-          arr = [];
-            result.forEach(myFunction11);
-           function myFunction11(value) {
-            arr.push(value.start)
-            }
-            console.log(arr)
-          var calendars = selectedCalendars();
-          selectedEvents = events.filter(function (event) {
+
+          dettails = [];
+          result.forEach(myFunction);
+         function myFunction(value) {
+
+            var start_date = new Date(value.start)
+            var next_date = new Date(value.end)
+
+            dettails.push({  id: value.id,
+                      url: value.url,
+                      title: value.title,
+                      start: start_date,
+                      end: next_date,
+                      allDay: false,
+                      extendedProps: {
+                        calendar: value.extendedProps.calendar,
+                      }
+                      })
+          }
+
+           var calendars = selectedCalendars();
+           selectedEvents = dettails.filter(function (event) {
             
             return calendars.includes(event.extendedProps.calendar.toLowerCase());
           }); 
-      
-          
-          // if (selectedEvents.length > 0) {
+
+         // if (selectedEvents.length > 0) {
           successCallback(selectedEvents);
           // }
 
@@ -471,7 +485,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Select all & filter functionality
-  if (selectAll.length) {
+/*   if (selectAll.length) {
     selectAll.on('change', function () {
       var $this = $(this);
 
@@ -491,5 +505,5 @@ document.addEventListener('DOMContentLoaded', function () {
         : selectAll.prop('checked', true);
       calendar.refetchEvents();
     });
-  }
+  } */
 });

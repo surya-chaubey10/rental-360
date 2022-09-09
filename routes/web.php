@@ -65,7 +65,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Route::resource('roles', RoleController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('org.dashboard');
-    Route::resource('users', UserController::class);
+    // Route::resource('users', UserController::class);
+
     Route::controller(AuthController::class)->group(function () {
         Route::post('/logout', 'logout')->name('logout');
         Route::get('/password-change', 'showChangePasswordForm')->name('change.password.show');
@@ -110,9 +111,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/inventory_edit/{uuid}',  'edit')->name('inventory_edit');
         Route::post('/inventory_update',  'update')->name('inventory_update');
     });
+
     Route::controller(OfferPackagesController::class)->group(function () {
         Route::get('/offerpackages-list', 'index')->name('offerpackages-list');
     });
+
     Route::controller(OfferController::class)->group(function () {
         Route::get('/offer-list', 'index')->name('offer-list');
         Route::get('/add-list', 'add')->name('add-list');
@@ -123,7 +126,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/offer-copy/{uuid}',  'copy')->name('offer-copy');
     });
 
-
     Route::controller(OfferCategoryController::class)->group(function () {
         Route::get('/offer-category-list', 'index')->name('offer-category-list');
         Route::get('data/offer-category-json', 'json_list')->name('data/offer-category-json');
@@ -133,6 +135,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/offer-category-delete/{uuid}', 'destroy')->name('offer-category-delete');
         Route::post('/offer-category-update', 'update')->name('offer-category-update');
     });
+
     Route::controller(OfferPartnersController::class)->group(function () {
         Route::get('/offer-partner-list', 'index')->name('offer-partner-list');
         Route::get('/offer-partner', 'create')->name('offer-partner');

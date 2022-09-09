@@ -52,15 +52,15 @@ Route::controller(InventoryController::class)->group(function () {
     Route::get('data/inventory-list-json', 'json_list')->name('data/inventory-list-json');
     Route::post('/inventory-save', 'store')->name('inventory-save');
     Route::get('/inventory_delete/{uuid}', 'delete')->name('inventory_delete');
-    Route::get('/inventory_edit/{uuid}',  'edit')->name('inventory_edit'); 
-    Route::post('/inventory_update',  'update')->name('inventory_update');  
+    Route::get('/inventory_edit/{uuid}',  'edit')->name('inventory_edit');
+    Route::post('/inventory_update',  'update')->name('inventory_update');
 });
 
 Route::group(['middleware' => ['auth']], function () {
 
     // Route::resource('roles', RoleController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('org.dashboard');
-    Route::resource('users', UserController::class);  
+    Route::resource('users', UserController::class);
     Route::controller(AuthController::class)->group(function () {
         Route::post('/logout', 'logout')->name('logout');
         Route::get('/password-change', 'showChangePasswordForm')->name('change.password.show');
@@ -74,55 +74,51 @@ Route::group(['middleware' => ['auth']], function () {
     Route::controller(CustomerController::class)->group(function () {
         Route::get('/customer-list', 'index')->name('ustomer-list');
         Route::get('data/customer-list-json', 'json_list')->name('data/customer-list.json');
-        Route::get('customer-view/{id}', 'view')->name('customer-view');
-        Route::get('customer-delete/{id}', 'delete')->name('customer-delete');
+        Route::get('customer-view/{id}', 'show')->name('customer-view');
+        Route::get('customer-delete/{id}', 'destroy')->name('customer-delete');
         Route::post('/customer-save', 'store')->name('customer-save');
-        Route::get('/customer-edit/{id}',  'customerEdit')->name('customer-edit');  
-        Route::post('/customer-update',  'update')->name('customer-update');  
+        Route::get('/customer-edit/{id}',  'edit')->name('customer-edit');
+        Route::post('/customer-update',  'update')->name('customer-update');
     });
 
     Route::controller(VendorController::class)->group(function () {
-        Route::get('/vendor-list', 'vendorList')->name('contact.vendor-list'); 
-        Route::get('/data/vendor-list-data.json', 'ajax_list_data')->name('data.vendor-list-data.json');  
-        Route::post('/vendor-save', 'store')->name('vendor-save'); 
-        Route::get('/vendor-edit/{uuid}', 'vendorEdit')->name('vendor-edit');   
-        Route::post('/vendor-update', 'update')->name('vendor-update');  
-        Route::get('/vendor-delete/{uuid}', 'destroy')->name('vendor-delete');  
-        Route::get('/vendor-view/{uuid}', 'view')->name('vendor-view');   
-        Route::get('/app/customer/view/account', 'view')->name('app/customer/view/account'); 
+        Route::get('/vendor-list', 'vendorList')->name('contact.vendor-list');
+        Route::get('/data/vendor-list-data.json', 'ajax_list_data')->name('data.vendor-list-data.json');
+        Route::post('/vendor-save', 'store')->name('vendor-save');
+        Route::get('/vendor-edit/{uuid}', 'vendorEdit')->name('vendor-edit');
+        Route::post('/vendor-update', 'update')->name('vendor-update');
+        Route::get('/vendor-delete/{uuid}', 'destroy')->name('vendor-delete');
+        Route::get('/vendor-view/{uuid}', 'view')->name('vendor-view');
+        Route::get('/app/customer/view/account', 'view')->name('app/customer/view/account');
     });
 
     Route::controller(BookingCalenderController::class)->group(function () {
-        Route::get('/booking-calender', 'index')->name('booking-calender'); 
-        Route::get('/get-calender', 'get_calender')->name('get-calender'); 
-        
+        Route::get('/booking-calender', 'index')->name('booking-calender');
+        Route::get('/get-calender', 'get_calender')->name('get-calender');
     });
 
 
     Route::controller(OfferCategoryController::class)->group(function () {
-        Route::get('/offer-category-list','index')->name('offer-category-list');   
-        Route::get('data/offer-category-json','json_list')->name('data/offer-category-json');
-        Route::get('/offer-category','create')->name('offer-category');
-        Route::post('/offer-category-save','store')->name('offer-category-save'); 
-        Route::get('/update-offer-category/{uuid}','edit')->name('update-offer-category');
-        Route::get('/offer-category-delete/{uuid}','destroy')->name('offer-category-delete');  
-        Route::post('/offer-category-update','update')->name('offer-category-update'); 
-        
+        Route::get('/offer-category-list', 'index')->name('offer-category-list');
+        Route::get('data/offer-category-json', 'json_list')->name('data/offer-category-json');
+        Route::get('/offer-category', 'create')->name('offer-category');
+        Route::post('/offer-category-save', 'store')->name('offer-category-save');
+        Route::get('/update-offer-category/{uuid}', 'edit')->name('update-offer-category');
+        Route::get('/offer-category-delete/{uuid}', 'destroy')->name('offer-category-delete');
+        Route::post('/offer-category-update', 'update')->name('offer-category-update');
     });
     Route::controller(OfferPartnersController::class)->group(function () {
-        Route::get('/offer-partner-list','index')->name('offer-partner-list'); 
-        Route::get('/offer-partner','create')->name('offer-partner');
-        Route::post('/offer-partner-save','store')->name('offer-partner-save');  
-        Route::get('/update-offer-partner/{uuid}','edit')->name('update-offer-partner');
-        Route::get('/offer-partner-delete/{uuid}','destroy')->name('offer-partner-delete');  
-        Route::post('/offer-partner-update','update')->name('offer-partner-update'); 
-        
+        Route::get('/offer-partner-list', 'index')->name('offer-partner-list');
+        Route::get('/offer-partner', 'create')->name('offer-partner');
+        Route::post('/offer-partner-save', 'store')->name('offer-partner-save');
+        Route::get('/update-offer-partner/{uuid}', 'edit')->name('update-offer-partner');
+        Route::get('/offer-partner-delete/{uuid}', 'destroy')->name('offer-partner-delete');
+        Route::post('/offer-partner-update', 'update')->name('offer-partner-update');
     });
 
     Route::controller(ManageBookingsController::class)->group(function () {
-        Route::get('/manage-booking-list','index')->name('manage-booking-list');  
-        Route::get('/manage-booking','create')->name('manage-booking');  
-        
+        Route::get('/manage-booking-list', 'index')->name('manage-booking-list');
+        Route::get('/manage-booking', 'create')->name('manage-booking');
     });
 
     Route::get('/manage-booking-list', [ManageBookingsController::class, 'index'])->name('manage-booking-list');

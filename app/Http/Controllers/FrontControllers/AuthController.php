@@ -15,7 +15,6 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-
     use RedirectsUsers, ThrottlesLogins;
 
     /**

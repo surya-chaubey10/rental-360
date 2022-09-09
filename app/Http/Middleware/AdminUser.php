@@ -11,11 +11,9 @@ class AdminUser extends Middleware
   public function handle($request, Closure $next, ...$guards)
   {
     if (!Auth::guard('admin_user')->user()) {
-
       $admin_route = 'storeadmin';
 
       if (!request()->ajax()) {
-
         return redirect($admin_route . '/login');
       }
 

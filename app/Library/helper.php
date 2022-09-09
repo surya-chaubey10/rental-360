@@ -74,3 +74,12 @@ function getUser()
     }
     // return auth('api')->user() ?? ;
 }
+
+
+function checkPermission($permissionName)
+{
+    if (!auth('web')->user()->can($permissionName)) {
+        return false;
+    }
+    return true;
+}

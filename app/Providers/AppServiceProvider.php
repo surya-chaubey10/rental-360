@@ -35,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->setAppTimezone();
 
+        $this->setSegments();
+
         $this->setApplicationScope();
 
         $this->setViewsPath();
@@ -45,14 +47,19 @@ class AppServiceProvider extends ServiceProvider
         $this->app->timezone = request()->header('timezone') ?? 'America/Edmonton';
     }
 
+    protected function setSegments()
+    {
+        $this->segments = request()->segments();
+    }
+
     protected function setApplicationScope()
     {
         if (!isset($this->segments[0])) {
             $this->setAppScope('front');
             return;
         }
-
-        if ($this->segments[0] === config('app.superAdmin')) {
+        
+        if ($this->segments[0] === config('app.super_admin')) {
             $this->setAppScope('admin');
         } else {
             $this->setAppScope('front');

@@ -13,19 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('inventories', function (Blueprint $table) {
+        Schema::create('vehicle_types', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->string('brand_name');
-            $table->string('model_name');
-            $table->string('inventory_type')->nullable();
-            $table->string('img');
-            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('organisation_id')->default(1);
-            $table->enum('status', ['1', '2'])->default('1')->comment('1:enable, 2:disable');
-            $table->foreign('organisation_id')->references('id')->on('organisations');
-           
-            $table->rememberToken();
+            $table->string('type_name')->nullable(); 
+            $table->unsignedBigInteger('service_type')->nullable(); 
+            $table->string('type_image')->nullable();   
+            $table->boolean('status')->default(1);  
+            $table->string('description')->nullable(); 
+
+            $table->unsignedBigInteger('created_user')->nullable();
+            $table->unsignedBigInteger('updated_user')->nullable(); 
             $table->timestamps();
             $table->softDeletes();
         });
@@ -38,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventories');
+        Schema::dropIfExists('vehicle_types');
     }
 };

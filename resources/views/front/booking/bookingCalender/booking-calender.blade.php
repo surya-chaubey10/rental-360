@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Manage Customer')
+@section('title', 'Booking Calendar ')
 
 
 @section('vendor-style')
@@ -21,78 +21,7 @@
 <section>
   <div class="app-calendar overflow-hidden border">
     <div class="row g-0">
-      <!-- Sidebar -->
-      <div class="col app-calendar-sidebar flex-grow-0 overflow-hidden d-flex flex-column" id="app-calendar-sidebar">
-        <div class="sidebar-wrapper">
-          <div class="card-body d-flex justify-content-center">
-            <button
-              class="btn btn-primary btn-toggle-sidebar w-100"
-              data-bs-toggle="modal"
-              data-bs-target="#add-new-sidebar"
-            >
-              <span class="align-middle">Add Event</span>
-            </button>
-          </div>
-          <div class="card-body pb-0">
-            <h5 class="section-label mb-1">
-              <span class="align-middle">Filter</span>
-            </h5>
-            <div class="form-check mb-1">
-              <input type="checkbox" class="form-check-input select-all" id="select-all" checked />
-              <label class="form-check-label" for="select-all">View All</label>
-            </div>
-            <div class="calendar-events-filter">
-              <div class="form-check form-check-danger mb-1">
-                <input
-                  type="checkbox"
-                  class="form-check-input input-filter"
-                  id="personal"
-                  data-value="personal"
-                  checked
-                />
-                <label class="form-check-label" for="personal">Personal</label>
-              </div>
-              <div class="form-check form-check-primary mb-1">
-                <input
-                  type="checkbox"
-                  class="form-check-input input-filter"
-                  id="business"
-                  data-value="business"
-                  checked
-                />
-                <label class="form-check-label" for="business">Business</label>
-              </div>
-              <div class="form-check form-check-warning mb-1">
-                <input type="checkbox" class="form-check-input input-filter" id="family" data-value="family" checked />
-                <label class="form-check-label" for="family">Family</label>
-              </div>
-              <div class="form-check form-check-success mb-1">
-                <input
-                  type="checkbox"
-                  class="form-check-input input-filter"
-                  id="holiday"
-                  data-value="holiday"
-                  checked
-                />
-                <label class="form-check-label" for="holiday">Holiday</label>
-              </div>
-              <div class="form-check form-check-info">
-                <input type="checkbox" class="form-check-input input-filter" id="etc" data-value="etc" checked />
-                <label class="form-check-label" for="etc">ETC</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="mt-auto">
-          <img
-            src="{{asset('images/pages/calendar-illustration.png')}}"
-            alt="Calendar illustration"
-            class="img-fluid"
-          />
-        </div>
-      </div>
-      <!-- /Sidebar -->
-
+    
       <!-- Calendar -->
       <div class="col position-relative">
         <div class="card shadow-none border-0 mb-0 rounded-0">

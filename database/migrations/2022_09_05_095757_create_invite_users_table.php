@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('organisation_id');
+            $table->unsignedBigInteger('organisation_id')->default(1);
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('invited_user_id');
             $table->string('company')->nullable();;

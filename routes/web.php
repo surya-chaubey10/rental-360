@@ -17,6 +17,7 @@ use App\Http\Controllers\FrontControllers\OfferPartnersController;
 use App\Http\Controllers\FrontControllers\ManageBookingsController;
 use App\Http\Controllers\FrontControllers\VehicleBrandController;
 use App\Http\Controllers\FrontControllers\VehicleTypeController;
+use App\Http\Controllers\FrontControllers\VehicleController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -169,4 +170,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/vehicle-type-delete/{uuid}', 'destroy')->name('vehicle-type-delete');
         Route::post('/vehicle-type-update', 'update')->name('vehicle-type-update');
     });
+
+    Route::controller(VehicleController::class)->group(function () {
+     
+        Route::get('/vehicle-create', 'create')->name('vehicle-create');
+        Route::get('/get_vehicle_autoseggestion', 'vehicleNameSeggestion')->name('get-vehicle_name-seggestion');
+      
+    });
+    
 });

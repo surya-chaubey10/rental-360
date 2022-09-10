@@ -204,9 +204,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // Selected Checkboxes
   function selectedCalendars() {
     var selected = [];
-    $('.calendar-events-filter input:checked').each(function () {
-      selected.push($(this).attr('data-value'));
-    });
+      events.filter(function (event) {
+            
+         selected.push(event.extendedProps.calendar.toLowerCase());
+    }); 
+
     
     return selected;
   }

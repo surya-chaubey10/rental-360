@@ -50,7 +50,8 @@
                     <h4 class="card-title mb-1">Forgot Password? 🔒</h4>
                     <p class="card-text mb-2">Enter your email and we'll send you instructions to reset your password</p>
 
-                    <form class="auth-forgot-password-form mt-2 myForm" action="{{ route('password.forget') }}" method="post">
+                    <form class="auth-forgot-password-form mt-2 myForm" action="{{ route('admin.password.forget') }}"
+                        method="post">
                         @csrf
                         <div class="mb-1">
                             <label for="email" class="form-label">Email</label>
@@ -64,11 +65,11 @@
                                 </span>
                             @enderror
                         </div>
-                        <button class="btn btn-primary w-100" tabindex="2">Send reset link</button>
+                        <button class="btn btn-primary w-100" type="submit" tabindex="2">Send reset link</button>
                     </form>
 
                     <p class="text-center mt-2">
-                        <a href="{{ route('login') }}"> <i data-feather="chevron-left"></i> Back to login </a>
+                        <a href="{{ route('admin.login') }}"> <i data-feather="chevron-left"></i> Back to login </a>
                     </p>
                 </div>
             </div>

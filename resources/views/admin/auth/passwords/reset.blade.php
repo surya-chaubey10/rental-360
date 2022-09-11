@@ -49,7 +49,7 @@
                     <h4 class="card-title mb-1">Reset Password 🔒</h4>
                     <p class="card-text mb-2">Your new password must be different from previously used passwords</p>
 
-                    <form class="auth-forgot-password-form mt-2 myForm" action="{{ route('password.change') }}"
+                    <form class="auth-forgot-password-form mt-2 myForm" action="{{ route('admin.password.change') }}"
                         method="post">
                         @csrf
 
@@ -90,11 +90,11 @@
                                 <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                             </div>
                         </div>
-                        <button class="btn btn-primary w-100" tabindex="3">Set New Password</button>
+                        <button class="btn btn-primary w-100" type="submit" tabindex="3">Set New Password</button>
                     </form>
 
                     <p class="text-center mt-2">
-                        <a href="{{ route('login') }}"> <i data-feather="chevron-left"></i> Back to login </a>
+                        <a href="{{ route('admin.login') }}"> <i data-feather="chevron-left"></i> Back to login </a>
                     </p>
                 </div>
             </div>

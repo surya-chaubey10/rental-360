@@ -12,7 +12,7 @@ class DashboardController extends Controller
     public function view()
     {
         $pageConfigs = ['pageHeader' => false];
-        
+
         return view('dashboard', ['pageConfigs' => $pageConfigs]);
     }
 }

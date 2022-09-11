@@ -60,6 +60,7 @@ $(document).on("submit", ".myForm", function (e) {
             if (res.data.status == "redirect") {
                 window.location = res.data.message;
             }
+
             form.find('button[type="submit"]').removeClass("loadingi");
             // NProgress.done();
         })
@@ -98,7 +99,7 @@ $(document).on("submit", ".myForm", function (e) {
             form.find('button[type="submit"]').removeClass("loadingi");
             // NProgress.done();
         });
-    form.find('button[type="submit"]').removeClass("loadingi");
+    // form.find('button[type="submit"]').removeClass("loadingi");
 });
 
 function formValidate(form) {

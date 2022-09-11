@@ -14,12 +14,12 @@ class AdminUser extends Middleware
       $admin_route = 'storeadmin';
 
       if (!request()->ajax()) {
-        return redirect($admin_route . '/login');
+        return redirect(route('admin.login'));
       }
 
       $data = array(
         'status' => 'redirect',
-        'message' => url($admin_route . '/login')
+        'message' => url(route('admin.login'))
       );
 
       echo json_encode($data);

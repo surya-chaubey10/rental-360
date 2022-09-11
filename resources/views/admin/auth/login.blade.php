@@ -49,8 +49,9 @@
                     <h4 class="card-title mb-1">Welcome to Rent - 365! 👋</h4>
                     <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
 
-                    <form class="auth-login-form mt-2" method="POST" action="{{ route('admin.login') }}">
+                    <form class="auth-login-form mt-2 myForm" method="POST" action="{{ route('admin.login') }}">
                         @csrf
+
                         <div class="mb-1">
                             <label for="login-email" class="form-label">Email</label>
                             <input id="email" type="email" placeholder="john@example.com"
@@ -85,7 +86,7 @@
                                 <label class="form-check-label" for="keep_active"> Remember Me </label>
                             </div>
                         </div>
-                        <button class="btn btn-primary w-100" tabindex="4">Sign in</button>
+                        <button class="btn btn-primary w-100" type="submit" tabindex="4">Sign in</button>
                     </form>
                 </div>
             </div>

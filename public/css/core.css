@@ -18674,7 +18674,7 @@ footer.footer-border {
   display: none;
   position: absolute;
   z-index: 2;
-  height: 50px;
+  height: 40px;
   width: 100%;
   pointer-events: none;
   margin-top: -0.7rem;
@@ -18896,12 +18896,12 @@ footer.footer-border {
   font-size: 1.2rem;
 }
 .avatar.avatar-lg img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 .avatar.avatar-lg .avatar-content {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   font-size: 1.714rem;
 }
 .avatar.avatar-lg .avatar-content .avatar-icon,
@@ -20813,7 +20813,7 @@ body:after {
 }
 .select2-container--classic .select2-result-repository__avatar img,
 .select2-container--default .select2-result-repository__avatar img {
-  width: 50px;
+  width: 40px;
 }
 .select2-container--classic .select-lg,
 .select2-container--default .select-lg {
@@ -21192,8 +21192,8 @@ tr.group {
 body .loadingi {
     display: inline-block;
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     cursor: default;
     text-shadow: none !important;
     color: transparent !important;

@@ -25,9 +25,7 @@ class AuthenticationController extends Controller
 
     public function Login(Request $request)
     {
-
         $this->validateLogin($request);
-
 
         $login_success = Auth::guard('admin_user')->attempt([
             'email' => request()->input('email'),
@@ -35,15 +33,21 @@ class AuthenticationController extends Controller
         ], request()->input('keep_active'));
 
         if ($login_success) {
+            return response()->json([
+                'status' => 'successRedirect',
+                'message' => 'Login Successfully!',
+                'redirect' => route('super.dashboard')
+            ]);
+
             return $request->wantsJson()
                 ? new JsonResponse([], 204)
                 : redirect()->intended(route('super.dashboard'));
         }
 
-        return array(
+        return response()->json([
             'status' => 'error',
-            'message' => 'Authentication failed'
-        );
+            'message' => 'Authentication failed!'
+        ]);
     }
 
     /**

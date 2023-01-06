@@ -5,6 +5,8 @@
 @section('vendor-style')
   {{-- Page Css files --}}
   <link rel="stylesheet" href="{{ asset('vendors/css/forms/select/select2.min.css') }}">
+  <link rel='stylesheet' href="{{ asset('vendors/css/animate/animate.min.css') }}">
+
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
@@ -27,7 +29,7 @@
       <!-- User Card -->
       <div class="card"> 
         <div class="card-body"> 
-        <form class="update-new-vendor modal-content pt-0 form-block" autocomplete="off" id="form_idd" method="post">
+        <form class="update-new-vendor modal-content pt-0 form-block" autocomplete="off" id="form_idd" method="post" enctype="multipart/form-data"> 
  
         <div class="card-header">
                   <h4 style="font-size: 1.486rem;">Edit Vendor</h4>
@@ -49,27 +51,35 @@
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                   
            
-            <div class="d-flex">
-              <a href="#" class="me-25">
-                <img
-                  src="{{asset('images/portrait/small/avatar-s-2.jpg')}}"
-                  id="account-upload-img"
-                  class="uploadedAvatar rounded me-50"
-                  alt="profile image"
-                  height="100"
-                  width="100"
-                />
-              </a>
-              <!-- upload and reset button -->
-              <div class="d-flex align-items-end mt-75 ms-1">
-                
-                <div>
-                <h4>{{$vendor->user->fullname}}</h4> 
-                  
-                <button type="button" id="" class="btn btn-sm btn-danger mb-75">Update</button>
-                  <button type="button" id="account-reset" class="btn btn-sm btn-outline-secondary mb-75">
-                    Remove
-                  </button>
+            <div class="d-flex"> 
+            @if($vendor->image !='')
+             
+             <img src="{{ asset('images/vendor_images/' . $vendor->image  )}}" 
+             id="account-upload-img"
+             class="uploadedAvatar rounded me-50"
+             alt="profile image"
+             height="100"  
+             width="100"
+             >
+               
+             @else 
+               <img
+               src="{{asset('public/images/portrait/small/defaultPic.jpg')}}"
+               id="account-upload-img"
+               class="uploadedAvatar rounded me-50"
+               alt="profile image"
+               height="100"
+               width="100"
+             />
+               @endif
+             <!-- upload and reset button -->
+             <div class="d-flex align-items-end mt-75 ms-1">
+               
+               <div>
+               <h4>{{$vendor->user->fullname}}</h4> 
+               <label for="account-upload" class="btn btn-sm btn-danger mb-75 me-75">Upload</label>
+               <input type="file" id="account-upload" hidden accept="image/*" name="image"/>
+               <button type="button" id="account-reset" class="btn btn-sm btn-outline-primary mb-75">Reset</button>
                   
                 </div>
               </div>

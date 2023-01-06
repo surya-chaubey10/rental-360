@@ -1,123 +1,16 @@
 [
-  {
-    "id":1,
-    "url": "",
-    "title": "lets fun",
-    "start": "Fri Sep 10 2022 10:44:44 GMT+0530 (India Standard Time)",
-    "end": "Sat Sep 11 2022 10:44:44 GMT+0530 (India Standard Time)",
-    "allDay": false,
-    "extendedProps": {
-    "calendar": "Business"
-   }}
-  ,
-  {
-     "id":1,
-     "url": "",
-     "title": "All gdfgd Event",
-     "start": "Fri Sep 11 2022 10:44:44 GMT+0530 (India Standard Time)",
-     "end": "Sat Sep 12 2022 10:44:44 GMT+0530 (India Standard Time)",
-     "allDay": false,
-     "extendedProps": {
-     "calendar": "Business"
-    }
-   
-  },
-  {
-    "id":1,
-    "url": "",
-    "title": "All fgdfg Event",
-    "start": "Mon Sep 19 2022 10:44:44 GMT+0530  (India Standard Time)",
-    "end": "Tue Sep 20 2022 10:44:44 GMT+0530 (India Standard Time)",
-    "allDay": false,
-    "extendedProps": {
-    "calendar": "Family"
-   }
-  
- },
- {
-  "id":1,
-  "url": "",
-  "title": "All dgdfgd Event",
-  "start": "Mon Sep 19 2022 00:00:00 GMT+0530 (India Standard Time)",
- "end": "Tue Sep 20 2022 00:00:00 GMT+0530 (India Standard Time)",
- "allDay": false,
- "extendedProps": {
- "calendar": "Holiday"
- }
+	{
+		"id":1,
+		"url":"",
 
-},
-{
-  "id":1,
-  "url": "",
-  "title": "All gdfg Event",
-  "start": "Sat Sep 17 2022 00:00:00 GMT+0530 (India Standard Time)",
- "end": "Sun Sep 18 2022 00:00:00 GMT+0530 (India Standard Time)",
- "allDay": false,
- "extendedProps": {
- "calendar": "Business"
- }
 
-},
-{
-  "id":1,
-  "url": "",
-  "title": "All gdf Event",
-  "start": "Sat Sep 17 2022 00:00:00 GMT+0530 (India Standard Time)",
- "end": "Sun Sep 18 2022 00:00:00 GMT+0530 (India Standard Time)",
- "allDay": false,
- "extendedProps": {
- "calendar": "Business"
- }
-
-},
-{
-  "id":1,
-  "url": "",
-  "title": "All hfhf Event",
-  "start": "Sat Sep 17 2022 00:00:00 GMT+0530 (India Standard Time)",
- "end": "Sun Sep 18 2022 00:00:00 GMT+0530 (India Standard Time)",
- "allDay": false,
- "extendedProps": {
- "calendar": "Personal"
- }
-
-},
-{
-  "id":1,
-  "url": "",
-  "title": "All fghfghfg Event",
-  "start": "Sat Sep 17 2022 00:00:00 GMT+0530 (India Standard Time)",
- "end": "Sun Sep 18 2022 00:00:00 GMT+0530 (India Standard Time)",
- "allDay": false,
- "extendedProps": {
- "calendar": "Business"
- }
-
-},
-{
-  "id":1,
-  "url": "",
-  "title": "All hfhf Event",
-  "start": "Sat Oct 01 2022 00:00:00 GMT+0530 (India Standard Time)",
- "end": "Sat Oct 01 2022 00:00:00 GMT+0530 (India Standard Time)",
- "allDay": false,
- "extendedProps": {
- "calendar": "Personal"
- }
-
-},
-{
-  "id":1,
-  "url": "",
-  "title": "All gfhf Event",
-  "start": "Mon Aug 01 2022 00:00:00 GMT+0530 (India Standard Time)",
- "end": "Mon Aug 01 2022 00:00:00 GMT+0530 (India Standard Time)",
- "allDay": false,
- "extendedProps": {
- "calendar": "Business"
- }
-
-}
+		"title":"ashas yaad",
+		"start":"2022-11-12",
+		"end":"2022-11-15",
+		"allDay":false,
+		"extendedProps":{
+		 "calendar":"Bussiness"
+		}
+	}
 
 ]
-

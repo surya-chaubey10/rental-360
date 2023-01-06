@@ -21,7 +21,7 @@
 @section('content')
  
 <section class="app-user-view-account">
-  <div class="row"> 
+  {{-- <div class="row">  --}}
       <div class="card">  
               <div class="card-body border-bottom">
                <form class="add-vehicle-brand modal-content pt-0 form-block form-block" autocomplete="off" id="addvehicle_brand" method="post" enctype="multipart/from-data" > 
@@ -29,7 +29,7 @@
                   <h4 >Create Vehicle Brand</h4>
                   <button  id="submit" name="submit" type="submit" class="btn btn-danger me-1 btn-form-block">Submit</button>
                 </div> 
-              </div> 
+              <!-- </div>  -->
            
               <div class="card-body">
                 <section id="multiple-column-form"> 
@@ -107,7 +107,7 @@
                 </section>  
       </form> 
     </div> 
-  </div>
+  {{-- </div> --}}
 </section>   
 @endsection  
 

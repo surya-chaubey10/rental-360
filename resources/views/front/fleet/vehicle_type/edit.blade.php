@@ -103,7 +103,7 @@
                       </div>
                     </div> 
                     <p align="right">
-            <button type="reset" class="col-1 btn btn-outline-secondary" data-bs-dismiss="modal text text-right">Reset</button>
+            <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal text text-right">Reset</button>
                     </p>
                 </section>  
       </form> 

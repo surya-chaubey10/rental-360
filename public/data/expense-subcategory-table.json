@@ -1,0 +1,42 @@
+{
+    "data": [
+      {
+        "s_no": "1",
+        "category": " Self Drive",
+        "sub_code": "100001304479",
+        "sub_name": "Ongoing",  
+        "status": "Active"
+          },
+      {
+        "s_no": "2",
+        "category": " Car With Drive",
+        "sub_code": "100001304479",
+        "sub_name": "Ongoing",
+        "status": "Inactive"
+        
+      },
+      {
+        "s_no": "3",
+        "category": "Car With Drive",
+        "sub_code": "100001304479",
+        "sub_name": "Upcoming",
+        "status": "Active"
+      },
+      {
+        "s_no": "4",
+        "category": "Car With Drive",
+        "sub_code": "100001304479",
+        "sub_name": "Upcoming",
+        "status": "Inactive"
+      },
+      {
+        "s_no": "5",
+        "category": "Self Drive",
+        "sub_code": "100001304479",
+        "sub_name": "Ongoing",
+        "status": "Active"
+      }
+
+    ]
+
+}

@@ -1,0 +1,48 @@
+{
+  "data": [
+    
+    {
+      "id": 1,
+      "company": "Brillient RAC",
+      "name": "Alex wayene", 
+      "email": "beckcottle@email.com" 
+       
+    },
+    {
+      "id": 2,
+      "company": "Superior RAC",
+      "name": "Alex wayene", 
+      "email": "denypdell@email.com"  
+       
+    },
+    {
+      "id": 3,
+      "company": "Brillient RAC",
+      "name": "Alex wayene", 
+      "email": "beckcodttle@email.com" 
+       
+    },
+    {
+      "id": 4,
+      "company": "Superior RAC",
+      "name": "Alex wayene", 
+      "email": "dendypell@email.com" 
+       
+    },
+    {
+      "id": 5,
+      "company": "Brillient RAC",
+      "name": "Alex wayene", 
+      "email": "beckcdottle@email.com" 
+       
+    },
+    {
+      "id": 6,
+      "company": "Superior RAC",
+      "name": "Alex wayene", 
+      "email": "denddypell@email.com" 
+       
+    }
+  ]
+}
+

@@ -31,10 +31,13 @@ return new class extends Migration
             $table->boolean('status')->default(1);
             $table->enum('login_type', ['system', 'google', 'facebook', 'twitter', 'mobile']);
             $table->integer('role_id')->default(2)->comment('1:superadmin, 2 org-admin, 3...');
-            $table->foreign('organisation_id')->references('id')->on('organisations')->onDelete('cascade');
+            // $table->foreign('organisation_id')->references('id')->on('organisations')->onDelete('cascade');
             $table->rememberToken();
+            $table->unsignedBigInteger('created_user')->nullable();
+            $table->unsignedBigInteger('updated_user')->nullable();
             $table->timestamps();
             $table->softDeletes();
+			$table->enum('is_deleted', [0, 1])->default(0);
         });
     }
 

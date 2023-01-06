@@ -1,12 +1,12 @@
   <nav
-      class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl">
+      class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl jsdhhfjsdhf">
       <div class="navbar-container d-flex content">
           <div class="bookmark-wrapper d-flex align-items-center">
               <ul class="nav navbar-nav d-xl-none">
                   <li class="nav-item"><a class="nav-link menu-toggle" href="javascript:void(0);"><i class="ficon"
                               data-feather="menu"></i></a></li>
               </ul>
-              <ul class="nav navbar-nav bookmark-icons">
+            <!--   <ul class="nav navbar-nav bookmark-icons">
                   <li class="nav-item d-none d-lg-block"><a class="nav-link" href="{{ url('app/email') }}"
                           data-bs-toggle="tooltip" data-bs-placement="bottom" title="Email"><i class="ficon"
                               data-feather="mail"></i></a></li>
@@ -34,24 +34,29 @@
                           <ul class="search-list search-list-bookmark"></ul>
                       </div>
                   </li>
-              </ul>
+              </ul> -->
           </div>
+          @php  $unreadnotification= superadminNotifications(); $notifications=superadminallNotifications(); @endphp
           <ul class="nav navbar-nav align-items-center ms-auto">
               <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon"
                           data-feather="sun"></i></a></li>
               <li class="nav-item dropdown dropdown-notification me-25">
-                  <a class="nav-link" href="javascript:void(0);" data-bs-toggle="dropdown">
-                      <i class="ficon" data-feather="bell"></i>
-                      <span class="badge rounded-pill bg-danger badge-up">5</span>
+                  <a class="nav-link all-notification" data-bs-toggle="dropdown">
+                      <i class="ficon " data-feather="bell"></i>
+                      <span class="badge rounded-pill bg-danger badge-up curr_unread">{{count($unreadnotification)}}</span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
                       <li class="dropdown-menu-header">
                           <div class="dropdown-header d-flex">
                               <h4 class="notification-title mb-0 me-auto">Notifications</h4>
-                              <div class="badge rounded-pill badge-light-primary">6 New</div>
+                              <div class="badge rounded-pill badge-light-primary current_unread">{{count($unreadnotification)}} New</div>
                           </div>
                       </li>
+                      <form id="myForm" method="post">
                       <li class="scrollable-container media-list">
+                        @if($notifications)
+                        @for($i=0; count($notifications) > $i; $i++)
+                        @php  $data['time']= $notifications[$i]->created_at; @endphp
                           <a class="d-flex" href="javascript:void(0)">
                               <div class="list-item d-flex align-items-start">
                                   <div class="me-1">
@@ -61,98 +66,19 @@
                                       </div>
                                   </div>
                                   <div class="list-item-body flex-grow-1">
-                                      <p class="media-heading"><span class="fw-bolder">Congratulation Sam
-                                              🎉</span>winner!</p>
-                                      <small class="notification-text"> Won the monthly best seller badge.</small>
+                                      <p class="media-heading"><span class="fw-bolder">{{$notifications[$i]->messages}}.</span></p>
+                                      <small class="notification-text" style="float: right; color:#fd6b6b;">{{ Carbon\Carbon::parse($data['time'])->diffForHumans() }}</small>
                                   </div>
                               </div>
                           </a>
-                          <a class="d-flex" href="javascript:void(0)">
-                              <div class="list-item d-flex align-items-start">
-                                  <div class="me-1">
-                                      <div class="avatar">
-                                          <img src="{{ asset('images/portrait/small/avatar-s-3.jpg') }}" alt="avatar"
-                                              width="32" height="32">
-                                      </div>
-                                  </div>
-                                  <div class="list-item-body flex-grow-1">
-                                      <p class="media-heading"><span class="fw-bolder">New
-                                              message</span>&nbsp;received</p>
-                                      <small class="notification-text"> You have 10 unread messages</small>
-                                  </div>
-                              </div>
-                          </a>
-                          <a class="d-flex" href="javascript:void(0)">
-                              <div class="list-item d-flex align-items-start">
-                                  <div class="me-1">
-                                      <div class="avatar bg-light-danger">
-                                          <div class="avatar-content">MD</div>
-                                      </div>
-                                  </div>
-                                  <div class="list-item-body flex-grow-1">
-                                      <p class="media-heading"><span class="fw-bolder">Revised Order
-                                              👋</span>&nbsp;checkout</p>
-                                      <small class="notification-text"> MD Inc. order updated</small>
-                                  </div>
-                              </div>
-                          </a>
-                          <div class="list-item d-flex align-items-center">
-                              <h6 class="fw-bolder me-auto mb-0">System Notifications</h6>
-                              <div class="form-check form-check-primary form-switch">
-                                  <input class="form-check-input" id="systemNotification" type="checkbox"
-                                      checked="">
-                                  <label class="form-check-label" for="systemNotification"></label>
-                              </div>
-                          </div>
-                          <a class="d-flex" href="javascript:void(0)">
-                              <div class="list-item d-flex align-items-start">
-                                  <div class="me-1">
-                                      <div class="avatar bg-light-danger">
-                                          <div class="avatar-content"><i class="avatar-icon" data-feather="x"></i>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="list-item-body flex-grow-1">
-                                      <p class="media-heading"><span class="fw-bolder">Server
-                                              down</span>&nbsp;registered</p>
-                                      <small class="notification-text"> USA Server is down due to hight CPU
-                                          usage</small>
-                                  </div>
-                              </div>
-                          </a>
-                          <a class="d-flex" href="javascript:void(0)">
-                              <div class="list-item d-flex align-items-start">
-                                  <div class="me-1">
-                                      <div class="avatar bg-light-success">
-                                          <div class="avatar-content"><i class="avatar-icon"
-                                                  data-feather="check"></i></div>
-                                      </div>
-                                  </div>
-                                  <div class="list-item-body flex-grow-1">
-                                      <p class="media-heading"><span class="fw-bolder">Sales
-                                              report</span>&nbsp;generated</p><small class="notification-text"> Last
-                                          month sales report generated</small>
-                                  </div>
-                              </div>
-                          </a>
-                          <a class="d-flex" href="javascript:void(0)">
-                              <div class="list-item d-flex align-items-start">
-                                  <div class="me-1">
-                                      <div class="avatar bg-light-warning">
-                                          <div class="avatar-content"><i class="avatar-icon"
-                                                  data-feather="alert-triangle"></i></div>
-                                      </div>
-                                  </div>
-                                  <div class="list-item-body flex-grow-1">
-                                      <p class="media-heading"><span class="fw-bolder">High memory</span>&nbsp;usage
-                                      </p><small class="notification-text"> BLR Server using high memory</small>
-                                  </div>
-                              </div>
-                          </a>
+                          @endfor
+
+                        @for($i=0; count($unreadnotification) > $i; $i++)
+                        <input type="hidden" id="readable" class="form-control readable" name=readable_id[] value="{{$unreadnotification[$i]->id}}" />
+                        @endfor
+                        @endif
                       </li>
-                      <li class="dropdown-menu-footer">
-                          <a class="btn btn-primary w-100" href="javascript:void(0)">Read all notifications</a>
-                      </li>
+                      </form>
                   </ul>
               </li>
               <li class="nav-item dropdown dropdown-user">
@@ -180,13 +106,13 @@
                   <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
                       <h6 class="dropdown-header">Manage Profile</h6>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item"
+                      <!-- <a class="dropdown-item"
                           href="{{ Route::has('profile.show') ? route('profile.show') : 'javascript:void(0)' }}">
                           <i class="me-50" data-feather="user"></i> Profile
                       </a>
                       <a class="dropdown-item" href="#">
                           <i class="me-50" data-feather="settings"></i> Settings
-                      </a>
+                      </a> -->
                       <a class="dropdown-item" href="{{ route('super.change.password.show') }}">
                           <i class="me-50" data-feather="key"></i> Change Password
                       </a>
@@ -341,3 +267,32 @@
   </ul>
   {{-- Search Ends --}}
   <!-- END: Header-->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+   $(document).ready(function(){
+    $(".all-notification").click(function (e) {
+    e.preventDefault();
+    
+    let formData = new FormData($('#myForm')[0])
+
+      $.ajax({
+              url: '/storeadmin/notification-change', // JSON file to add data,
+              type: 'POST',
+              dataType: 'json', 
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function (data) {
+                $('.current_unread').html(data.data+" new");
+                $('.curr_unread').html(data.data);
+              },
+              error: function (data) {
+
+              }
+          })
+      
+   });
+
+});
+
+</script>

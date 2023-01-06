@@ -22,8 +22,8 @@ $(function () {
     select = $('.select2'), 
     dtContact = $('.dt-contact'),
     statusObj = {
-      1: { title: 'Enable', class: 'badge-light-warning' },
-      2: { title: 'Disable', class: 'badge-light-success' },  
+      1: { title: 'Enable', class: 'badge-light-success' },
+      2: { title: 'Disable', class: 'badge-light-warning' },  
     },
     
     

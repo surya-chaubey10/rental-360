@@ -1,0 +1,61 @@
+{
+    "data": [
+      {
+        "sl": "1",
+        "code": "SPC00001",
+        "client": "Reed Montoya",
+       
+        "total": "$360000.00",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "1"
+      },
+      {
+        "sl": "2",
+        "code": "SPC00002",
+        "client": "Reed Montoya",
+      
+        "total": "$360000.00",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "0"
+      },
+      {
+        "sl": "3",
+        "code": "SPC00001",
+        "client": "Reed Montoya",
+       
+        "total": "$360000.00",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "0"
+      },
+      {
+        "sl": "4",
+        "code": "SPC00001",
+        "client": "Reed Montoya",
+      
+        "total": "$360000.00",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "1"
+      },
+      {
+        "sl": "5",
+        "code": "SPC00005",
+        "client": "Reed Montoya",
+       
+        "total": "$360000.00",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "1"
+      }
+
+
+    ]
+}

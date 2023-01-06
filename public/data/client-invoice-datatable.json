@@ -1,0 +1,55 @@
+{
+    "data": [
+      {
+        "sl": "1",
+        "invoice_no": "1",
+        "client": "Reed Montoya",
+        "total": "$288236.50",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "1"
+      },
+      {
+        "sl": "2",
+        "invoice_no": "1",
+        "client": "Reed Montoya",
+        "total": "$288236.50",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "0"
+      },
+      {
+        "sl": "3",
+        "invoice_no": "1",
+        "client": "Reed Montoya",
+        "total": "$288236.50",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "1"
+      },
+      {
+        "sl": "4",
+        "invoice_no": "1",
+        "client": "Reed Montoya",
+        "total": "$288236.50",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "0"
+      },
+      {
+        "sl": "5",
+        "invoice_no": "1",
+        "client": "Reed Montoya",
+        "total": "$288236.50",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "1"
+      }
+
+    ]
+}

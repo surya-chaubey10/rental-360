@@ -1,16 +1,26 @@
 @extends('layouts.main')
-@section('title', '')
+@section('title', 'Edit')
  
  
 @section('vendor-style')
   {{-- Page Css files --}}
   <link rel="stylesheet" href="{{ asset('vendors/css/forms/select/select2.min.css') }}">
+  <link rel='stylesheet' href="{{ asset('vendors/css/animate/animate.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/extensions/toastr.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendors/css/intel/intlTelInput.css') }}">
+
 @endsection
+
+<style>
+    .iti {
+    width: 100%;
+  }
+</style>
+
 
 @section('page-style')
   {{-- Page Css files --}}
@@ -31,7 +41,6 @@
  
         <div class="card-header">
                   <h4 style="font-size: 1.486rem;">Edit Customer</h4>
-                  <button  id="submit" name="submit" type="submit" class="btn btn-danger me-1 btn-form-block">Save</button>
                 </div><hr>
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                   <li class="nav-item" role="presentation">
@@ -47,34 +56,37 @@
 
                 <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                  
-           
+
             <div class="d-flex">
-              <a href="#" class="me-25">
-                <img
-                  src="{{asset('images/portrait/small/avatar-s-2.jpg')}}"
-                  id="account-upload-img"
-                  class="uploadedAvatar rounded me-50"
-                  alt="profile image"
-                  height="100"
-                  width="100"
-                />
-              </a>
-              <!-- upload and reset button -->
-              <div class="d-flex align-items-end mt-75 ms-1">
-                
-                <div>
-                <h4>Gertrude Barton</h4> 
-                <button type="button" id="" class="btn btn-sm btn-danger mb-75">Update</button>
-                  <button type="button" id="account-reset" class="btn btn-sm btn-outline-secondary mb-75">
-                    Remove
-                  </button>
+            @if($customers->image !='')            
+             <img src="{{ asset('images/customer_images/' . $customers->image  )}}" 
+             id="account-upload-img"
+             class="uploadedAvatar rounded me-50"
+             alt="profile image"
+             height="100"
+             width="100"/>              
+             @else 
+               <img
+               src="{{asset('public/images/portrait/small/defaultPic.jpg')}}"
+               id="account-upload-img"
+               class="uploadedAvatar rounded me-50"
+               alt="profile image"
+               height="100"
+               width="100"/>
+               @endif
+               <!-- upload and reset button -->
+                 <div class="d-flex align-items-end mt-75 ms-1">                
+                 <div>
+                 <h4>{{$customers->fullname}}</h4>  
+                 {{-- <button type="file" id="upload_pic" class="btn btn-sm btn-danger mb-75   btn-file">Update</button> --}}
+                 <label for="account-upload" class="btn btn-sm btn-danger mb-75 me-75">Upload</label>
+               <input type="file" id="account-upload" hidden accept="image/*" name="image"/>
+               <button type="button" id="account-reset" class="btn btn-sm btn-outline-primary mb-75">Reset</button>
                   
                 </div>
               </div>
               <!--/ upload and reset button -->
-            </div>
-        
+            </div>    
                     <section id="multiple-column-form">
                       <div class="row">
                         <div class="col-12">
@@ -89,14 +101,14 @@
                                         type="text"
                                         id="user-name-column"
                                         class="form-control"
-                                        value="{{$customers->user->username}}"
+                                        value="{{$customers->username}}"
                                         placeholder="user Name"
                                         name="username"   
                                       />
                                     </div>
                                   </div>
                                   <input type="hidden" id="customer_updated_id" class="form-control" value="{{$customers->id}}" placeholder="Name" name="customer_updated_id" /> 
-                                  <input type="hidden" id="user_updated_id" class="form-control" value="{{$customers->user->id}}" placeholder="Name" name="user_updated_id" /> 
+                                  <input type="hidden" id="user_updated_id" class="form-control" value="{{$customers->user_id}}" placeholder="Name" name="user_updated_id" /> 
                                 
                                   <div class="col-md-4 col-12">
                                     <div class="mb-1">
@@ -105,7 +117,7 @@
                                         type="text"
                                         id="last-name-column"
                                         class="form-control"
-                                        value="{{$customers->user->fullname}}"
+                                        value="{{$customers->fullname}}"
                                         placeholder="Full Name"
                                         name="fullname"
                                       />
@@ -118,7 +130,7 @@
                                         type="text"
                                         id="email-column"
                                         class="form-control"
-                                        value="{{$customers->user->email}}"
+                                        value="{{$customers->email}}"
                                         placeholder="Email"
                                         name="email"
                                       />
@@ -198,10 +210,10 @@
                                     <div class="mb-1">
                                       <label class="form-label" for="mobile">Mobile</label>
                                       <input
-                                        type="text"
+                                        type="tel"
                                         id="mobile"
                                         class="form-control"
-                                        value="{{$customers->user->mobile}}"
+                                        value="{{$customers->mobile}}"
                                         placeholder="+8775578876"
                                         name="contact"
                                       />
@@ -365,7 +377,7 @@
                                       <div class="mb-1">
                                         <select class="form-select" id="country" name="country">
                                         @foreach($country as $country) 
-                                          <option {{$country->id == $customers->user->country->id ? 'selected' : ''  }} value="{{$country->id}}">{{$country->name}}</option>
+                                          <option {{$country->id == $customers->country_id ? 'selected' : ''  }} value="{{$country->id}}">{{$country->name}}</option>
                                         @endforeach
                                         </select>
                                       </div>
@@ -475,8 +487,14 @@
         
               </div>
             </div> 
+            
+            <button  id="submit" name="submit" type="submit" class="btn btn-danger me-1 btn-form-block " style="width: 7%;
+    margin-left: 43%">Save</button>
+
           </div>
+          
         </div>  
+        
       </div> 
       </form>
       <!-- /Invoice table -->
@@ -497,7 +515,8 @@
 @endsection
 @section('page-script')
   {{-- Page js files --}}
- <script src="{{ asset('js/scripts/pages/app-customer-update.js') }}"></script>  
+  <script src="{{ asset('vendors/js/intel/intlTelInput.js') }}"></script>
+ <script src="{{ asset('js/scripts/pages/app-customer-update.js') }}"></script>   
  <script src="{{ asset('js/scripts/extensions/ext-component-toastr.js') }}"></script>
  <script src="{{ asset('js/scripts/extensions/ext-component-blockui.js') }}"></script>
 @endsection

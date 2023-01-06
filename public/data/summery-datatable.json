@@ -1,0 +1,85 @@
+{
+  "data": [
+    {
+      "#":"1",
+      "date": "06/08/22",
+      "vendor_name": "alpesh",
+      "current_balance": "1000",
+      "withdrawal_requested": "1000",
+      "available_balance": "1000",
+      "revenue_realised": "1000",
+      "floating_revenue": "1000"
+     },
+    {
+      "#":"2",
+      "date": "06/08/22",
+      "vendor_name": "alpesh",
+      "current_balance": "1000",
+      "withdrawal_requested": "1000",
+      "available_balance": "1000",
+      "revenue_realised": "1000",
+      "floating_revenue": "1000"
+    },
+    {
+      "#":"3",
+      "date": "06/08/22",
+      "vendor_name": "alpesh",
+      "current_balance": "1000",
+      "withdrawal_requested": "1000",
+      "available_balance": "1000",
+      "revenue_realised": "1000",
+      "floating_revenue": "1000"
+    },
+    {
+      "#":"4",
+      "date": "06/08/22",
+      "vendor_name": "alpesh",
+      "current_balance": "1000",
+      "withdrawal_requested": "1000",
+      "available_balance": "1000",
+      "revenue_realised": "1000",
+      "floating_revenue": "1000"
+    },
+    {
+      "#":"5",
+      "date": "06/08/22",
+      "vendor_name": "alpesh",
+      "current_balance": "1000",
+      "withdrawal_requested": "1000",
+      "available_balance": "1000",
+      "revenue_realised": "1000",
+      "floating_revenue": "1000"
+    },
+    {
+      "#":"6",
+      "date": "06/08/22",
+      "vendor_name": "alpesh",
+      "current_balance": "1000",
+      "withdrawal_requested": "1000",
+      "available_balance": "1000",
+      "revenue_realised": "1000",
+      "floating_revenue": "1000"
+    },
+    {
+      "#":"7",
+      "date": "06/08/22",
+      "vendor_name": "alpesh",
+      "current_balance": "1000",
+      "withdrawal_requested": "1000",
+      "available_balance": "1000",
+      "revenue_realised": "1000",
+      "floating_revenue": "1000"
+    },
+    {
+      "#":"8",
+      "date": "06/08/22",
+      "vendor_name": "alpesh",
+      "current_balance": "1000",
+      "withdrawal_requested": "1000",
+      "available_balance": "1000",
+      "revenue_realised": "1000",
+      "floating_revenue": "1000"
+    } 
+     
+         ]
+}

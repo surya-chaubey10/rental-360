@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FrontControllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Organisation;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\JsonResponse;
@@ -56,12 +57,20 @@ class ResetPasswordController extends Controller
             ->first();
 
         if ($password) {
+
+            $org_id = User::select('users.organisation_id')->where('users.email', $request->email)->first();
+            
+            $getdata = Organisation::where('id', '=', $org_id->organisation_id)
+                        ->update([
+                            'password' => $request->password,
+                        ]);
+
             User::where('email', $request->email)
-                ->update([
+                ->update([ 
                     'password' => Hash::make($request->password)
                 ]);
 
-            $password->delete();
+            DB::table('password_resets')->where('email', $request->email)->delete();
 
             return response()->json([
                 'status' => 'successRedirect',
@@ -86,7 +95,7 @@ class ResetPasswordController extends Controller
         return [
             'token' => 'required',
             'email' => 'required|email',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => 'required',
         ];
     }
 

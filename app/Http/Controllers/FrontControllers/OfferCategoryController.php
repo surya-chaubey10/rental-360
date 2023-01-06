@@ -18,25 +18,33 @@ class OfferCategoryController extends Controller
      */
     public function index()
     {
+        $pageConfigs = ['pageHeader' => false];
+
+        $path = public_path() . '/data/offer-category';
+
+        if (!file_exists($path)) {
+            \File::makeDirectory($path, 0777, true, true);
+        }
+
+        if (file_exists($path . '/' . getUser()->organisation_id . '_offercatagory.json')) {
+            \File::delete($path . '/' . getUser()->organisation_id . '_offercatagory.json');
+        }
+
+        if (!file_exists($path . '/' . getUser()->organisation_id . '_offercatagory.json')) {
+            $user = $this->jsonCustomerList();
+            $data = array('data' => $user);
+            \File::put($path . '/' . getUser()->organisation_id . '_offercatagory.json', collect($data));
+        }
         return view('offer.offercategory.list');
     }
-    public function json_list(){
-        $customer = OfferCategory::get();
-    //    dd(count($customer));
-        $details = new Collection();
-        $num = 1;
-        foreach ($customer as $key => $date) {
-     
-           $details->push([
-               "num"            => $num++,
-               "id"             => $date->id,
-               "category_name"      => $date->category_name, 
-               "status"         => $date->status, 
-           ]); 
+
+        private function jsonCustomerList()
+        {
+            return OfferCategory::select('offer_categories.id', 'offer_categories.category_name' ,'offer_categories.status',   'offer_categories.uuid') 
+                ->withoutGlobalScope('organisation_id')
+                ->where('offer_categories.organisation_id', getUser()->organisation_id)              
+                ->get();
         }
-         
-       return array('data' => $details);  
-    }
     /**
      * Show the form for creating a new resource.
      *

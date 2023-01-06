@@ -1,0 +1,35 @@
+{
+  "data": [
+    {
+      "responsive_id": null,
+      "SN": 1,
+      "name": "Audi",
+      "model": "Mahindra XUV700",
+      "available": "3/1",
+      "price": "100UAE"
+   
+    
+    },
+    {
+      "responsive_id": null,
+      "SN": 2,
+      "name": "Audi",
+      "model": "Mahindra XUV700",
+      "available": "3/1",
+      "price": "100UAE"
+   
+    
+    },
+    {
+      "responsive_id": null,
+      "SN": 3,
+      "name": "Audi",
+      "model": "Mahindra XUV700",
+      "available": "3/1",
+      "price": "100UAE"
+   
+    
+    }
+   
+  ]
+}

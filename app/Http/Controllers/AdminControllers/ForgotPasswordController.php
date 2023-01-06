@@ -36,6 +36,7 @@ class ForgotPasswordController extends Controller
         $this->validateEmail($request);
 
         $user = AdminUser::where('email', $request->email)->first();
+       
         if ($user) {
             $t = Str::random(50);
 

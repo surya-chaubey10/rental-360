@@ -99,61 +99,63 @@
   <div class="card">
     <div class="card-body border-bottom">
       <h4 class="card-title"><b>Inventory</b></h4>
-       <button type="button" style = "position:relative;float: right; margin-top: -45px;" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-         Import
-        </button>
+       <a href="showinventry" type="button" style = "position:relative;float: right;margin:-45px 100px 0px 0px;" class="btn btn-danger" >
+         Add New
+       </a>
+       <button type="button" style = "position:relative;float: right; margin-top: -45px;" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" >
+                Import
+       </button>      
+      </div>
     </div>
     <!-- Vertical modal -->
     <div class="vertical-modal-ex">
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">Import Inventory</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h5 class="modal-title" id="exampleModalCenterTitle">Import Inventory</h5>
+               <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button> 
             </div>
             <section>
-            <form action="{{ route('inventory-save') }}" method="POST" enctype="multipart/form-data">
-            {{ csrf_field() }}
-            <div class="modal-body">
-                    <div class="container">
+              <form action="{{ route('inventory-save') }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="modal-body">
+                  <div class="container">
                     <div class="row">
-                        <div class="col-md-12">
+                      <div class="col-md-12">
                         <div class="form-group">
-                            <label class="control-label">Upload File</label>
-                            <div class="preview-zone hidden">
+                          <label class="control-label">Upload File</label>
+                          <div class="preview-zone hidden">
                             <div class="box box-solid">
-                                <div class="box-header with-border">
+                              <div class="box-header with-border">
                                 <div><b>Preview</b></div>
-                                <div class="box-tools pull-right">
+                                  <div class="box-tools pull-right">
                                     <button type="button" class="btn btn-danger btn-xs remove-preview">
                                     <i class="fa fa-times"></i> Reset The Field
                                     </button>
+                                  </div>
                                 </div>
-                                </div>
-                                <div class="box-body"></div>
+                              <div class="box-body"></div>
                             </div>
-                            </div>
-                            <div class="dropzone-wrapper">
+                          </div>
+                          <div class="dropzone-wrapper">
                             <div class="dropzone-desc">
-                                <i class="glyphicon glyphicon-download-alt"></i>
-                                <p>Drop file here or click to upload</p>
-                                   <spam>(CSV or XLSX) </spam>
+                              <i class="glyphicon glyphicon-download-alt"></i>
+                              <p>Drop file here or click to upload</p>
+                              <spam>(CSV or XLSX) </spam>
                             </div>
                             <input type="file" name="inventory_details" class="dropzone">
-                            </div>
+                          </div>
                         </div>
-                        </div>
+                      </div>
                     </div>  
-                    </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary pull-right">Upload</button>
-                        </div>
-                    </form>
-                </section>
-
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary pull-right">Upload</button>
+                </div>
+              </form>
+            </section>
           </div>
         </div>
       </div>
@@ -164,13 +166,15 @@
         <thead class="table-light">
           <tr>
             <!-- <th></th> -->
-            <th>#</th>
+            
+            <!-- <th>#</th> -->
             <th>IMAGE</th>
             <th>BRAND</th>
             <th>MODEL</th>
             <th>TYPE</th> 
             <th>STATUS</th>
             <th>Actions</th>
+            
           </tr>
         </thead>
       </table>

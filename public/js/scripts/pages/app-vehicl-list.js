@@ -279,7 +279,7 @@ $(function () {
           }
             let formData = new FormData($('#form_idd')[0])
          $.ajax({
-                url: '/../offer-save', // JSON file to add data,
+                url: '/../vehicle-save', // JSON file to add data,
                 type: 'POST',
                 dataType: 'json',
                 data: formData,
@@ -295,7 +295,7 @@ $(function () {
                           rtl: isRtl
                         });
 
-                        window.location = "/offer-list";
+                        window.location = "/vehicle-list";
 
                     } else if (data.status === false) {
                       $( "#submit" ).prop( "disabled", false );

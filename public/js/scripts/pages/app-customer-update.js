@@ -9,7 +9,6 @@
 ==========================================================================================*/
 $(function () {
     ('use strict');
-  
     $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -17,6 +16,10 @@ $(function () {
      })
      var isRtl = $('html').attr('data-textdirection') === 'rtl';
     var dtUserTable = $('.customer-list-table'),
+    accountUploadImg = $('#account-upload-img'),
+    accountUploadBtn = $('#account-upload'),
+    accountUserImage = $('.uploadedAvatar'),
+    accountResetBtn = $('#account-reset'),
       formBlock = $('.btn-form-block'),
       formSection = $('.form-block'),
       newUserSidebar = $('.new-customer-modal'),
@@ -35,6 +38,24 @@ $(function () {
     if ($('body').attr('data-framework') === 'laravel') {
       assetPath = $('body').attr('data-asset-path');
       userView = assetPath + 'app/customer/view/account';
+    }
+
+    if (accountUserImage) {
+      var resetImage = accountUserImage.attr('src');
+      accountUploadBtn.on('change', function (e) {
+        var reader = new FileReader(),
+          files = e.target.files;
+        reader.onload = function () {
+          if (accountUploadImg) {
+            accountUploadImg.attr('src', reader.result);
+          }
+        };
+        reader.readAsDataURL(files[0]);
+      });
+  
+      accountResetBtn.on('click', function () {
+        accountUserImage.attr('src', resetImage);
+      });
     }
   
     select.each(function () {
@@ -71,7 +92,8 @@ $(function () {
               });
             });
           }
-            let formData = new FormData($('#form_idd')[0])
+
+          let formData = new FormData($('#form_idd')[0])
          $.ajax({
                 url: '../customer-update', // JSON file to add data,
                 type: 'POST',
@@ -88,7 +110,9 @@ $(function () {
                           tapToDismiss: false,
                           rtl: isRtl
                         });
-                        window.location = "/customer-list";
+                        // log
+                        console.log(app_path + '../customer-list');
+                        window.location = app_path + '../customer-list';
                          
                     } else if (data.status === false) {
                       $( "#submit" ).prop( "disabled", false );
@@ -147,6 +171,26 @@ $(function () {
       });
     });
   }
+
+
+    // Vanilla Javascript
+  var input = document.querySelector("#mobile");
+  window.intlTelInput(input,({
+    preferredCountries: ["ae"],
+  }));
+
+  $(document).ready(function() {
+      $('.iti__flag-container').click(function() { 
+          var countryCode = $('.iti__selected-flag').attr('title');
+          var countryCode = countryCode.replace(/[^0-9]/g,'')
+          $('#mobile').val("");
+          $('#mobile').val("+"+countryCode+" "+ $('#mobile').val());
+      });
+  });
+
+
+
+
   
   });
   

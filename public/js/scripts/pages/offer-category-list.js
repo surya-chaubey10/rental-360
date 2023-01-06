@@ -23,8 +23,8 @@ $(function () {
       select = $('.select2'), 
       dtContact = $('.dt-contact'),
       statusObj = {
-        1: { title: 'Enable', class: 'badge-light-warning' },
-        2: { title: 'Disable', class: 'badge-light-success' }, 
+        1: { title: 'Enable', class: 'badge-light-success' },
+        2: { title: 'Disable', class: 'badge-light-warning' }, 
       };
   
     var assetPath = '../../../app-assets/',
@@ -50,13 +50,15 @@ $(function () {
     // Users List datatable
     if (dtUserTable.length) {
       dtUserTable.DataTable({
-        ajax: assetPath + 'data/offer-category-json', // JSON file to add data
+        ajax: assetPath + "/data/offer-category/" + org_id + "_offercatagory.json",
         columns: [
           // columns according to JSON
-          { data: '' }, 
+          { data: 'id' },  
           { data: 'category_name' }, 
-          { data: 'status' },
-          { data: '' }
+          { data: 'status' },  
+          { data: '' },  
+        
+         
         ],
         columnDefs: [
           {
@@ -75,7 +77,7 @@ $(function () {
             // User full name and username
             targets: 1, 
             render: function (data, type, full, meta) {
-              var $num = full['num']; 
+              var $num = full['id']; 
               return '<span class="text-nowrap">' + $num + '</span>'; 
             }
           },
@@ -83,7 +85,11 @@ $(function () {
           targets: 2, 
           render: function (data, type, full, meta) {
             var $category_name = full['category_name']; 
+            if($category_name==null){
+               return 'N/A';
+            }else{
             return '<span class="text-nowrap">' + $category_name + '</span>'; 
+            }
           }
         },
           {
@@ -239,6 +245,23 @@ $(function () {
       });
     }
 
+    // Form Validation
+if (newUserForm.length) {
+  newUserForm.validate({
+    errorClass: 'error',
+    rules: {
+      'category_name': {
+        required: true
+      },
+      'status': {
+        required: true
+      } 
+      
+    }
+  });}
+
+   
+
     newUserForm.on('submit', function (e) {
       if (!e.isDefaultPrevented()) {
             e.preventDefault()
@@ -305,7 +328,8 @@ $(function () {
       //Delete Vendor Record
         // Confirm Color
    $(document).on('click', '.delete-record', function () {
-    const value_id = $(this).data('id')
+    const value_id = $(this).data('id');
+    const event= $(this);
       console.log(value_id);
       Swal.fire({
         title: 'Destroy Category?',
@@ -321,7 +345,7 @@ $(function () {
       }).then(function (result) {
         if (result.value) {
 
-          deleteRecord(value_id)
+          deleteRecord(value_id,event)
           
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire({
@@ -336,7 +360,7 @@ $(function () {
       });
     });
 
-    function deleteRecord(value_id) { 
+    function deleteRecord(value_id,event) { 
       $.ajax({
         url: '../offer-category-delete'+'/'+value_id, // JSON file to add data,
         type: 'get',
@@ -354,8 +378,10 @@ $(function () {
                 }
                   
               });
-              
-              location.reload(true);
+              event.closest('tr').remove();
+
+
+              // location.reload(true);
             } else if (data.status === false) {
               
                

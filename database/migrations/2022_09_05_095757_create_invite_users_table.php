@@ -45,7 +45,7 @@ return new class extends Migration
             $table->foreign('organisation_id')->references('id')->on('organisations');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('invited_user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('organisation_roles')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('default_roles')->onDelete('cascade');
         });
     }
 

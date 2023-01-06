@@ -1,0 +1,51 @@
+{
+    "data": [
+      {
+        "sl": "1",
+        "client": "Reed Montoya",
+        "payment_type": "1",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "1"
+      },
+      {
+        "sl": "2",
+        "client": "Reed Montoya",
+        "payment_type": "0",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "0"
+      },
+      {
+        "sl": "3",
+        "client": "Reed Montoya",
+        "payment_type": "1",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "0"
+      },
+      {
+        "sl": "4",
+        "client": "Reed Montoya",
+        "payment_type": "0",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "1"
+      },
+      {
+        "sl": "5",
+        "client": "Reed Montoya",
+        "payment_type": "1",
+        "paid_amount": "$36000.00",
+        "account": "Cash[CASH-001]",
+        "payment_date": "13th July, 2022",
+        "status": "1"
+      }
+
+
+    ]
+}

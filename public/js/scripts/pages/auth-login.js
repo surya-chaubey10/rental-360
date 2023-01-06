@@ -12,6 +12,9 @@ $(function () {
 
   var pageLoginForm = $('.auth-login-form');
 
+  alert('hello'); 
+  
+
   // jQuery Validation
   // --------------------------------------------------------------------
   if (pageLoginForm.length) {
@@ -36,5 +39,23 @@ $(function () {
         }
       }
     });
+    
   }
+
+  $(document).ready(function(){
+    $(".togglePassword").click(function (e) {
+    e.preventDefault();
+    
+    var type = $(this).parent().parent().find(".password").attr("type");
+     
+    if(type == "password"){
+        $(this).find("svg.feather.feather-eye-off").replaceWith(feather.icons["eye"].toSvg());
+        $(this).parent().parent().find(".password").attr("type","text");
+    }else if(type == "text"){
+        $(this).find("svg.feather.feather-eye").replaceWith(feather.icons["eye-off"].toSvg());
+        $(this).parent().parent().find(".password").attr("type","password");
+    }
+});
+});
+  
 });

@@ -81,13 +81,7 @@ $(function () {
   function renderBoardDropdown() {
     return (
       "<div class='dropdown'>" +
-      feather.icons['more-vertical'].toSvg({
-        class: 'dropdown-toggle cursor-pointer font-medium-3 me-0',
-        id: 'board-dropdown',
-        'data-bs-toggle': 'dropdown',
-        'aria-haspopup': 'true',
-        'aria-expanded': 'false'
-      }) +
+      
       "<div class='dropdown-menu dropdown-menu-end' aria-labelledby='board-dropdown'>" +
       "<a class='dropdown-item delete-board' href='#'> " +
       feather.icons['trash'].toSvg({ class: 'font-medium-1 align-middle' }) +

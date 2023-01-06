@@ -20,29 +20,28 @@ class CountrySeeder extends Seeder
         DB::table('countries')->delete();
 
         $Country = new Country();
-        
+
         $Country->name                 = 'India';
         $Country->save();
 
         $Country = new Country();
-        
+
         $Country->name                 = 'Germany';
         $Country->save();
 
         $Country = new Country();
-        
+
         $Country->name                 = 'Belarus';
         $Country->save();
 
         $Country = new Country();
-        
+
         $Country->name                 = 'Brazil';
         $Country->save();
 
         $Country = new Country();
-        
+
         $Country->name                 = 'France';
         $Country->save();
-
     }
 }

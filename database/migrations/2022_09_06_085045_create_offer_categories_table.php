@@ -15,9 +15,14 @@ return new class extends Migration
     {
         Schema::create('offer_categories', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('organisation_id');
             $table->uuid('uuid'); 
             $table->string('category_name')->nullable();  
             $table->boolean('status')->default(1); 
+            $table->enum('customers', ['1', '2', '3'])->comment('1=All Customer, 2=Repeating Customer, 3=New Customer');
+            $table->foreign('organisation_id')->references('id')->on('organisations');
+            $table->unsignedBigInteger('created_user')->nullable();
+            $table->unsignedBigInteger('updated_user')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

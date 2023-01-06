@@ -23,9 +23,9 @@ $(function () {
       select = $('.select2'), 
       dtContact = $('.dt-contact'),
       statusObj = {
-        1: { title: 'Pending', class: 'badge-light-warning' },
-        2: { title: 'Active', class: 'badge-light-success' },
-        3: { title: 'Inactive', class: 'badge-light-secondary' }
+        Pending: { title: 'Pending', class: 'badge-light-warning' },
+      Active: { title: 'Active', class: 'badge-light-success' },
+      Inactive: { title: 'Inactive', class: 'badge-light-secondary' }
       };
   
     var assetPath = '../../../app-assets/',
@@ -51,12 +51,12 @@ $(function () {
     // Users List datatable
     if (dtUserTable.length) {
       dtUserTable.DataTable({
-        ajax: assetPath + 'data/vendor-list-data.json', // JSON file to add data
+        ajax: assetPath + "/data/vendor-json/" +org_id+ "_vendor-list.json",
         columns: [
           // columns according to JSON
           { data: '' }, 
           { data: 'fullname' },
-          { data: 'customer_type' },
+          
           { data: 'email' },
           { data: 'contact' },
           { data: 'status' },
@@ -107,7 +107,7 @@ $(function () {
                 '</div>' +
                 '</div>' +
                 '<div class="d-flex flex-column">' +
-                '<a href="' +
+                '<a href="#' +
                 userView +
                 '" class="user_name text-truncate text-body"><span class="fw-bolder">' +
                 $name +
@@ -120,23 +120,9 @@ $(function () {
               return $row_output;
             }
           },
+           
           {
-            // User Role
             targets: 2,
-            render: function (data, type, full, meta) {
-                var $customer_type = full['customer_type'];
-              var roleBadgeObj = {
-                Subscriber: feather.icons['user'].toSvg({ class: 'font-medium-3 text-primary me-50' }),
-                Author: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-warning me-50' }),
-                Maintainer: feather.icons['database'].toSvg({ class: 'font-medium-3 text-success me-50' }),
-                Editor: feather.icons['edit-2'].toSvg({ class: 'font-medium-3 text-info me-50' }),
-                Admin: feather.icons['slack'].toSvg({ class: 'font-medium-3 text-danger me-50' })
-              };
-              return "<span class='text-truncate align-middle'>"  + $customer_type + '</span>';
-            }
-          },
-          {
-            targets: 3,
             render: function (data, type, full, meta) {
               var $email = full['email'];
   
@@ -144,7 +130,7 @@ $(function () {
             }
           },
           {
-            targets: 4,
+            targets: 3,
           render: function (data, type, full, meta) {
             var $contact = full['contact'];
 
@@ -154,7 +140,7 @@ $(function () {
            
           {
             // User Status 
-            targets: 5,
+            targets: 4,
             render: function (data, type, full, meta) {
               var $status = full['status'];
               return (
@@ -199,7 +185,7 @@ $(function () {
             }
           }
         ], 
-        order: [[1, 'desc']],
+       // order: [[1, 'desc']],
         dom:
           '<"d-flex justify-content-between align-items-center header-actions mx-2 row mt-75"' +
           '<"col-sm-12 col-lg-4 d-flex justify-content-center justify-content-lg-start" l>' +
@@ -225,31 +211,31 @@ $(function () {
                 extend: 'print',
                 text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
                 className: 'dropdown-item',
-                exportOptions: { columns: [1, 2, 3, 4, 5] }
+                exportOptions: { columns: [1, 2, 3, 4] }
               },
               {
                 extend: 'csv',
                 text: feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) + 'Csv',
                 className: 'dropdown-item',
-                exportOptions: { columns: [1, 2, 3, 4, 5] }
+                exportOptions: { columns: [1, 2, 3, 4] }
               },
               {
                 extend: 'excel',
                 text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
                 className: 'dropdown-item',
-                exportOptions: { columns: [1, 2, 3, 4, 5] }
+                exportOptions: { columns: [1, 2, 3, 4] }
               },
               {
                 extend: 'pdf',
                 text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
                 className: 'dropdown-item',
-                exportOptions: { columns: [1, 2, 3, 4, 5] }
+                exportOptions: { columns: [1, 2, 3, 4] }
               },
               {
                 extend: 'copy',
                 text: feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) + 'Copy',
                 className: 'dropdown-item',
-                exportOptions: { columns: [1, 2, 3, 4, 5] }
+                exportOptions: { columns: [1, 2, 3, 4] }
               }
             ],
             init: function (api, node, config) {
@@ -313,7 +299,7 @@ $(function () {
         },
         initComplete: function () {
           // Adding role filter once table initialized
-          this.api()
+         /*  this.api()
             .columns(2)
             .every(function () {
               var column = this;
@@ -334,7 +320,7 @@ $(function () {
                 .each(function (d, j) {
                   select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
                 });
-            });
+            }); */
           // Adding plan filter once table initialized
           this.api()
             .columns(3)
@@ -360,7 +346,7 @@ $(function () {
             });
           // Adding status filter once table initialized
           this.api()
-            .columns(5)
+            .columns(4)
             .every(function () {
               var column = this;
               var label = $('<label class="form-label" for="FilterTransaction">Status</label>').appendTo('.status');
@@ -472,7 +458,9 @@ $(function () {
       //Delete Vendor Record
         // Confirm Color
    $(document).on('click', '.delete-record', function () {
-    const value_id = $(this).data('id')
+    const value_id = $(this).data('id');
+    const event= $(this); 
+ 
       console.log(value_id);
       Swal.fire({
         title: 'Destroy Vendor?',
@@ -488,7 +476,7 @@ $(function () {
       }).then(function (result) {
         if (result.value) {
 
-          deleteRecord(value_id)
+          deleteRecord(value_id,event)
           
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire({
@@ -503,7 +491,7 @@ $(function () {
       });
     });
 
-    function deleteRecord(value_id) {
+    function deleteRecord(value_id,event) {
       $.ajax({
         url: '../vendor-delete'+'/'+value_id, // JSON file to add data,
         type: 'get',
@@ -521,10 +509,9 @@ $(function () {
                 }
                   
               });
-              
-              location.reload(true);
+              event.closest('tr').remove();  
+              // location.reload(true);
             } else if (data.status === false) {
-              
                
             }
         },

@@ -1,0 +1,94 @@
+{
+  "data": [
+    
+    {
+     
+     
+      "responsive_id":43,
+      "image":"1.png",
+      "name":"Alison",
+      "email":"xyz@gmail.com",
+      "status":"2",
+
+      "created":"23-09-2022",
+     
+      "updated":"23-09-2022"
+    
+    
+    
+    },
+    {
+      "responsive_id":9,
+     "address":"90 Deming way",
+      "updated":"23-09-2022",
+      "status":"2",
+     
+      "created":"23-09-2022",
+      "name":"Alison",
+      "email":"xyz@gmail.com",
+      "image":"1.png"
+
+    
+    },
+    {
+      "available":"80%",
+      "responsive_id":7,
+     "address":"90 Deming way",
+     "email":"xyz@gmail.com",
+    "status":"1",
+      "updated":"23-09-2022",
+     
+      "created":"23-09-2022",
+      "name":"Alison",
+      "image":"1.png"
+     
+    
+    },
+    {
+     
+      "rental":"60%",
+      "created":"23-09-2022",
+      "name":"Alison",
+      "email":"xyz@gmail.com",
+      "image":"1.png",
+      "status":"2",
+
+      "available":"80%",
+      "responsive_id":5,
+      "updated":"23-09-2022",
+     "address":"90 Deming way",
+      
+      "client_name": "Audi"
+    
+    },
+    {
+      "available":"80%",
+      "responsive_id":2,
+      "updated":"23-09-2022",
+      "image":"1.png",
+    "status":"1",
+     
+     "address":"90 Deming way",
+     
+      "name":"Alison",
+      "created":"23-09-2022",
+      "email":"xyz@gmail.com",
+      
+      "client_name": "Audi"
+    
+    },
+    {
+      "email":"xyz@gmail.com",
+     
+      "updated":"23-09-2022",
+      "name":"Alison",
+      "image":"1.png",
+      "rental":"60%",
+      "created":"23-09-2022",
+      "responsive_id":1,
+      "status":"2",
+      "address":"90 Deming way"
+    
+    }
+  ]
+}

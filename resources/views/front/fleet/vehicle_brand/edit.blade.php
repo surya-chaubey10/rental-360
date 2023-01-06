@@ -27,9 +27,9 @@
                <form class="update-vehicle-brand modal-content pt-0 form-block" autocomplete="off" id="updatevehiclebrande" method="post" enctype="multipart/from-data" > 
                 <div class="card-header">
                   <h4 >Update Vehicle Brand</h4>
-                  <button  id="submit" name="submit" type="submit" class="btn btn-danger me-1 btn-form-block">Submit</button>
+                  <a   href="#"id="submit" name="submit" type="button" class="btn btn-danger me-1 btn-form-block">Submit</a>
                 </div> 
-              </div> 
+              <!-- </div>  -->
            
               <div class="card-body">
                 <section id="multiple-column-form"> 

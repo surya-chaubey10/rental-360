@@ -10,13 +10,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Inventory extends Model
 {
-    use HasApiTokens, HasFactory,SoftDeletes;
+    use HasApiTokens, HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'uuid', 'brand_name', 'model_name', 'inventory_type', 'user_id', 'organisation_id', 'status'
+        'uuid', 'brand_id', 'model_id', 'inventory_type', 'user_id', 'organisation_id', 'status'
     ];
     protected $dates = ['deleted_at'];
-    
+
     public static function boot()
     {
         parent::boot();

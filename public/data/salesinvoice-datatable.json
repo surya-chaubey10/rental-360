@@ -1,0 +1,90 @@
+{
+    "data": [
+      {
+        "id": "1",
+        "invoice_no": "IN0001",
+        "client": "KHALID BIN KALBAN",
+        "sub_total": "UAE 31377.50",
+        "transport": "0",
+        "discount": "0",
+        "tax": "UAE 1872.50",
+        "net_total": "20597.50",
+        "total_paid": "3500.50",
+        "total_due": "UAE 3745",
+        "date": "09/23/2016",
+        "status": "2"
+      },
+      {
+        "id": "2",
+        "invoice_no": "IN0001",
+        "client": "KHALID BIN KALBAN",
+        "sub_total": "UAE 31377.50",
+        "transport": "0",
+        "discount": "0",
+        "tax": "UAE 1872.50",
+        "net_total": "20597.50",
+        "total_paid": "3500.50",
+        "total_due": "UAE 3745",
+        "date": "09/23/2016",
+        "status": "2"
+       
+      },
+      {
+        "id": "3",
+        "invoice_no": "IN0001",
+        "client": "KHALID BIN KALBAN",
+        "sub_total": "UAE 31377.50",
+        "transport": "0",
+        "discount": "0",
+        "tax": "UAE 1872.50",
+        "net_total": "20597.50",
+        "total_paid": "3500.50",
+        "total_due": "UAE 3745",
+        "date": "09/23/2016",
+        "status": "1"
+      },
+      {
+        "id": "4",
+        "invoice_no": "IN0001",
+        "client": "KHALID BIN KALBAN",
+        "sub_total": "UAE 31377.50",
+        "transport": "0",
+        "discount": "0",
+        "tax": "UAE 1872.50",
+        "net_total": "20597.50",
+        "total_paid": "3500.50",
+        "total_due": "UAE 3745",
+        "date": "09/23/2016",
+        "status": "2"
+      },
+      {
+        "id": "5",
+        "invoice_no": "IN0001",
+        "client": "KHALID BIN KALBAN",
+        "sub_total": "UAE 31377.50",
+        "transport": "0",
+        "discount": "0",
+        "tax": "UAE 1872.50",
+        "net_total": "20597.50",
+        "total_paid": "3500.50",
+        "total_due": "UAE 3745",
+        "date": "09/23/2016",
+        "status": "1"
+      },
+      {
+        "id": "6",
+        "invoice_no": "IN0001",
+        "client": "KHALID BIN KALBAN",
+        "sub_total": "UAE 31377.50",
+        "transport": "0",
+        "discount": "0",
+        "tax": "UAE 1872.50",
+        "net_total": "20597.50",
+        "total_paid": "3500.50",
+        "total_due": "UAE 3745",
+        "date": "09/23/2016",
+        "status": "1"
+      }
+    ]
+
+}

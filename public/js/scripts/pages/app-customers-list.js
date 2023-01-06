@@ -7,6 +7,9 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 
 ==========================================================================================*/
+
+
+
 $(function () {
   ('use strict');
 
@@ -26,9 +29,8 @@ $(function () {
     select = $('.select2'),
     dtContact = $('.dt-contact'),
     statusObj = {
-      Pending: { title: 'Pending', class: 'badge-light-warning' },
-      Active: { title: 'Active', class: 'badge-light-success' },
-      Inactive: { title: 'Inactive', class: 'badge-light-secondary' }
+      1: { title: 'Active', class: 'badge-light-success' },
+      2: { title: 'Inactive', class: 'badge-light-secondary' }
     };
 
   var assetPath = '../../../app-assets/',
@@ -51,16 +53,17 @@ $(function () {
     });
   });
 
-
   // Users List datatable
   if (dtUserTable.length) {
+
     dtUserTable.DataTable({
-      ajax: assetPath + "data/customer-json/" + org_id + "_customer-list.json",
+      ajax: assetPath + "data/customer-json/" +org_id+ "_customer-list.json",
+  
       columns: [
         // columns according to JSON
         { data: '' },
         { data: 'fullname' },
-        { data: 'customer_type' },
+        
         { data: 'email' },
         { data: 'contact' },
         { data: 'status' },
@@ -112,7 +115,7 @@ $(function () {
               '</div>' +
               '<div class="d-flex flex-column">' +
               '<a href="' +
-              userView +
+               'javascript:;' +
               '" class="user_name text-truncate text-body"><span class="fw-bolder">' +
               $name +
               '</span></a>' +
@@ -124,7 +127,7 @@ $(function () {
             return $row_output;
           }
         },
-        {
+       /*  {
           // User Role
           targets: 2,
           render: function (data, type, full, meta) {
@@ -138,9 +141,9 @@ $(function () {
             };
             return "<span class='text-truncate align-middle'>" + $customer_type + '</span>';
           }
-        },
+        }, */
         {
-          targets: 3,
+          targets: 2,
           render: function (data, type, full, meta) {
             var $email = full['email'];
 
@@ -148,24 +151,30 @@ $(function () {
           }
         },
         {
-          targets: 4,
+          targets: 3,
           render: function (data, type, full, meta) {
             var $contact = full['contact'];
 
             return '<span class="text-nowrap">' + $contact + '</span>';
           }
         },
-        {
+         {
           // User Status
-          targets: 5,
+          targets: 4,
           render: function (data, type, full, meta) {
             var $status = full['status'];
+              var $id = full["id"];
             return (
+
+             /* --22-12-2022--
               '<span class="badge rounded-pill ' +
               statusObj[$status].class +
               '" text-capitalized>' +
               statusObj[$status].title +
-              '</span>'
+              '</span>' */
+
+           '<input type="checkbox" id='+$id+' class="toggle" '+($status==1 ? `Checked` : '') +' data-on="Active" data-off="Inactive" data-toggle="toggle">'
+
             );
           }
         },
@@ -205,7 +214,7 @@ $(function () {
           }
         }
       ],
-      order: [[1, 'desc']],
+      //order: [[1, 'desc']],
       dom:
         '<"d-flex justify-content-between align-items-center header-actions mx-2 row mt-75"' +
         '<"col-sm-12 col-lg-4 d-flex justify-content-center justify-content-lg-start" l>' +
@@ -231,31 +240,31 @@ $(function () {
               extend: 'print',
               text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
               className: 'dropdown-item',
-              exportOptions: { columns: [1, 2, 3, 4, 5] }
+              exportOptions: { columns: [1, 2, 3, 4] }
             },
             {
               extend: 'csv',
               text: feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) + 'Csv',
               className: 'dropdown-item',
-              exportOptions: { columns: [1, 2, 3, 4, 5] }
+              exportOptions: { columns: [1, 2, 3, 4] }
             },
             {
               extend: 'excel',
               text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
               className: 'dropdown-item',
-              exportOptions: { columns: [1, 2, 3, 4, 5] }
+              exportOptions: { columns: [1, 2, 3, 4] }
             },
             {
               extend: 'pdf',
               text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
               className: 'dropdown-item',
-              exportOptions: { columns: [1, 2, 3, 4, 5] }
+              exportOptions: { columns: [1, 2, 3, 4] }
             },
             {
               extend: 'copy',
               text: feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) + 'Copy',
               className: 'dropdown-item',
-              exportOptions: { columns: [1, 2, 3, 4, 5] }
+              exportOptions: { columns: [1, 2, 3, 4] }
             }
           ],
           init: function (api, node, config) {
@@ -276,7 +285,18 @@ $(function () {
           init: function (api, node, config) {
             $(node).removeClass('btn-secondary');
           }
-        }
+        },
+        {
+          text: 'Import Customer',
+          className: 'add-new btn btn-success',
+          attr: {
+            'data-bs-toggle': 'modal',
+            'data-bs-target': '#exampleModalCustomer'
+          },
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary');
+          }
+        },
       ],
       // For responsive popup
       responsive: {
@@ -319,7 +339,7 @@ $(function () {
       },
       initComplete: function () {
         // Adding role filter once table initialized
-        this.api()
+       /*  this.api()
           .columns(2)
           .every(function () {
             var column = this;
@@ -341,9 +361,9 @@ $(function () {
                 select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
               });
           });
-      
+       */
         this.api()
-          .columns(5)
+          .columns(4)
           .every(function () {
             var column = this;
             var label = $('<label class="form-label" for="FilterTransaction">Status</label>').appendTo('.customer_status');
@@ -473,8 +493,8 @@ if (dtContact.length) {
 
    // Confirm Color
    $(document).on('click', '.delete-record', function () {
-    const value_id = $(this).data('id')
-      console.log(value_id);
+    const value_id = $(this).data('id');
+    const event= $(this);  
       Swal.fire({
         title: 'Destroy Customer?',
         text: 'Are you sure you want to permanently remove this record?',
@@ -489,8 +509,8 @@ if (dtContact.length) {
       }).then(function (result) {
         if (result.value) {
 
-          deleteRecord(value_id)
-          
+          deleteRecord(value_id,event)
+           
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire({
             title: 'Cancelled',
@@ -504,7 +524,7 @@ if (dtContact.length) {
       });
     });
 
-    function deleteRecord(value_id) {
+    function deleteRecord(value_id,event) {
       $.ajax({
         url: 'customer-delete'+'/'+value_id, // JSON file to add data,
         type: 'get',
@@ -522,8 +542,8 @@ if (dtContact.length) {
                 }
                   
               });
-              
-              location.reload(true);
+              event.closest('tr').remove(); 
+              // location.reload(true);
             } else if (data.status === false) {
               
                
@@ -537,4 +557,50 @@ if (dtContact.length) {
   }
   
 
+  // Vanilla Javascript
+var input = document.querySelector("#basic-icon-default-contact");
+window.intlTelInput(input,({
+  preferredCountries: ["ae"],
+}));
+
+$(document).ready(function() {
+    $('.iti__flag-container').click(function() { 
+        var countryCode = $('.iti__selected-flag').attr('title');
+        var countryCode = countryCode.replace(/[^0-9]/g,'')
+        $('#basic-icon-default-contact').val("");
+        $('#basic-icon-default-contact').val("+"+countryCode+" "+ $('#basic-icon-default-contact').val());
+    });
 });
+
+
+
+
+});
+
+
+
+
+// 22-12-2022
+//toggle button 
+
+$(document).ready(function(){
+  $(document).on('click', '.toggle', function() {
+    // alert();
+  const thisRef = $(this); 
+  
+  thisRef.text('Processing');
+  $.ajax({
+  type: 'GET',
+  url: 'customer-toggle/'+thisRef.attr('id'),
+  success:function(response) {
+    var response = JSON.parse(response);
+    if(response == 'success'){
+      console.log('success')
+    } else {
+      console.log('failed')
+    }
+  }
+  });
+  });
+  });
+

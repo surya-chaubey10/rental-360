@@ -12,13 +12,14 @@
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/extensions/sweetalert2.min.css') }}">
+
 @endsection
 
 @section('page-style')
   {{-- Page Css files --}}
   <link rel="stylesheet" href="{{ asset('css/base/plugins/forms/form-validation.css') }}">
   <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-sweet-alerts.css') }}">
-  <link rel="stylesheet" href="{{asset('css/base/plugins/extensions/ext-component-sweet-alerts.css')}}">
+  <link rel="stylesheet" href="{{asset('public/css/base/plugins/extensions/ext-component-sweet-alerts.css')}}">
 @endsection
 
 @section('content')
@@ -39,19 +40,21 @@
             
            <div class="row">
                 <div class=" col-md-3">
-                    <img
-                      class="img-fluid rounded "
-                      src="{{asset('images/portrait/small/avatar-s-2.jpg')}}"
-                      height="110"
-                      width="110"
-                      alt="User avatar"
-                    />
+               
+               <img
+               src="{{asset('public/images/portrait/small/defaultPic.jpg')}}"
+               id="account-upload-img"
+               class="uploadedAvatar rounded me-50"
+               alt="profile image"
+               height="100"
+               width="100"/>
+              
                </div>
 
               <div class="col-md-6"> 
                 <div class="user-info text-center ">
-                  <h5>{{$customer->user->fullname}}</h5>
-                  <span class="badge bg-light-secondary">{{$customer->customer_typee->type_name}}</span>
+                  <h5>{{$customer->fullname}}</h5>
+                  <span class="badge bg-light-secondary">{{$customer->customer_type}}</span>
                 </div>
                 <div class="d-flex justify-content-center pt-2">
                 <a href="../customer-edit/{{$customer->uuid}} " class="btn btn-primary me-1" >
@@ -96,7 +99,7 @@
             <ul class="list-unstyled">
               <li class="mb-75">
                 <span class="fw-bolder me-25">Username:</span>
-                <span>{{$customer->user->username}}</span>
+                <span>{{$customer->username}}</span>
               </li>
               <li class="mb-75">
                 <span class="fw-bolder me-25">Status:</span>
@@ -109,12 +112,12 @@
               
               <li class="mb-75">
                 <span class="fw-bolder me-25">Contact:</span>
-                <span>{{$customer->user->mobile}}</span>
+                <span>{{$customer->mobile}}</span>
               </li>
              
               <li class="mb-75">
                 <span class="fw-bolder me-25">Country:</span>
-                <span>{{$customer->user->country->name}}</span>
+                <span>{{$customer->country}}</span>
               </li>
             </ul>
         
@@ -179,6 +182,7 @@
 
 @section('page-script')
   {{-- Page js files --}}
+  <script src="https://code.iconify.design/3/3.0.0/iconify.min.js"></script>
   <script src="{{ asset('js/scripts/pages/modal-edit-user.js') }}"></script>
   <script src="{{ asset('js/scripts/pages/app-user-view-account.js') }}"></script>
   <script src="{{ asset('js/scripts/pages/app-user-view.js') }}"></script>

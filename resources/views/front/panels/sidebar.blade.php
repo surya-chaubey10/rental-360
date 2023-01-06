@@ -1,11 +1,48 @@
+@php  
+$org= org_details();  
+$user = getUser();
+$org_sidebar = org_sidebar();
+$user_sidebar = user_sidebar();
+@endphp
+
+
+<style>
+.copyright {
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: end;
+    position: absolute;
+    bottom: 0px;
+	justify-content: center;
+}
+.footer-logo{
+	width: 50%;
+    object-fit: contain;
+	margin-bottom: 0.5rem;
+	}
+	.mt-custom-1rem{
+		margin-top: 1.9rem !important;
+	}
+</style>
 <div
   class="main-menu menu-fixed menu-light menu-accordion menu-shadow"
   data-scroll-to-active="true">
   <div class="navbar-header">
     <ul class="nav navbar-nav flex-row">
       <li class="nav-item me-auto">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="{{ route('org.dashboard') }}">
           <span class="brand-logo">
+            @if(isset($org->org_logo))
+            <img
+                src="/public/company/logo/{{$org->org_logo}}"
+                class="congratulations-img-right"
+                alt="card-img-right"
+                style="border-radius: 50%;" height="37" width="40"
+            />
+            @else
+
             <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink" height="24">
               <defs>
@@ -37,8 +74,11 @@
                 </g>
               </g>
             </svg>
+
+            @endif
           </span>
-          <h2 class="brand-text">MyRide</h2>
+         
+            
         </a>
       </li>
       <li class="nav-item nav-toggle">
@@ -51,45 +91,99 @@
     </ul>
   </div>
   <div class="shadow-bottom"></div>
-  <div class="main-menu-content">
-    <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-      {{-- Foreach menu item starts --}}
-      @if (isset($menuData[0]))
-        @foreach ($menuData[0]->menu as $menu)
-          @if (isset($menu->navheader))
-            <li class="navigation-header">
-              <span>{{ __('locale.' . $menu->navheader) }}</span>
-              <i data-feather="more-horizontal"></i>
-            </li>
-          @else
-            {{-- Add Custom Class with nav-item --}}
-            @php
-              $custom_classes = '';
-              if (isset($menu->classlist)) {
-                  $custom_classes = $menu->classlist;
-              }
-            @endphp
-            <li
-              class="nav-item {{ $custom_classes }} {{ Route::currentRouteName() === $menu->slug ? 'active' : '' }}">
-              <a href="{{ isset($menu->url) ? url($menu->url) : 'javascript:void(0)' }}" class="d-flex align-items-center"
-                target="{{ isset($menu->newTab) ? '_blank' : '_self' }}">
-                <i data-feather="{{ $menu->icon }}"></i>
-                <span class="menu-title text-truncate">{{ __('locale.' . $menu->name) }}</span>
-                @if (isset($menu->badge))
-                  <?php $badgeClasses = 'badge rounded-pill badge-light-primary ms-auto me-1'; ?>
-                  <span
-                    class="{{ isset($menu->badgeClass) ? $menu->badgeClass : $badgeClasses }}">{{ $menu->badge }}</span>
+    <div class="main-menu-content mt-custom-1rem">   
+
+
+  @if($user->usertype == 4)
+
+
+
+        @foreach($user_sidebar as $menu)
+
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+
+
+            <li class="nav-item {{(count($menu->role_sub_menu) > 0 ? 'has-sub' : '')}}" style="">
+            <a href="{{isset($menu->admin_menu->url) ? URL::to($menu->admin_menu->url) : 'javascript:void(0)'}}" class="d-flex align-items-center" target="_self">
+                    <?php if($menu->admin_menu_id == 4) {  ?> 
+                    <span class="iconify" data-icon="carbon:car" style="color: #423e3e;" width="35" height="35"></span> 
+                    <?php }else{ ?>  
+                    <i data-feather='{{$menu->admin_menu->icon}}'></i>
+                    <?php } ?>
+                    <span class="menu-title text-truncate">{{$menu->admin_menu->name}}</span>
+                </a>
+
+                @if(count($menu->role_sub_menu) > 0)
+
+                    @foreach($menu->role_sub_menu as $sub_menu)
+
+                    <ul class="menu-content">
+
+                        <li>
+                            <a href="{{isset($sub_menu->admin_sub_menu->url) ? URL::to($sub_menu->admin_sub_menu->url) : 'javascript:void(0)'}}" class="d-flex align-items-center" target="_self">
+                                <i data-feather='circle'></i>
+                                <span class="menu-item text-truncate">{{$sub_menu->admin_sub_menu->name}}</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                    @endforeach
                 @endif
-              </a>
-              @if (isset($menu->submenu))
-                @include('panels/submenu', ['menu' => $menu->submenu])
-              @endif
+
             </li>
-          @endif
+
+        </ul>
+
         @endforeach
-      @endif
-      {{-- Foreach menu item ends --}}
-    </ul>
-  </div>
+
+    
+    @else
+      @foreach($org_sidebar as $menu)
+
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+
+
+            <li class="nav-item {{(count($menu->org_sub_menu) > 0 ? 'has-sub' : '')}}" style="">
+            <a href="{{isset($menu->admin_menu->url) ? URL::to($menu->admin_menu->url) : 'javascript:void(0)'}}" class="d-flex align-items-center" target="_self">
+                    <?php if($menu->admin_menu_id == 4) {  ?> 
+                    <span class="iconify" data-icon="carbon:car" style="color: #423e3e;" width="35" height="35"></span> 
+                    <?php }else{ ?>  
+                    <i data-feather='{{$menu->admin_menu->icon}}'></i>
+                    <?php } ?>
+                    <span class="menu-title text-truncate">{{$menu->admin_menu->name}}</span>
+                </a>
+
+                @if(count($menu->org_sub_menu) > 0)
+
+                    @foreach($menu->org_sub_menu as $sub_menu)
+
+                    <ul class="menu-content">
+
+                        <li>
+                            <a href="{{isset($sub_menu->admin_sub_menu->url) ? URL::to($sub_menu->admin_sub_menu->url) : 'javascript:void(0)'}}" class="d-flex align-items-center" target="_self">
+                                <i data-feather='circle'></i>
+                                <span class="menu-item text-truncate">{{$sub_menu->admin_sub_menu->name}}</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                    @endforeach
+                @endif
+
+            </li>
+
+        </ul>
+
+      @endforeach
+    @endif
+
+<div class="copyright" bis_skin_checked="1">
+	  <img src="/public/company/logo/logo-360.png" class="footer-logo" alt="footer-logo" />
+	  Rental 360 ©️ 2022
+	  </div>		
+    </div>
+
 </div>
 <!-- END: Main Menu-->
+
+<script src="https://code.iconify.design/3/3.0.0/iconify.min.js"></script>

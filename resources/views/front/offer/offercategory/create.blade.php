@@ -29,13 +29,9 @@
                   <h4 >Create Offer Categories</h4>
                   <button  id="submit" name="submit" type="submit" class="btn btn-danger me-1 btn-form-block">Save</button>
                 </div> 
-              </div> 
-           
-              <div class="card-body">
-                <section id="multiple-column-form"> 
                   <div class="row">
                     <div class="col-md-12 col-12">
-                      <div class="mb-1">
+              
                         <label class="form-label" for="user-name-column">Offer Category Name</label>
                         <input
                           type="text"
@@ -63,6 +59,7 @@
                     </div>         
                 </section>  
       </form> 
+    </div> 
     </div> 
   </div>
 </section> 

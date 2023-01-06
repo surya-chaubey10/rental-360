@@ -1,13 +1,22 @@
 @extends('layouts.main')
 @section('title', 'Change Password')
 @section('content')
+
+<style>
+.p-sd2 {
+    padding: 0px 2.7rem;
+}
+.front-page {
+    padding: 0 1.7rem;
+}
+</style>
     <section id="ApiKeyPage">
         <!-- create Change Password -->
         <div class="card">
             <div class="card-header pb-0">
                 <h4 class="card-title">Create a New Password</h4>
             </div>
-            <div class="row">
+            <div class="row px-2">
                 <div class="col-md-5 order-md-0 order-1">
                     <div class="card-body">
                         <!-- form -->

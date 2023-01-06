@@ -15,6 +15,7 @@ export default defineConfig({
                 "css/base/core/menu/menu-types/vertical-menu.css",
                 "css/overrides.css",
                 "css/style.css",
+                "css/custom.css",
             ],
             refresh: true,
         }),

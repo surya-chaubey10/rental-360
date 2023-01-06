@@ -8,6 +8,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Support\Str;
 use Spatie\Activitylog\LogOptions;
+use App\Models\User;
+use App\Models\CompanyBank;
+use App\Models\CompanyKYC;
+use App\Models\CompanyMoreInformation;  
+use App\Models\CompanySubscription;
+use App\Models\CountryMaster;
+use App\Models\OrganisationSubMenu;    
+use App\Models\Document;    
+use App\Models\ManageBookings;
+use App\Models\OrganisationMenu;
+
+
 
 class Organisation extends Model
 {
@@ -40,6 +52,11 @@ class Organisation extends Model
         'is_auto_approval_set',
         'org_status',
         'is_trial_period',
+        'agreement_status',
+        'agreement_otp',
+        'is_mobile_verified',
+        'mobile_otp',
+        'signature',
     ];
 
     public static function boot()
@@ -50,9 +67,73 @@ class Organisation extends Model
         });
     }
 
-    public function users()
+
+    public function banks()
     {
-        return $this->hasMany(User::class,  'organisation_id', 'id');
+        return $this->hasMany(CompanyBank::class, 'organisation_id','id');
+
+    }   
+
+    public function kycDetail()
+    {
+        return $this->hasOne(CompanyKYC::class, 'organisation_id','id');
+
+    }   
+
+    public function kycDetailStatus()
+    {
+        return $this->hasOne(Document::class, 'organisation_id','id');
+
+    }   
+
+    public function moreInfo()
+    {
+        return $this->hasOne(CompanyMoreInformation::class,  'organisation_id', 'id');
+
+    }   
+
+    public function subscription()
+    {
+        return $this->hasOne(CompanySubscription::class,  'organisation_id', 'id');
+
+    }   
+
+    public function user()
+    {
+        return $this->hasOne(User::class,  'organisation_id', 'id');
+
     }
+
+    public function customerUser()
+    {
+        return $this->hasMany(User::class,  'organisation_id', 'id')->where('usertype',4);
+
+    }
+
+    public function booking()
+    {
+        return $this->hasMany(ManageBookings::class,  'organisation_id', 'id');
+    }
+
+    public function adminUser()
+    {
+        return $this->hasOne(User::class,  'organisation_id', 'id')->where('usertype',1);
+
+    }
+    public function countrymaster()
+    {
+        return $this->hasOne(CountryMaster::class,  'id', 'org_country_id');
+    }
+
+    public function org_menu()
+    {
+        return $this->hasMany(OrganisationMenu::class,  'organisation_id', 'id');
+    }
+
+    public function org_sub_menu()
+    {
+        return $this->hasMany(OrganisationSubMenu::class,  'organisation_id', 'id');
+    }
+
     
 }

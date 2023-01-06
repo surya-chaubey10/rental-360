@@ -12,16 +12,18 @@ use Illuminate\Support\Str;
 use App\Models\Customer;
 use App\Models\Country;
 use App\Traits\Organisationid;
+use App\Models\CountryMaster;
+use App\Models\UsersDetails;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-use Illuminate\Database\Eloquent\SoftDeletes;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes, Organisationid;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles,  Organisationid;
 
     protected static $logAttributes = ['*'];
-
+ 
     protected static $logOnlyDirty = true;
 
     public function getActivitylogOptions()
@@ -52,10 +54,23 @@ class User extends Authenticatable
         return $this->hasOne(Customer::class,  'user_id', 'id');
     }
 
+    public function user_details()
+    {
+        return $this->hasOne(UsersDetails::class,  'user_id', 'id');
+    }
+
     public function country()
     {
-        return $this->belongsTo(Country::class, 'country_id', 'id');
+        return $this->belongsTo(CountryMaster::class, 'country_id', 'id');
     }
+
+    public function role()
+    {
+        return $this->hasOne(RoleMenu::class,  'role_id', 'id');
+    }
+
+
+    
 
     /**
      * The attributes that should be hidden for serialization.

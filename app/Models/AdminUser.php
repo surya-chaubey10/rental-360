@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUser extends Authenticatable
 {
@@ -58,8 +58,8 @@ class AdminUser extends Authenticatable
             return $this->find($id);
         }
 
-        if (Auth::guard('admin')->check()) {
-            return Auth::guard('admin')->user();
+        if (Auth::guard('admin_user')->check()) {
+            return Auth::guard('admin_user')->user();
         }
 
         return $this;

@@ -10,6 +10,7 @@
 'use strict';
 
 var userText = $('#copy-to-clipboard-input');
+ 
 var btnCopy = $('#btn-copy'),
   isRtl = $('html').attr('data-textdirection') === 'rtl';
 

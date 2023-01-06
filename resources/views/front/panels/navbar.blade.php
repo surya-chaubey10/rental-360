@@ -1,16 +1,65 @@
-  <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl">
+
+	@if(Session::has('NotPermission')) 
+     <input id="universalnot_permission" type="hidden" value="{{ Session::get('NotPermission') }}">		  
+   @endif 
+   <?php 
+   $allSessions = session()->all();
+       /*  dd($allSessions); */
+        ?>
+`  <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl" >
     <div class="navbar-container d-flex content">
       <div class="bookmark-wrapper d-flex align-items-center">
         <ul class="nav navbar-nav d-xl-none">
           <li class="nav-item"><a class="nav-link menu-toggle" href="javascript:void(0);"><i class="ficon" data-feather="menu"></i></a></li>
-        </ul>
-        <ul class="nav navbar-nav bookmark-icons">
+         </ul>
+		 <ul class="left-home-icon">
+          <li class="home-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"  height="24" viewBox="0 0 24 24"><path fill="#6e6b7b" d="M20,8h0L14,2.74a3,3,0,0,0-4,0L4,8a3,3,0,0,0-1,2.26V19a3,3,0,0,0,3,3H18a3,3,0,0,0,3-3V10.25A3,3,0,0,0,20,8ZM14,20H10V15a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1Zm5-1a1,1,0,0,1-1,1H16V15a3,3,0,0,0-3-3H11a3,3,0,0,0-3,3v5H6a1,1,0,0,1-1-1V10.25a1,1,0,0,1,.34-.75l6-5.25a1,1,0,0,1,1.32,0l6,5.25a1,1,0,0,1,.34.75Z"/></svg></li>
+		  <li class="home-text">Dashboard</li>
+         </ul>
+         <!-- @php  $startdate= getallCompanyactiity(); $lastdate=getallCompanyactiity() @endphp
+        <ul class="nav navbar-nav bookmark-icons" style="margin-left:45px;">
+         <li class="nav-item dropdown dropdown-language"> 
+          <a class="nav-link all-activity" id="dropdown-flag" href="#" data-bs-toggle="dropdown" aria-haspopup="true">
+          <i class="ficon" data-feather="clock"></i>    
+           <span class="badge rounded-pill bg-danger  ">{{count($lastdate)}}</span>  
+             </a> 
+             <ul class="dropdown-menu dropdown-menu-media " style="width:393px;" >
+            <li class="dropdown-menu-header" >
+              <div class="dropdown-header d-flex">
+                <h4 class="notification-title mb-0 me-auto">Activity</h4>
+                <div class="badge rounded-pill badge-light-primary current_unread">{{count($lastdate)}} New</div>   
+              </div>
+            </li>
+           
+             <li class=" media-list" id="myDIV" >
+               @if($lastdate)
+               @for($i=0; count($lastdate) > $i; $i++)
+               @php  $startdate['time']= $startdate [$i]->created_at; @endphp          
+              <ul class="timeline ms-10" style="margin-left:2rem; ">
+                  <li class="timeline-item " style="height:58px">
+                  <span class="timeline-point timeline-point-info timeline-point-indicator"></span>
+                  <div class="list-item-body flex-grow-1" style="min-height: 0rem;margin-top: 24px;     margin-left:-14px;">
+                  
+                    <p class="media-heading"><span class="fw-bolder">{{$lastdate[$i]->messages}}.</span></p>
+                    <small class="notification-text" style="margin-left:67%; color:#fd6b6b;" > {{ Carbon\Carbon::parse($startdate['time'])->diffForHumans() }}</small> 
+                  </div>
+                  </li>
+                  <hr>
+               </ul>
+               @endfor
+              @endif
+            </li>  
+           </ul>
+          </li> 
+        </ul> -->
+        
+      <!--   <ul class="nav navbar-nav bookmark-icons">
           <li class="nav-item d-none d-lg-block"><a class="nav-link" href="{{ url('app/email') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Email"><i class="ficon" data-feather="mail"></i></a></li>
           <li class="nav-item d-none d-lg-block"><a class="nav-link" href="{{ url('app/chat') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Chat"><i class="ficon" data-feather="message-square"></i></a></li>
           <li class="nav-item d-none d-lg-block"><a class="nav-link" href="{{ url('app/calendar') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Calendar"><i class="ficon" data-feather="calendar"></i></a></li>
           <li class="nav-item d-none d-lg-block"><a class="nav-link" href="{{ url('app/todo') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Todo"><i class="ficon" data-feather="check-square"></i></a></li>
-        </ul>
-        <ul class="nav navbar-nav">
+        </ul> -->
+     <!--    <ul class="nav navbar-nav">
           <li class="nav-item d-none d-lg-block">
             <a class="nav-link bookmark-star">
               <i class="ficon text-warning" data-feather="star"></i>
@@ -23,262 +72,150 @@
               <ul class="search-list search-list-bookmark"></ul>
             </div>
           </li>
-        </ul>
+        </ul> -->
+
+
+        
       </div>
       <ul class="nav navbar-nav align-items-center ms-auto">
-        <li class="nav-item dropdown dropdown-language">
+      @php  $startdate= getallCompanyactiity(); $lastdate=getallCompanyactiity() @endphp
+        <ul class="nav navbar-nav bookmark-icons" style="margin-left:45px;">
+         <li class="nav-item dropdown dropdown-language"> 
+          <a class="nav-link all-activity" id="dropdown-flag" href="#" data-bs-toggle="dropdown" aria-haspopup="true">
+          <i class="ficon" data-feather="clock"></i>    
+          <!-- <span class="badge rounded-pill bg-danger  ">{{count($lastdate)}}</span> -->
+             </a> 
+             <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end  " style="width:393px;" >
+            <li class="dropdown-menu-header" >
+              <div class="dropdown-header d-flex">
+                <h4 class="notification-title mb-0 me-auto">Activity</h4>
+                <!-- <div class="badge rounded-pill badge-light-primary current_unread">{{count($lastdate)}} New</div>  -->
+              </div>
+            </li>
+           
+             <li class=" media-list" id="myDIV" >
+               @if($lastdate)
+               @for($i=0; count($lastdate) > $i; $i++)
+               @php  $startdate['time']= $startdate [$i]->created_at; @endphp          
+              <ul class="timeline ms-10" style="margin-left:2rem; ">
+                  <li class="timeline-item timeline-custom" style="padding-bottom: 5px;">
+                  <span class="timeline-point timeline-point-info timeline-point-indicator"></span>
+                  <div class="list-item-body flex-grow-1" style="min-height: 0rem;margin-top: 24px;     margin-left:-14px;">
+                  
+                    <p class="media-heading"><span class="fw-bolder">{{$lastdate[$i]->messages}}.</span></p>
+                    <small class="notification-text" style="margin-left:67%; color:#fd6b6b;" > {{ Carbon\Carbon::parse($startdate['time'])->diffForHumans() }}</small> 
+                  </div>
+                  </li>
+                  <!--hr-->
+               </ul>
+               @endfor
+              @endif
+            </li>  
+           </ul>
+          </li> 
+        </ul>
+        <li class="nav-item dropdown dropdown-language" style="float:left;"> 
           <a class="nav-link dropdown-toggle" id="dropdown-flag" href="#" data-bs-toggle="dropdown" aria-haspopup="true">
-            <i class="flag-icon flag-icon-us"></i>
-            <span class="selected-language">English</span>
-          </a>
+          <i class="flag-icon flag-icon-us"></i>
+            <span class="selected-language">Activity</span>
+          </a> 
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-flag">
             <a class="dropdown-item" href="{{ url('lang/en') }}" data-language="en">
-              <i class="flag-icon flag-icon-us"></i> English
-            </a>
-            <a class="dropdown-item" href="{{ url('lang/fr') }}" data-language="fr">
+            <i class="flag-icon flag-icon-us"></i> English
+            </a> 
+            <!-- <a class="dropdown-item" href="{{ url('lang/fr') }}" data-language="fr">
               <i class="flag-icon flag-icon-fr"></i> French
-            </a>
-            <a class="dropdown-item" href="{{ url('lang/de') }}" data-language="de">
+            </a> 
+             <a class="dropdown-item" href="{{ url('lang/de') }}" data-language="de">
               <i class="flag-icon flag-icon-de"></i> German
-            </a>
+            </a> 
             <a class="dropdown-item" href="{{ url('lang/pt') }}" data-language="pt">
               <i class="flag-icon flag-icon-pt"></i> Portuguese
-            </a>
-          </div>
+            </a>  -->
+          </div> 
         </li>
-        <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="sun"></i></a></li>
-        <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon" data-feather="search"></i></a>
-          <div class="search-input">
-            <div class="search-input-icon"><i data-feather="search"></i></div>
-            <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="-1" data-search="search">
-            <div class="search-input-close"><i data-feather="x"></i></div>
-            <ul class="search-list search-list-main"></ul>
-          </div>
+		<!-- <li class="nav-item dropdown dropdown-language"> 
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="none" fill-rule="evenodd" stroke="#6e6b7b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12a2 2 0 0 1-2 2H4l-4 4V2a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" transform="translate(1 1)"/></svg>
         </li>
-        <li class="nav-item dropdown dropdown-cart me-25">
-          <a class="nav-link" href="javascript:void(0);" data-bs-toggle="dropdown">
-            <i class="ficon" data-feather="shopping-cart"></i>
-            <span class="badge rounded-pill bg-primary badge-up cart-item-count">6</span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
-            <li class="dropdown-menu-header">
-              <div class="dropdown-header d-flex">
-                <h4 class="notification-title mb-0 me-auto">My Cart</h4>
-                <div class="badge rounded-pill badge-light-primary">4 Items</div>
-              </div>
-            </li>
-            <li class="scrollable-container media-list">
-              <div class="list-item align-items-center">
-                <img class="d-block rounded me-1" src="{{ asset('images/pages/eCommerce/1.png') }}" alt="donuts" width="62">
-                <div class="list-item-body flex-grow-1">
-                  <i class="ficon cart-item-remove" data-feather="x"></i>
-                  <div class="media-heading">
-                    <h6 class="cart-item-title"><a class="text-body" href="{{ url('app/ecommerce/details') }}">
-                        Apple
-                        watch 5</a></h6><small class="cart-item-by">By Apple</small>
-                  </div>
-                  <div class="cart-item-qty">
-                    <div class="input-group">
-                      <input class="touchspin-cart" type="number" value="1">
-                    </div>
-                  </div>
-                  <h5 class="cart-item-price">$374.90</h5>
-                </div>
-              </div>
-              <div class="list-item align-items-center">
-                <img class="d-block rounded me-1" src="{{ asset('images/pages/eCommerce/7.png') }}" alt="donuts" width="62">
-                <div class="list-item-body flex-grow-1">
-                  <i class="ficon cart-item-remove" data-feather="x"></i>
-                  <div class="media-heading">
-                    <h6 class="cart-item-title"><a class="text-body" href="{{ url('app/ecommerce/details') }}">
-                        Google
-                        Home Mini</a></h6><small class="cart-item-by">By Google</small>
-                  </div>
-                  <div class="cart-item-qty">
-                    <div class="input-group">
-                      <input class="touchspin-cart" type="number" value="3">
-                    </div>
-                  </div>
-                  <h5 class="cart-item-price">$129.40</h5>
-                </div>
-              </div>
-              <div class="list-item align-items-center">
-                <img class="d-block rounded me-1" src="{{ asset('images/pages/eCommerce/2.png') }}" alt="donuts" width="62">
-                <div class="list-item-body flex-grow-1">
-                  <i class="ficon cart-item-remove" data-feather="x"></i>
-                  <div class="media-heading">
-                    <h6 class="cart-item-title"><a class="text-body" href="{{ url('app/ecommerce/details') }}">
-                        iPhone 11 Pro</a></h6><small class="cart-item-by">By Apple</small>
-                  </div>
-                  <div class="cart-item-qty">
-                    <div class="input-group">
-                      <input class="touchspin-cart" type="number" value="2">
-                    </div>
-                  </div>
-                  <h5 class="cart-item-price">$699.00</h5>
-                </div>
-              </div>
-              <div class="list-item align-items-center">
-                <img class="d-block rounded me-1" src="{{ asset('images/pages/eCommerce/3.png') }}" alt="donuts" width="62">
-                <div class="list-item-body flex-grow-1">
-                  <i class="ficon cart-item-remove" data-feather="x"></i>
-                  <div class="media-heading">
-                    <h6 class="cart-item-title"><a class="text-body" href="{{ url('app/ecommerce/details') }}">
-                        iMac
-                        Pro</a></h6><small class="cart-item-by">By Apple</small>
-                  </div>
-                  <div class="cart-item-qty">
-                    <div class="input-group">
-                      <input class="touchspin-cart" type="number" value="1">
-                    </div>
-                  </div>
-                  <h5 class="cart-item-price">$4,999.00</h5>
-                </div>
-              </div>
-              <div class="list-item align-items-center">
-                <img class="d-block rounded me-1" src="{{ asset('images/pages/eCommerce/5.png') }}" alt="donuts" width="62">
-                <div class="list-item-body flex-grow-1">
-                  <i class="ficon cart-item-remove" data-feather="x"></i>
-                  <div class="media-heading">
-                    <h6 class="cart-item-title"><a class="text-body" href="{{ url('app/ecommerce/details') }}">
-                        MacBook Pro</a></h6><small class="cart-item-by">By Apple</small>
-                  </div>
-                  <div class="cart-item-qty">
-                    <div class="input-group">
-                      <input class="touchspin-cart" type="number" value="1">
-                    </div>
-                  </div>
-                  <h5 class="cart-item-price">$2,999.00</h5>
-                </div>
-              </div>
-            </li>
-            <li class="dropdown-menu-footer">
-              <div class="d-flex justify-content-between mb-1">
-                <h6 class="fw-bolder mb-0">Total:</h6>
-                <h6 class="text-primary fw-bolder mb-0">$10,999.00</h6>
-              </div>
-              <a class="btn btn-primary w-100" href="{{ url('app/ecommerce/checkout') }}">Checkout</a>
-            </li>
-          </ul>
+		<li class="nav-item"> 
+			<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" data-name="Layer 1" viewBox="0 0 64 64"><path fill="#6e6b7b" d="M32 56a24 24 0 1 1 24-24 24 24 0 0 1-24 24zm0-44a20 20 0 1 0 20 20 20 20 0 0 0-20-20z"/><path fill="#6e6b7b" d="M42 34H32a2 2 0 0 1-2-2V18a2 2 0 0 1 4 0v12h8a2 2 0 0 1 0 4z"/></svg>
         </li>
+		<li class="nav-item"> 
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="checkmark-square"><path fill="#6e6b7b" d="M20 11.83a1 1 0 0 0-1 1v5.57a.6.6 0 0 1-.6.6H5.6a.6.6 0 0 1-.6-.6V5.6a.6.6 0 0 1 .6-.6h9.57a1 1 0 1 0 0-2H5.6A2.61 2.61 0 0 0 3 5.6v12.8A2.61 2.61 0 0 0 5.6 21h12.8a2.61 2.61 0 0 0 2.6-2.6v-5.57a1 1 0 0 0-1-1z"/><path fill="#6e6b7b" d="M10.72 11a1 1 0 0 0-1.44 1.38l2.22 2.33a1 1 0 0 0 .72.31 1 1 0 0 0 .72-.3l6.78-7a1 1 0 1 0-1.44-1.4l-6.05 6.26z"/></g></g></svg>
+        </li>
+		<li class="nav-item"> 
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#6e6b7b" id="Layer_1" x="0" y="0" version="1.1" viewBox="0 0 29 29" xml:space="preserve"><circle cx="11.854" cy="11.854" r="9" fill="none" stroke="#6e6b7b" stroke-miterlimit="10" stroke-width="2"/><path fill="none" stroke="#6e6b7b" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M18.451 18.451l7.695 7.695"/></svg>
+        </li>				 -->
+        @php  $unreadnotification= getNotifications(); $notifications=getallNotifications();  $user= getUser();  $org= org_details();@endphp
         <li class="nav-item dropdown dropdown-notification me-25">
-          <a class="nav-link" href="javascript:void(0);" data-bs-toggle="dropdown">
+          <a class="nav-link all-notification" data-bs-toggle="dropdown">
             <i class="ficon" data-feather="bell"></i>
-            <span class="badge rounded-pill bg-danger badge-up">5</span>
-          </a>
+            <span class="badge rounded-pill bg-danger badge-up curr_unread">{{count($unreadnotification)}}</span>
+          </a>  
+          
           <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
             <li class="dropdown-menu-header">
               <div class="dropdown-header d-flex">
                 <h4 class="notification-title mb-0 me-auto">Notifications</h4>
-                <div class="badge rounded-pill badge-light-primary">6 New</div>
+                <div class="badge rounded-pill badge-light-primary current_unread">{{count($unreadnotification)}} New</div> 
               </div>
             </li>
+            <form id="myForm" method="post">
             <li class="scrollable-container media-list">
+              @if($notifications)
+              @for($i=0; count($notifications) > $i; $i++)
+              @php  $data['time']= $notifications[$i]->created_at; @endphp
               <a class="d-flex" href="javascript:void(0)">
+              <!-- <a href="{{$notifications[$i]->url}}{{$notifications[$i]->notification_id}}"> -->
+             
                 <div class="list-item d-flex align-items-start">
                   <div class="me-1">
                     <div class="avatar">
                       <img src="{{ asset('images/portrait/small/avatar-s-15.jpg') }}" alt="avatar" width="32" height="32">
                     </div>
                   </div>
+               
                   <div class="list-item-body flex-grow-1">
-                    <p class="media-heading"><span class="fw-bolder">Congratulation Sam 🎉</span>winner!</p>
-                    <small class="notification-text"> Won the monthly best seller badge.</small>
+                    <p class="media-heading float-left"><span class="fw-bolder">{{$notifications[$i]->messages}}.</span>
+                    <small class="notification-text" style="float: right; color:#fd6b6b;" >{{ Carbon\Carbon::parse($data['time'])->diffForHumans( null ,true, true); }}</small> </p>
                   </div>
                 </div>
+              <!-- </a> -->
               </a>
-              <a class="d-flex" href="javascript:void(0)">
-                <div class="list-item d-flex align-items-start">
-                  <div class="me-1">
-                    <div class="avatar">
-                      <img src="{{ asset('images/portrait/small/avatar-s-3.jpg') }}" alt="avatar" width="32" height="32">
-                    </div>
-                  </div>
-                  <div class="list-item-body flex-grow-1">
-                    <p class="media-heading"><span class="fw-bolder">New message</span>&nbsp;received</p>
-                    <small class="notification-text"> You have 10 unread messages</small>
-                  </div>
-                </div>
-              </a>
-              <a class="d-flex" href="javascript:void(0)">
-                <div class="list-item d-flex align-items-start">
-                  <div class="me-1">
-                    <div class="avatar bg-light-danger">
-                      <div class="avatar-content">MD</div>
-                    </div>
-                  </div>
-                  <div class="list-item-body flex-grow-1">
-                    <p class="media-heading"><span class="fw-bolder">Revised Order 👋</span>&nbsp;checkout</p>
-                    <small class="notification-text"> MD Inc. order updated</small>
-                  </div>
-                </div>
-              </a>
-              <div class="list-item d-flex align-items-center">
-                <h6 class="fw-bolder me-auto mb-0">System Notifications</h6>
-                <div class="form-check form-check-primary form-switch">
-                  <input class="form-check-input" id="systemNotification" type="checkbox" checked="">
-                  <label class="form-check-label" for="systemNotification"></label>
-                </div>
-              </div>
-              <a class="d-flex" href="javascript:void(0)">
-                <div class="list-item d-flex align-items-start">
-                  <div class="me-1">
-                    <div class="avatar bg-light-danger">
-                      <div class="avatar-content"><i class="avatar-icon" data-feather="x"></i></div>
-                    </div>
-                  </div>
-                  <div class="list-item-body flex-grow-1">
-                    <p class="media-heading"><span class="fw-bolder">Server down</span>&nbsp;registered</p>
-                    <small class="notification-text"> USA Server is down due to hight CPU usage</small>
-                  </div>
-                </div>
-              </a>
-              <a class="d-flex" href="javascript:void(0)">
-                <div class="list-item d-flex align-items-start">
-                  <div class="me-1">
-                    <div class="avatar bg-light-success">
-                      <div class="avatar-content"><i class="avatar-icon" data-feather="check"></i></div>
-                    </div>
-                  </div>
-                  <div class="list-item-body flex-grow-1">
-                    <p class="media-heading"><span class="fw-bolder">Sales report</span>&nbsp;generated</p><small class="notification-text"> Last month sales report generated</small>
-                  </div>
-                </div>
-              </a>
-              <a class="d-flex" href="javascript:void(0)">
-                <div class="list-item d-flex align-items-start">
-                  <div class="me-1">
-                    <div class="avatar bg-light-warning">
-                      <div class="avatar-content"><i class="avatar-icon" data-feather="alert-triangle"></i></div>
-                    </div>
-                  </div>
-                  <div class="list-item-body flex-grow-1">
-                    <p class="media-heading"><span class="fw-bolder">High memory</span>&nbsp;usage</p><small class="notification-text"> BLR Server using high memory</small>
-                  </div>
-                </div>
-              </a>
+              @endfor
+
+              @for($i=0; count($unreadnotification) > $i; $i++)
+              <input type="hidden" id="readable" class="form-control readable" name=readable_id[] value="{{$unreadnotification[$i]->id}}" />
+              @endfor
+              @endif
             </li>
-            <li class="dropdown-menu-footer">
+            </form>
+            <!-- <li class="dropdown-menu-footer">
               <a class="btn btn-primary w-100" href="javascript:void(0)">Read all notifications</a>
-            </li>
-          </ul>
-        </li>
+            </li> -->
+          </ul> 
+        </li> 
         <li class="nav-item dropdown dropdown-user">
           <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-bs-toggle="dropdown" aria-haspopup="true">
             <div class="user-nav d-sm-flex d-none">
               <span class="user-name fw-bolder">
-                @auth
-                {{ Auth::user()->fullname }}
-                @else
-                John Doe
-                @endauth
+              @php  $user= getUser();  $org= org_details(); @endphp
+                {{( isset($org->org_name) ? $org->org_name : '' )}}
               </span>
-              <span class="user-status">
-                Admin
-              </span>
+             
             </div>
             <span class="avatar">
-              <img class="round" src="{{ Auth::user() ? Auth::user()->profile_photo_url : asset('images/portrait/small/avatar-s-11.jpg') }}" alt="avatar" height="40" width="40">
+            @if(isset($org->org_logo))
+            <img
+                src="/public/company/logo/{{$org->org_logo}}"
+                class="congratulations-img-right"
+                alt="card-img-right"
+                height="40" 
+                width="40"
+            />
+            @else
+              <img class="round" src="{{ asset('/images/portrait/small/avatar-s-11.jpg') }}" alt="avatar" height="40" width="40">
+            @endif
               <span class="avatar-status-online"></span>
             </span>
           </a>
@@ -311,139 +248,74 @@
       </ul>
     </div>
   </nav>
-
-  {{-- Search Start Here --}}
-  <ul class="main-search-list-defaultlist d-none">
-    <li class="d-flex align-items-center">
-      <a href="javascript:void(0);">
-        <h6 class="section-label mt-75 mb-0">Files</h6>
-      </a>
-    </li>
-    <li class="auto-suggestion">
-      <a class="d-flex align-items-center justify-content-between w-100" href="{{ url('app/file-manager') }}">
-        <div class="d-flex">
-          <div class="me-75">
-            <img src="{{ asset('images/icons/xls.png') }}" alt="png" height="32">
-          </div>
-          <div class="search-data">
-            <p class="search-data-title mb-0">Two new item submitted</p>
-            <small class="text-muted">Marketing Manager</small>
-          </div>
-        </div>
-        <small class="search-data-size me-50 text-muted">&apos;17kb</small>
-      </a>
-    </li>
-    <li class="auto-suggestion">
-      <a class="d-flex align-items-center justify-content-between w-100" href="{{ url('app/file-manager') }}">
-        <div class="d-flex">
-          <div class="me-75">
-            <img src="{{ asset('images/icons/jpg.png') }}" alt="png" height="32">
-          </div>
-          <div class="search-data">
-            <p class="search-data-title mb-0">52 JPG file Generated</p>
-            <small class="text-muted">FontEnd Developer</small>
-          </div>
-        </div>
-        <small class="search-data-size me-50 text-muted">&apos;11kb</small>
-      </a>
-    </li>
-    <li class="auto-suggestion">
-      <a class="d-flex align-items-center justify-content-between w-100" href="{{ url('app/file-manager') }}">
-        <div class="d-flex">
-          <div class="me-75">
-            <img src="{{ asset('images/icons/pdf.png') }}" alt="png" height="32">
-          </div>
-          <div class="search-data">
-            <p class="search-data-title mb-0">25 PDF File Uploaded</p>
-            <small class="text-muted">Digital Marketing Manager</small>
-          </div>
-        </div>
-        <small class="search-data-size me-50 text-muted">&apos;150kb</small>
-      </a>
-    </li>
-    <li class="auto-suggestion">
-      <a class="d-flex align-items-center justify-content-between w-100" href="{{ url('app/file-manager') }}">
-        <div class="d-flex">
-          <div class="me-75">
-            <img src="{{ asset('images/icons/doc.png') }}" alt="png" height="32">
-          </div>
-          <div class="search-data">
-            <p class="search-data-title mb-0">Anna_Strong.doc</p>
-            <small class="text-muted">Web Designer</small>
-          </div>
-        </div>
-        <small class="search-data-size me-50 text-muted">&apos;256kb</small>
-      </a>
-    </li>
-    <li class="d-flex align-items-center">
-      <a href="javascript:void(0);">
-        <h6 class="section-label mt-75 mb-0">Members</h6>
-      </a>
-    </li>
-    <li class="auto-suggestion">
-      <a class="d-flex align-items-center justify-content-between py-50 w-100" href="{{ url('app/user/view') }}">
-        <div class="d-flex align-items-center">
-          <div class="avatar me-75">
-            <img src="{{ asset('images/portrait/small/avatar-s-8.jpg') }}" alt="png" height="32">
-          </div>
-          <div class="search-data">
-            <p class="search-data-title mb-0">John Doe</p>
-            <small class="text-muted">UI designer</small>
-          </div>
-        </div>
-      </a>
-    </li>
-    <li class="auto-suggestion">
-      <a class="d-flex align-items-center justify-content-between py-50 w-100" href="{{ url('app/user/view') }}">
-        <div class="d-flex align-items-center">
-          <div class="avatar me-75">
-            <img src="{{ asset('images/portrait/small/avatar-s-1.jpg') }}" alt="png" height="32">
-          </div>
-          <div class="search-data">
-            <p class="search-data-title mb-0">Michal Clark</p>
-            <small class="text-muted">FontEnd Developer</small>
-          </div>
-        </div>
-      </a>
-    </li>
-    <li class="auto-suggestion">
-      <a class="d-flex align-items-center justify-content-between py-50 w-100" href="{{ url('app/user/view') }}">
-        <div class="d-flex align-items-center">
-          <div class="avatar me-75">
-            <img src="{{ asset('images/portrait/small/avatar-s-14.jpg') }}" alt="png" height="32">
-          </div>
-          <div class="search-data">
-            <p class="search-data-title mb-0">Milena Gibson</p>
-            <small class="text-muted">Digital Marketing Manager</small>
-          </div>
-        </div>
-      </a>
-    </li>
-    <li class="auto-suggestion">
-      <a class="d-flex align-items-center justify-content-between py-50 w-100" href="{{ url('app/user/view') }}">
-        <div class="d-flex align-items-center">
-          <div class="avatar me-75">
-            <img src="{{ asset('images/portrait/small/avatar-s-6.jpg') }}" alt="png" height="32">
-          </div>
-          <div class="search-data">
-            <p class="search-data-title mb-0">Anna Strong</p>
-            <small class="text-muted">Web Designer</small>
-          </div>
-        </div>
-      </a>
-    </li>
-  </ul>
-
-  {{-- if main search not found! --}}
-  <ul class="main-search-list-defaultlist-other-list d-none">
-    <li class="auto-suggestion justify-content-between">
-      <a class="d-flex align-items-center justify-content-between w-100 py-50">
-        <div class="d-flex justify-content-start">
-          <span class="me-75" data-feather="alert-circle"></span>
-          <span>No results found.</span>
-        </div>
-      </a>
-    </li>
-  </ul>
-  {{-- Search Ends --}}
   <!-- END: Header-->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+   $(document).ready(function(){
+    $(".all-notification").click(function (e) {
+    e.preventDefault();
+    
+    let formData = new FormData($('#myForm')[0])
+
+      $.ajax({
+              url: '/notification-change-status', // JSON file to add data,
+              type: 'POST',
+              dataType: 'json',
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function (data) {
+                $('.current_unread').html(data.data+" new");
+                $('.curr_unread').html(data.data);
+              },
+              error: function (data) {
+
+              }
+          })   
+      
+   });
+
+   @if(Session::has('NotPermission'))
+   alert("hello");
+    var toster1=jq('#universalnot_permission').val();
+    if(toster1!=''){
+        Swal.fire({
+          
+          icon: 'error',
+          title: ''+toster1,
+          showConfirmButton: false,
+          timer: 2000
+            })
+        }
+         {{ Session::forget('NotPermission') }}
+        
+    @endif
+
+});
+
+</script>
+<script>
+function myFunction() {
+  const element = document.getElementById("content");
+  element.scrollIntoView();
+}
+
+
+</script>
+<style>
+#myDIV {
+    height: 314px;
+    width: 387px;
+  overflow: auto;
+
+}
+
+#content {
+  margin:500px;
+  height: 800px;
+  width: 2000px;
+}
+.timeline-custom{
+  border-bottom: 1px solid #ebe9f1;	
+}
+</style>

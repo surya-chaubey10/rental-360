@@ -1,8 +1,14 @@
+@auth
+    <script>
+        var org_id = {{ Auth::user()->organisation_id }}
+        var app_path = '{{ env("APP_PATH") }}'
+    </script>
+@endauth
 <!-- BEGIN: Vendor JS-->
 <script src="{{ asset('vendors/js/vendors.min.js') }}"></script>
 <!-- BEGIN Vendor JS-->
 <!-- BEGIN: Page Vendor JS-->
-<script src="{{asset('vendors/js/ui/jquery.sticky.js') }}"></script>
+<script src="{{ asset('vendors/js/ui/jquery.sticky.js') }}"></script>
 @yield('vendor-script')
 <!-- END: Page Vendor JS-->
 <!-- BEGIN: Theme JS-->

@@ -11,7 +11,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-
+use App\Models\User; //new08
+use App\Models\Organisation; //new08
+use Session; //new08
 
 class AuthController extends Controller
 {
@@ -25,6 +27,7 @@ class AuthController extends Controller
 
     public function showLoginForm()
     {
+         
         return view('auth.login');
     }
 
@@ -54,12 +57,12 @@ class AuthController extends Controller
 
         if ($this->attemptLogin($request)) {
             if ($request->hasSession()) {
-                $request->session()->put('auth.password_confirmed_at', time());
-            }
-
+                 $request->session()->put('auth.password_confirmed_at', time());
+             }
+           
             return $this->sendLoginResponse($request);
         }
-
+      
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
@@ -121,19 +124,49 @@ class AuthController extends Controller
 
         $this->clearLoginAttempts($request);
 
-        if ($response = $this->authenticated($request, $this->guard()->user())) {
-            return $response;
+        //new---------------pky
+        $user = User::where('email', $request->email)->first();
+        $organisation = Organisation::find($user->organisation_id);
+
+        if ($organisation) {
+            
+            if ($organisation->agreement_status == 1) {
+                
+                
+                //old----
+                if ($response = $this->authenticated($request, $this->guard()->user())) {
+                    
+                    return $response;
+                }
+
+                // return response()->json([
+                //     'status' => 'successRedirect',
+                //     'message' => 'User Login Successfull',
+                //     'redirect' => route('org.dashboard')
+                // ]);
+
+                return $request->wantsJson()
+                    ? new JsonResponse([], 204)
+                    : redirect()->intended(route('org.dashboard')); 
+            } 
+
+
+            //---------------------
+            if ($organisation->org_status == 2) {
+              return redirect()->route('login')->with('danger','Document under review!');
+            }
+            if ($organisation->org_status == 3) {
+              return redirect()->route('login')->with('danger','You are not aproved!');
+            }
+            if ($organisation->org_status == 4) {
+              return redirect()->route('login')->with('danger','You are blocked user!');
+            }
+            
         }
-
-        // return response()->json([
-        //     'status' => 'successRedirect',
-        //     'message' => 'User Login Successfull',
-        //     'redirect' => route('org.dashboard')
-        // ]);
-
-        return $request->wantsJson()
-            ? new JsonResponse([], 204)
-            : redirect()->intended(route('org.dashboard'));
+        else{
+            return redirect()->route('login')->with('danger','You are not active user!');
+        }
+        //---------mew pky^
     }
 
     /**
@@ -144,12 +177,33 @@ class AuthController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    //---------------------------------old code
+    // protected function sendFailedLoginResponse(Request $request)
+    // {
+    //     throw ValidationException::withMessages([
+    //         $this->username() => [trans('pankaj')],
+    //     ]);
+    // }
+
+    //-------------------------------new PKY
     protected function sendFailedLoginResponse(Request $request)
     {
-        throw ValidationException::withMessages([
-            $this->username() => [trans('auth.failed')],
-        ]);
+
+    // Load user from database
+    $user = User::where('email', $request->email)->first();
+    //dd($user);
+
+         if($user && !Hash::check($request->password, $user->password) ){
+                throw ValidationException::withMessages([
+                    'password' => [trans('Password Invalid')],
+                ]);
+            }else{
+                throw ValidationException::withMessages([
+                $this->username() => [trans('Email Invalid')],
+            ]);
+            }
     }
+    //---------------------------------------------^
 
     /**
      * Get the login username to be used by the controller.

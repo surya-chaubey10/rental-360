@@ -21,7 +21,7 @@
 @section('content')
  
 <section class="app-user-view-account">
-  <div class="row"> 
+  <!-- <div class="row">  -->
       <div class="card">  
               <div class="card-body border-bottom">
                <form class="add-vehicle-service_type modal-content pt-0 form-block form-block" autocomplete="off" id="addvehicle_service_type" method="post" enctype="multipart/from-data" > 
@@ -83,7 +83,7 @@
                 </section>  
       </form> 
     </div> 
-  </div>
+  <!-- </div> -->
 </section>   
 @endsection  
 

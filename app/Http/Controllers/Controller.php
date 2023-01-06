@@ -28,6 +28,12 @@ class Controller extends BaseController
         $this->paginate                     = 15;
 
         $this->user = getUser();
+    
+        if (isset($this->user->status) && $this->user->status == 1) {
+            $this->isAuthorized = true;
+        } else {
+            $this->isAuthorized = false;
+        }
     }
         
 }

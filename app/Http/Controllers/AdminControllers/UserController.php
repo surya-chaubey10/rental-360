@@ -51,6 +51,19 @@ class UserController extends Controller
         //
     }
 
+public function edit($uuid)
+  { 
+      
+        $user = User::select('users.uuid','users.fullname', 'roles.name as role', 'users.email', 'users.mobile', 'users.status')
+             ->leftJoin('default_roles as roles', function ($join) {
+              $join->on('roles.id', '=', 'users.role_id');
+             })
+             ->where('users.uuid',$uuid)->first();
+   
+
+      return view('users.edit',compact('user'));    
+  } 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -79,10 +92,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.

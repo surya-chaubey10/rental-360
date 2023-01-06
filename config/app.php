@@ -196,6 +196,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Paytabscom\Laravel_paytabs\PaypageServiceProvider::class, 
+        Ixudra\Curl\CurlServiceProvider::class,
+        
         /*
          * Package Service Providers...
          */
@@ -227,6 +230,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Helper' => App\Helpers\Helpers::class,
+        'Curl'          => Ixudra\Curl\Facades\Curl::class,
     ])->toArray(),
 
 ];

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('dob')->format('d/m/Y')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('website')->nullable();
+            $table->string('image')->nullable();
             $table->string('language')->nullable();
             $table->string('address1')->nullable();
             $table->string('address2')->nullable();
@@ -47,6 +48,7 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+			$table->enum('is_deleted', [0, 1])->default(0);
 
         });
     }

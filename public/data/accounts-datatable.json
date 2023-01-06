@@ -1,0 +1,31 @@
+{
+  "data": [
+    {
+      "#":"1",
+      "bank_name": "Cash",
+      "branch_name": "Mirpur",
+      "account_number": "CASH-0001",
+      "availabe_balance": "$66646.50",
+      "date": "13th jul,2022",
+      "status": 1
+    },
+    {
+      "#":"2",
+      "bank_name": "Federal Bank Ltd",
+      "branch_name": "Mirpur",
+      "account_number": "CASH-0001",
+      "availabe_balance": "$66646.50",
+      "date": "13th jul,2022",
+      "status": 1
+    },
+    {
+      "#":"2",
+      "bank_name": "Dutch Bangla Bank",
+      "branch_name": "Mirpur",
+      "account_number": "CASH-0001",
+      "availabe_balance": "$66646.50",
+      "date": "13th jul,2022",
+      "status": 1
+    }
+           ]
+}

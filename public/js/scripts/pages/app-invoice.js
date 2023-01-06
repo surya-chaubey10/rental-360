@@ -9,7 +9,13 @@
 ==========================================================================================*/
 $(function () {
   'use strict';
+  // var copy = $('.url_copy');
 
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+   })
   var applyChangesBtn = $('.btn-apply-changes'),
     discount,
     tax1,
@@ -201,5 +207,129 @@ $(function () {
         return new bootstrap.Tooltip(tooltipTriggerEl);
       });
     });
-  }
+  } 
+
+  $(document).ready(function() {
+   
+    $('#store_note').on('click', function() {
+      var name = $('#inv_preview_note').val();
+      var booking_uuid = $('#booking_id').val();
+      var transaction_type = $('#transaction_type').val();
+       
+        //   $("#storememberbtn").attr("disabled", "disabled");
+          $.ajax({
+              url: "/inv_note_store" + '/' + booking_uuid,
+              type: "POST",
+              data: {
+                  _token: $("#csrf").val(),
+                  type: 1,
+                  name: name 
+              },
+              cache: false,
+              success: function(responseOutput){
+                if(responseOutput.status=== true){
+                 
+                  if(responseOutput.data.tran_type=="Cash"){
+                      window.location = "/manage-booking-list"; 
+                    } 
+                      
+              }
+                  var responseOutput = JSON.parse(responseOutput);
+                  if(responseOutput.statusCode==200){
+                    // window.location = "/memberInformation";				
+                  } 
+              }
+          });  
+  });
+  $('#mail_send').on('click', function() { 
+    var booking_uuid = $('#booking_id').val(); 
+      //   $("#storememberbtn").attr("disabled", "disabled");
+        $.ajax({
+            url: "../popupmail_trigger" + '/' + booking_uuid,
+            type: "get",
+            data: { 
+              _token: $("#csrf").val()
+            },
+            cache: false,
+            success: function(res){
+                console.log(res);
+
+                if (res == 'true') {
+
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Sent!',
+                    text: 'Mail has been sent successfully.',
+                    customClass: {
+                      confirmButton: 'btn btn-success'
+                    }
+                      
+                  });
+                  
+                }
+            }
+        }); 
+      });  
+ 
+
+      $('#sms_send').on('click', function() { 
+        var uuid = $('#uuid').val(); 
+
+            $.ajax({
+                url: "../popupsms_trigger" + '/' + uuid,
+                type: "get",
+
+                cache: false,
+                success: function(res){
+                  console.log(res);
+
+                  if (res == 'true') {
+
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Sent!',
+                      text: 'Payment link has been sent successfully.',
+                      customClass: {
+                        confirmButton: 'btn btn-success'
+                      }
+                        
+                    });
+                    
+                  }
+
+                }
+            }); 
+          });     
+    });
 });
+
+
+$(document).ready(function() {
+  $('#clikboard').on('click', function()          
+  {   
+    var copyText= $('#myInput').val(); 
+    alert(copyText);
+     var clipboard = navigator.clipboard;
+     if (clipboard == undefined) {
+       console.log('clipboard is undefined');
+     } else {
+      clipboard.writeText(copyText).then(function() {
+
+        console.log('Copied to clipboard successfully!');
+           Swal.fire({
+                     icon: 'success',
+                     title: 'Copied!',
+                     text: 'Payment link  Copied successfully.',
+                     customClass: {
+                         confirmButton: 'btn btn-success'
+                       }         
+                     });
+
+    }, function() {
+        console.error('Unable to write to clipboard. :-(');
+    });
+}
+  });  
+
+});  
+ 

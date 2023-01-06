@@ -1,0 +1,94 @@
+{
+  "data": [
+    
+    {
+      "responsive_id": null,
+      "invoice_id": 1,
+      "issued_date": "07/20/2019",
+      "client_name": "Beck Cottle",
+      "email": "beckcottle@email.com",
+      "total": "56K",
+      "booking":"50",
+      "payment":"5k",
+      "avatar": "1-small.png",
+      "invoice_status": "Draft",
+      "balance": "55",
+      "revenue": "DJHFJ8568"
+    },
+    { 
+      "responsive_id": null,
+      "invoice_id": 2,
+      "issued_date": "04/19/2019",
+      "booking":"50",
+      "client_name": "Deny Pell",
+      "payment":"5k",
+      "email": "denypell@email.com",
+      "service": "Unlimited Extended License",
+      "total": "56K",
+      "avatar": "1-small.png",
+      "invoice_status": "Draft",
+      "balance": "59",
+      "revenue": "DJHFJ8568"
+    },
+    {
+      "responsive_id": null,
+      "invoice_id": 3,
+      "issued_date": "07/20/2019",
+      "booking":"50",
+      "payment":"5k",
+      "client_name": "Beck Cottle",
+      "email": "beckcottle@email.com",
+      "service": "UI/UX Design & Development",
+      "total": "57K",
+      "avatar": "1-small.png",
+      "invoice_status": "Draft",
+      "balance": "45",
+      "revenue": "DJHFJ8568"
+    },
+    {
+      "responsive_id": null,
+      "invoice_id": 4,
+      "issued_date": "04/19/2019",
+      "booking":"50",
+      "client_name": "Deny Pell",
+      "email": "denypell@email.com",
+      "service": "Unlimited Extended License",
+      "total": "567K",
+      "avatar": "1-small.png",
+      "invoice_status": "Draft",
+      "payment":"5k",
+      "balance": "55",
+      "revenue": "DJHFJ8568"
+    },
+    {
+      "responsive_id": null,
+      "invoice_id": 5,
+      "booking":"50",
+      "payment":"5k",
+      "issued_date": "07/20/2019",
+      "client_name": "Beck Cottle",
+      "email": "beckcottle@email.com",
+      "service": "UI/UX Design & Development",
+      "total": "5667K",
+      "avatar": "1-small.png",
+      "invoice_status": "Draft",
+      "balance": "60",
+      "revenue": "DJHFJ8568"
+    },
+    {
+      "responsive_id": null,
+      "booking":"50",
+      "invoice_id": 6,
+      "issued_date": "04/19/2019",
+      "payment":"5k",
+      "client_name": "Deny Pell",
+      "email": "denypell@email.com",
+      "service": "Unlimited Extended License",
+      "total": "656K",
+      "avatar": "1-small.png",
+      "invoice_status": "Draft",
+      "balance": "50",
+      "revenue": "DJHFJ8568"
+    }
+  ]
+}

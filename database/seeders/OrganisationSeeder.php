@@ -37,21 +37,5 @@ class OrganisationSeeder extends Seeder
         $organisation->org_status                   = 1;
         $organisation->is_trial_period              = 0;
         $organisation->save();
-
-        $createRole = new OrganisationRole;
-        $createRole->organisation_id    = $organisation->id;
-        $createRole->name               = 'superadmin';
-        $createRole->save();
-
-        $roles = array('org-admin', 'Supervisor', 'manager');
-
-        $organisation_id = $organisation->id;
-
-        collect($roles)->each(function ($role, $key) use ($organisation_id) {
-            $createRole = new OrganisationRole();
-            $createRole->organisation_id = $organisation_id;
-            $createRole->name = $role;
-            $createRole->save();
-        });
     }
 }

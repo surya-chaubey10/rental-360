@@ -1,0 +1,77 @@
+{
+  "data": [
+    
+    {
+     
+     
+      
+      "rental":"60%",
+      "available":"80%",
+      "price":"7845",
+      "responsive_id":"7845",
+      "created":"23-09-2022",
+      "client_name": "Audi fhgfh"
+    
+    
+    },
+    {
+     
+     
+      "rental":"60%",
+      "created":"23-09-2022",
+      "price":"7845",
+      "available":"80%",
+      "responsive_id":"7845",
+    
+      "client_name": "Audi"
+    
+    },
+    {
+      "available":"80%",
+      
+      
+      "rental":"60%",
+      "created":"23-09-2022",
+      "responsive_id":"7845",
+      "price":"7845",
+      "invoice_id": 1,
+      "client_name": "Audi"
+    
+    },
+    {
+     
+      "rental":"60%",
+      "created":"23-09-2022",
+      "price":"7845",
+      "responsive_id":"7845",
+      "available":"80%",
+      
+      
+      "client_name": "Audi"
+    
+    },
+    {
+      "available":"80%",
+      "responsive_id":"7845",
+     
+     
+      "rental":"60%",
+      "price":"7845",
+      "created":"23-09-2022",
+      
+      "client_name": "Audi"
+    
+    },
+    {
+      "available":"80%",
+      "responsive_id":"7845",
+      "price":"7845",
+      "rental":"60%",
+      "created":"23-09-2022",
+      
+    
+      "client_name": "Audi"
+    
+    }
+  ]
+}

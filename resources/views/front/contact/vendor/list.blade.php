@@ -17,33 +17,20 @@
   {{-- Page Css files --}}
   <link rel="stylesheet" href="{{ asset('css/base/plugins/forms/form-validation.css') }}">
   <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-toastr.css') }}">
-  <link rel="stylesheet" href="{{asset('css/base/plugins/extensions/ext-component-sweet-alerts.css')}}">
+  <link rel="stylesheet" href="{{asset('public/css/base/plugins/extensions/ext-component-sweet-alerts.css')}}">
 @endsection
 
 @section('content') 
 <section class="app-vendor-list">
   <div class="row">
-    <div class="col-lg-3 col-sm-6">
+
+
+  <div class="col-lg-3 col-sm-6">
       <div class="card">
         <div class="card-body d-flex align-items-center justify-content-between">
           <div>
-            <h3 class="fw-bolder mb-75">21,459</h3>
-            <span>Total Vendor</span>
-          </div>
-          <div class="avatar bg-light-primary p-50">
-            <span class="avatar-content">
-              <i data-feather="user" class="font-medium-4"></i>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-sm-6">
-      <div class="card">
-        <div class="card-body d-flex align-items-center justify-content-between">
-          <div>
-            <h3 class="fw-bolder mb-75">4,567</h3>
-            <span>Paid Vendor</span>
+            <h3 class="fw-bolder mb-75">0</h3>
+            <span>Total Payment</span>
           </div>
           <div class="avatar bg-light-danger p-50">
             <span class="avatar-content">
@@ -57,7 +44,23 @@
       <div class="card">
         <div class="card-body d-flex align-items-center justify-content-between">
           <div>
-            <h3 class="fw-bolder mb-75">19,860</h3>
+            <h3 class="fw-bolder mb-75">0</h3>
+            <span>Pending Payment</span>
+          </div>
+          <div class="avatar bg-light-primary p-50">
+            <span class="avatar-content">
+              <i data-feather="user" class="font-medium-4"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div class="col-lg-3 col-sm-6">
+      <div class="card">
+        <div class="card-body d-flex align-items-center justify-content-between">
+          <div>
+            <h3 class="fw-bolder mb-75">0</h3>
             <span>Active Vendor</span>
           </div>
           <div class="avatar bg-light-success p-50">
@@ -72,7 +75,7 @@
       <div class="card">
         <div class="card-body d-flex align-items-center justify-content-between">
           <div>
-            <h3 class="fw-bolder mb-75">237</h3>
+            <h3 class="fw-bolder mb-75">0</h3>
             <span>Pending Vendor</span>
           </div>
           <div class="avatar bg-light-warning p-50">
@@ -85,6 +88,7 @@
     </div>
   </div>
   <!-- list and filter start -->
+   <!--   
   <div class="card">
     <div class="card-body border-bottom">
       <h4 class="card-title">Search & Filter</h4>
@@ -93,14 +97,14 @@
         <div class="col-md-4 vendor_plan"></div>
         <div class="col-md-4 vendor_status"></div>
       </div>
-    </div>
+    </div>     -->
     <div class="card-datatable table-responsive pt-0">
       <table class="vendor-list-table table">
         <thead class="table-light">
           <tr>
             <th></th>
             <th>Name</th>
-            <th>Type</th>
+         <!--    <th>Type</th>   -->
             <th>Email</th>
             <th>Phone</th>
             <th>Status</th>

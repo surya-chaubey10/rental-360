@@ -10,15 +10,24 @@
 $(function () {
     ("use strict");
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+       })
+       var isRtl = $('html').attr('data-textdirection') === 'rtl';
+
     var dtUserTable = $(".user-list-table"),
         newUserSidebar = $(".new-user-modal"),
         newUserForm = $(".add-new-user"),
+        formBlock = $('.btn-form-block'),
+        formSection = $('.form-block'),
         select = $(".select2"),
         dtContact = $(".dt-contact"),
         statusObj = {
-            1: { title: "Pending", class: "badge-light-warning" },
-            2: { title: "Active", class: "badge-light-success" },
-            3: { title: "Inactive", class: "badge-light-secondary" },
+           
+            1: { title: "Active", class: "badge-light-success" },
+            2: { title: "Inactive", class: "badge-light-secondary" },
         };
 
     var assetPath = "../../../app-assets/",
@@ -27,6 +36,8 @@ $(function () {
     if ($("body").attr("data-framework") === "laravel") {
         assetPath = $("body").attr("data-asset-path");
         userView = assetPath + "app/user/view/account";
+        userEdit = "user-edit";
+        userShow = "users-view";
     }
 
     select.each(function () {
@@ -119,9 +130,7 @@ $(function () {
                             "</div>" +
                             "</div>" +
                             '<div class="d-flex flex-column">' +
-                            '<a href="' +
-                            userView +
-                            '" class="user_name text-truncate text-body"><span class="fw-bolder">' +
+                            '<a  class="user_name text-truncate text-body"><span class="fw-bolder">' +
                             $name +
                             "</span></a>" +
                             '<small class="emp_post text-muted">' +
@@ -160,7 +169,7 @@ $(function () {
                             "</span>"
                         );
                     },
-                },
+                 },
                 {
                     targets: 4,
                     render: function (data, type, full, meta) {
@@ -176,13 +185,18 @@ $(function () {
                     targets: 5,
                     render: function (data, type, full, meta) {
                         var $status = full["status"];
-
+                      
+                         var $id = full["id"];
                         return (
+                            /* --22-12-2022-- 
                             '<span class="badge rounded-pill ' +
                             statusObj[$status].class +
                             '" text-capitalized>' +
                             statusObj[$status].title +
-                            "</span>"
+                            "</span>" */
+                        '<input type="checkbox" id='+$id+' class="toggle" '+($status==1 ? `Checked` : '') +' data-on="Active" data-off="Inactive" data-toggle="toggle">'
+
+
                         );
                     },
                 },
@@ -192,6 +206,7 @@ $(function () {
                     title: "Actions",
                     orderable: false,
                     render: function (data, type, full, meta) {
+                        var $uuid = full["uuid"];
                         return (
                             '<div class="btn-group">' +
                             '<a class="btn btn-sm dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
@@ -200,25 +215,28 @@ $(function () {
                             }) +
                             "</a>" +
                             '<div class="dropdown-menu dropdown-menu-end">' +
-                            '<a href="' +
-                            userView +
-                            '" class="dropdown-item">' +
+                            '<a href="'+userShow+'/'+$uuid+'" class="dropdown-item">' +
                             feather.icons["file-text"].toSvg({
                                 class: "font-small-4 me-50",
                             }) +
-                            "Details</a>" +
-                            '<a href="javascript:;" class="dropdown-item delete-record">' +
-                            feather.icons["trash-2"].toSvg({
+                            "Details</a>"+
+                            '<a href="' +
+                            userEdit +'/'+$uuid+
+                            '" class="dropdown-item ">' +
+                            feather.icons["edit-2"].toSvg({
                                 class: "font-small-4 me-50",
                             }) +
-                            "Delete</a></div>" +
+                            "Edit</a>" +
+                            '<button data-id="'+$uuid+'"  class="dropdown-item delete-record">' +
+                    feather.icons['trash-2'].toSvg({ class: 'font-small-4 me-50' }) +
+                    'Delete</button></div>' +
                             "</div>" +
                             "</div>"
                         );
                     },
                 },
             ],
-            order: [[1, "desc"]],
+           // order: [[1, "desc"]],
             dom:
                 '<"d-flex justify-content-between align-items-center header-actions mx-2 row mt-75"' +
                 '<"col-sm-12 col-lg-4 d-flex justify-content-center justify-content-lg-start" l>' +
@@ -300,17 +318,17 @@ $(function () {
                         }, 50);
                     },
                 },
-                {
-                    text: "Add New User",
-                    className: "add-new btn btn-primary",
-                    attr: {
-                        "data-bs-toggle": "modal",
-                        "data-bs-target": "#modals-slide-in",
-                    },
-                    init: function (api, node, config) {
-                        $(node).removeClass("btn-secondary");
-                    },
-                },
+                // {
+                //     text: "Add New User",
+                //     className: "add-new btn btn-primary",
+                //     attr: {
+                //         "data-bs-toggle": "modal",
+                //         "data-bs-target": "#modals-slide-in",
+                //     },
+                //     init: function (api, node, config) {
+                //         $(node).removeClass("btn-secondary");
+                //     },
+                // },
             ],
             // For responsive popup
             responsive: {
@@ -477,6 +495,165 @@ $(function () {
         });
     }
 
+    
+    // $(document).on('click', '.check_permission', function () {
+    //     const value_id = $(this).attr('data-id');  
+    //     document.getElementById("defaultCheck"+value_id).value = this.checked ? 1 : 0;
+    // }).change();
+
+    $(document).on('change', '#role_id', function () {
+        const value_id = $(this).val();  
+        all_submenu(value_id)
+    });
+
+    function all_submenu(value_id) {
+        $.ajax({
+          url: '../ajax_all_submenu'+'/'+value_id, // JSON file to add data,
+          type: 'get',
+          dataType: 'json',
+          contentType: false,
+          processData: false,
+          success: function (data) { 
+                $('#submenupermision_data').html(data.html);
+          },
+           error: function (data) {
+          }
+      })
+    }
+
+    newUserForm.on('submit', function (e) {
+        if (!e.isDefaultPrevented()) {
+              e.preventDefault()
+            $( "#submit" ).prop( "disabled", true );
+            if (formBlock.length && formSection.length) {
+              formBlock.on('click', function () {
+                formSection.block({
+                  message: '<div class="spinner-border text-white" role="status"></div>',
+                  timeout: 1000,
+                  css: {
+                    backgroundColor: 'transparent',
+                    color: '#fff',
+                    border: '0'
+                  },
+                  overlayCSS: {
+                    opacity: 0.5
+                  }
+                });
+              });
+            }
+              let formData = new FormData($('#form_idd1')[0])
+            
+           $.ajax({
+                  url: '../user-save', // JSON file to add data,
+                  type: 'POST',
+                  dataType: 'json',
+                  data: formData,
+                  contentType: false,
+                  processData: false,
+                  success: function (data) {
+                      $( "#submit" ).prop( "disabled", false );
+                       
+                      if (data.status === true) {  
+                          toastr['success'](''+data.message+'', {
+                            closeButton: true,
+                            tapToDismiss: false,
+                            rtl: isRtl
+                          });
+                          window.location = "/users";
+  
+                      } else if (data.status === false) {
+                       
+                        $( "#submit" ).prop( "disabled", false );
+                        toastr['error'](''+data.message+'', {
+                          closeButton: true,
+                          tapToDismiss: false,
+                          rtl: isRtl
+                        });
+                         
+                      }
+                  },
+                  error: function (data) {
+                    $( "#submit" ).prop( "disabled", false );
+                    toastr['error'](''+data.message+'', {
+                      closeButton: true,
+                      tapToDismiss: false,
+                      rtl: isRtl
+                    });
+                  }
+              })
+          }
+      })
+
+
+      $(document).on('click', '.delete-record', function () {
+        const value_id = $(this).data('id');
+        const event= $(this); 
+          console.log(value_id);
+          Swal.fire({
+            title: 'Destroy User?',
+            text: 'Are you sure you want to permanently remove this record?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            customClass: {
+              confirmButton: 'btn btn-primary',
+              cancelButton: 'btn btn-outline-danger ms-1'
+            },
+            buttonsStyling: false
+          }).then(function (result) {
+            if (result.value) {
+    
+              deleteRecord(value_id,event)
+            //   location.reload(true);
+  
+              
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              Swal.fire({
+                title: 'Cancelled',
+                text: 'Your imaginary file is safe :)',
+                icon: 'error',
+                customClass: {
+                  confirmButton: 'btn btn-success'
+                }
+              });
+            }
+          });  
+        });
+    
+        function deleteRecord(value_id,event) {
+          $.ajax({
+            url: 'user-delete'+'/'+value_id, // JSON file to add data,
+            type: 'get',
+            dataType: 'json',
+            contentType: false,
+            cache : false, 
+            processData: false,
+            success: function (data) {
+                if (data.status === true) {
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Deleted!',
+                    text: 'Your record has been deleted.',
+                    customClass: {
+                      confirmButton: 'btn btn-success'
+                    } 
+                  }); 
+                  event.closest('tr').remove(); 
+                //   location.reload(true);
+                } else if (data.status === false) { 
+                    Swal.fire({
+                        icon: 'danger',
+                        text: data.message,
+                        customClass: {
+                          confirmButton: 'btn btn-danger'
+                        } 
+                      }); 
+                }
+            },
+            error: function (data) { 
+            }
+        })
+      }
     // Form Validation
     if (newUserForm.length) {
         newUserForm.validate({
@@ -485,9 +662,7 @@ $(function () {
                 "user-fullname": {
                     required: true,
                 },
-                "user-name": {
-                    required: true,
-                },
+              
                 "user-email": {
                     required: true,
                 },
@@ -512,4 +687,44 @@ $(function () {
             });
         });
     }
+
+    var input = document.querySelector("#contact");
+window.intlTelInput(input,({
+    preferredCountries: ["ae"],
+}));
+
+$(document).ready(function() {
+    $('.iti__flag-container').click(function() { 
+        var countryCode = $('.iti__selected-flag').attr('title');
+        var countryCode = countryCode.replace(/[^0-9]/g,'');
+        $('#contact').val("");
+        $('#contact').val("+"+countryCode+" "+ $('#contact').val());
+    });
 });
+
+});
+
+
+// 22-12-2022
+//toggle button 
+
+$(document).ready(function(){
+  $(document).on('click', '.toggle', function() {
+    // alert();
+  const thisRef = $(this); 
+  
+  thisRef.text('Processing');
+  $.ajax({
+  type: 'GET',
+  url: 'users-toggle/'+thisRef.attr('id'),
+  success:function(response) {
+    var response = JSON.parse(response);
+    if(response == 'success'){
+      console.log('success')
+    } else {
+      console.log('failed')
+    }
+  }
+  });
+  });
+  });

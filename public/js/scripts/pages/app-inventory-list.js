@@ -28,6 +28,11 @@ $(function () {
       statusObj = {
         Enable: { title: 'Enable', class: 'badge-light-success' },
         Disable: { title: 'Disable', class: 'badge-light-warning' }
+      },
+
+      inventryObj = {
+        1: { title: 'Rental Car', class: 'badge-light-info' },
+        2: { title: 'other', class: 'badge-light-danger' }
       };
   
     var assetPath = '../../../app-assets/',
@@ -35,7 +40,7 @@ $(function () {
   
     if ($('body').attr('data-framework') === 'laravel') {
       assetPath = $('body').attr('data-asset-path');
-      userView = assetPath + 'inventory_edit';
+      userView = assetPath + 'storeadmin/inventory_edit';
       userDelete= assetPath + 'inventory_delete';
     }
   
@@ -52,38 +57,28 @@ $(function () {
     });
   
   
-    // Users List datatable
+    // Users List datatable 
     if (dtUserTable.length) {
-      dtUserTable.DataTable({
-        ajax: 'data/inventory-list-json', // JSON file to add data
+      var dtUser = dtUserTable.DataTable({
+        ajax: assetPath + "data/inventry-json/_inventry-list.json",
         columns: [
           // columns according to JSON
-          { data: 'uuid' },
-          { data: 'image' },
-          { data: 'brandname' },
-          { data: 'modelname' },
-          { data: 'inventory_type' },
+          
+          { data: 'img' },
+          { data: 'brand_name' },
+          { data: 'model_name' },
+          { data: 'inventory_type' }, 
           { data: 'status' },
           { data: '' }
         ],
         columnDefs: [
           
           {
-            // Id
-            className: 'control',
-            orderable: false,
-            responsivePriority: 1,
+            // Inventory Image
             targets: 0,
             render: function (data, type, full, meta) {
-               //var $id = full['id'];
-              return '';
-            }
-          },
-          {
-            // Inventory Image
-            targets: 1,
-            render: function (data, type, full, meta) {
-              var $image =full['image'];
+              var $image =full['img'];
+              // alert($image);
               if ($image) {
                 // For Avatar image
                 var $output =
@@ -116,34 +111,40 @@ $(function () {
           },
           {
             // Brand Name
-            targets: 2,
+            targets: 1,
             render: function (data, type, full, meta) {
-              var $brandname = full['brandname'];
+              var $brandname = full['brand_name'];
               
               return "<span class='text-truncate align-middle'>" + $brandname + '</span>';
             }
           },
           {
             //Model Name
-            targets: 3,
+            targets: 2,
             render: function (data, type, full, meta) {
-              var $modelname = full['modelname'];
-  
+              var $modelname = full['model_name'];
+              
+
               return '<span class="text-nowrap">' + $modelname + '</span>';
             }
           },
           {
-            //Inventory Type
-            targets: 4,
+            // User Status
+            targets: 3,
             render: function (data, type, full, meta) {
               var $inventory_type = full['inventory_type'];
-  
-              return '<span class="text-nowrap">' + $inventory_type + '</span>';
+              return (
+                '<span class="badge rounded-pill ' +
+                inventryObj[1].class +
+                '" text-capitalized>' +
+                $inventory_type +
+                '</span>'
+              );
             }
           },
           {
             // User Status
-            targets: 5,
+            targets: 4,
             render: function (data, type, full, meta) {
               var $status = full['status'];
               return (
@@ -157,7 +158,7 @@ $(function () {
           },
           {
             // Actions
-            targets: -1,
+            targets: 5,
             title: 'Actions',
             orderable: false,
             render: function (data, type, full, meta) {
@@ -177,7 +178,7 @@ $(function () {
             }
           }
         ],
-        order: [[1, 'desc']],
+        //order: [[2, 'desc']],
         dom:
           '<"d-flex justify-content-between align-items-center header-actions mx-2 row mt-75"' +
           '<"col-sm-12 col-lg-4 d-flex justify-content-center justify-content-lg-start" l>' +
@@ -293,96 +294,6 @@ $(function () {
       });
     }); 
   
-    //Update Inventory
-    newUserForm.on('submit', function (e) {
-      if (!e.isDefaultPrevented()) {
-            e.preventDefault()
-          $( "#submit" ).prop( "disabled", true );
-          if (formBlock.length && formSection.length) {
-            formBlock.on('click', function () {
-              formSection.block({
-                message: '<div class="spinner-border text-white" role="status"></div>',
-                timeout: 1000,
-                css: {
-                  backgroundColor: 'transparent',
-                  color: '#fff',
-                  border: '0'
-                },
-                overlayCSS: {
-                  opacity: 0.5
-                }
-              });
-            });
-          }
-           let formData = new FormData($('#form_idd')[0])
-          $.ajax({
-                url: '/inventory_update', // JSON file to add data,
-                type: 'POST',
-                dataType: 'json',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    $( "#submit" ).prop( "disabled", false );
-                    if (data.status === true) {  
-                        toastr['success'](''+data.message+'', {
-                          closeButton: true,
-                          tapToDismiss: false,
-                          rtl: isRtl
-                        });
-                        window.location = "/inventory-list";
-
-                    } else if (data.status === false) {
-                      $( "#submit" ).prop( "disabled", false );
-                      toastr['error'](''+data.message+'', {
-                        closeButton: true,
-                        tapToDismiss: false,
-                        rtl: isRtl
-                      });
-                       
-                    }
-                },
-                error: function (data) {
-                  $( "#submit" ).prop( "disabled", false );
-                  toastr['error'](''+data.message+'', {
-                    closeButton: true,
-                    tapToDismiss: false,
-                    rtl: isRtl
-                  });
-                }
-            })
-        }
-    })
-
-    // Form Validation
-    if (newUserForm.length) {
-      newUserForm.validate({
-        errorClass: 'error',
-        rules: {
-          'brand_name': {
-            required: true
-          },
-          'model_name': {
-            required: true
-          },
-          'status': {
-            required: true
-          },
-          'img_path': {
-            required: true
-          }
-        }
-      });
-  
-      newUserForm.on('submit', function (e) {
-        var isValid = newUserForm.valid();
-        e.preventDefault();
-        if (isValid) {
-          newUserSidebar.modal('hide');
-        }
-      });
-    }
-  
     //Delete Vendor Record
         // Confirm Color
    $(document).on('click', '.delete-record', function () {
@@ -419,7 +330,7 @@ $(function () {
 
     function deleteRecord(value_id) {
       $.ajax({
-        url: '../inventory_delete'+'/'+value_id, // JSON file to add data,
+        url: '/storeadmin/inventory_delete'+'/'+value_id, // JSON file to add data,
         type: 'get',
         dataType: 'json',
         contentType: false,

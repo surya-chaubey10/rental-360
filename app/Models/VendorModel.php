@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
@@ -12,7 +12,7 @@ use App\Models\User;
 use App\Models\CustomerType;
 class VendorModel extends Model
 {
-    use SoftDeletes;
+   
     use HasFactory;
     /**
      * The attributes that are mass assignable. 
@@ -21,7 +21,7 @@ class VendorModel extends Model
      */
     protected $table='vendors';
     protected $fillable = [
-        'uuid', 'organisation_id', 'company', 'customer_type', 'user_id', 'status','website', 'language', 'gender', 'contact_option', 'address1', 'address2', 'postcode', 'city', 'state','twitter','facebook', 'instagram', 'github', 'codepen', 'stack' 
+        'uuid', 'organisation_id', 'company', 'customer_type', 'user_id', 'status','website','image', 'language', 'gender', 'contact_option', 'address1', 'address2', 'postcode', 'city', 'state','twitter','facebook', 'instagram', 'github', 'codepen', 'stack' 
     ];
     public static function boot()
     {

@@ -1,5 +1,9 @@
+<style>
+    .rent{
+        color:#eb6464 !important;
+    }
+</style>
 @extends('layouts/auth')
-
 @section('title', 'Rest Password')
 @section('content')
     <div class="auth-wrapper auth-basic px-2">
@@ -43,7 +47,7 @@
                                 </g>
                             </g>
                         </svg>
-                        <h2 class="brand-text text-primary ms-1">Vuexy</h2>
+                        <h2 class="brand-text ms-1 rent">Rental 360</h2>
                     </a>
 
                     <h4 class="card-title mb-1">Reset Password 🔒</h4>

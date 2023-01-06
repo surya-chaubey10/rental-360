@@ -17,10 +17,14 @@ $(function () {
      })
      var isRtl = $('html').attr('data-textdirection') === 'rtl';
     var dtUserTable = $('.vendor-list-table'),
+    accountUploadImg = $('#account-upload-img'),
+    accountUploadBtn = $('#account-upload'),
+    accountUserImage = $('.uploadedAvatar'),
+    accountResetBtn = $('#account-reset'),
       formBlock = $('.btn-form-block'),
       formSection = $('.form-block'),
       newUserSidebar = $('.new-vendor-modal'),
-      newUserForm = $('.update-new-vendor'),
+      newUserForm = $('.update-new-vendor'),   
       select = $('.select2'),
       dtContact = $('.dt-contact'),
       statusObj = {
@@ -35,6 +39,24 @@ $(function () {
     if ($('body').attr('data-framework') === 'laravel') {
       assetPath = $('body').attr('data-asset-path');
       userView = assetPath + 'app/customer/view/account';
+    }
+
+    if (accountUserImage) {
+      var resetImage = accountUserImage.attr('src');
+      accountUploadBtn.on('change', function (e) {
+        var reader = new FileReader(),
+          files = e.target.files;
+        reader.onload = function () {
+          if (accountUploadImg) {
+            accountUploadImg.attr('src', reader.result);
+          }
+        };
+        reader.readAsDataURL(files[0]);
+      });
+   
+      accountResetBtn.on('click', function () {
+        accountUserImage.attr('src', resetImage);
+      });
     }
   
     select.each(function () {
@@ -88,7 +110,8 @@ $(function () {
                           tapToDismiss: false,
                           rtl: isRtl
                         });
-                        window.location = "/vendor-list";
+                       
+                        window.location = app_path + '/vendor-list';
 
                     } else if (data.status === false) {
                       $( "#submit" ).prop( "disabled", false );

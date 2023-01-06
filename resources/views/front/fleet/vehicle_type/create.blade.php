@@ -21,7 +21,7 @@
 @section('content')
  
 <section class="app-user-view-account">
-  <div class="row"> 
+  <!-- <div class="row">  -->
       <div class="card">  
               <div class="card-body border-bottom">
                <form class="add-vehicle-type modal-content pt-0 form-block form-block" autocomplete="off" id="addvehicle_type" method="post" enctype="multipart/from-data" > 
@@ -29,7 +29,7 @@
                   <h4 >Create Vehicle Type</h4>
                   <button  id="submit" name="submit" type="submit" class="btn btn-danger me-1 btn-form-block">Submit</button>
                 </div> 
-              </div> 
+            
            
               <div class="card-body">
                 <section id="multiple-column-form"> 
@@ -102,12 +102,12 @@
                       </div>
                     </div> 
                     <p align="right">
-            <button type="reset" class="col-1 btn btn-outline-secondary" data-bs-dismiss="modal text text-right">Reset</button>
+            <button type="reset" class=" btn btn-outline-secondary" data-bs-dismiss="modal text text-right">Reset</button>
                     </p>
                 </section>  
       </form> 
     </div> 
-  </div>
+  <!-- </div> -->
 </section>   
 @endsection  
 

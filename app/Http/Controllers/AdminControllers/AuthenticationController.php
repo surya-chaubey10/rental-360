@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Models\AdminUser;   
 
 class AuthenticationController extends Controller
 {
@@ -20,6 +21,7 @@ class AuthenticationController extends Controller
 
     public function showLoginFormAdmin()
     {
+       
         return view('auth.login');
     }
 
@@ -28,22 +30,24 @@ class AuthenticationController extends Controller
         $this->validateLogin($request);
 
         $login_success = Auth::guard('admin_user')->attempt([
-            'email' => request()->input('email'),
-            'password' => request()->input('password')
-        ], request()->input('keep_active'));
+            'email' => $request->email,
+            'password' => $request->password
+        ], $request->keep_active);
 
+        $adminname=AdminUser::select('fullname')->where('email',$request->email)->first();
+        $welcome='Welcome';
+        $we=[$welcome,$adminname->fullname];
+        $showmessage=implode(" ",$we);
+       
         if ($login_success) {
             return response()->json([
                 'status' => 'successRedirect',
-                'message' => 'Login Successfully!',
+                'message' => $showmessage,
                 'redirect' => route('super.dashboard')
             ]);
-
-            return $request->wantsJson()
-                ? new JsonResponse([], 204)
-                : redirect()->intended(route('super.dashboard'));
-        }
-
+            
+        } 
+      
         return response()->json([
             'status' => 'error',
             'message' => 'Authentication failed!'

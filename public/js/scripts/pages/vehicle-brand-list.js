@@ -22,14 +22,14 @@ $(function () {
     select = $('.select2'), 
     dtContact = $('.dt-contact'),
     statusObj = {
-      1: { title: 'Enable', class: 'badge-light-warning' },
-      2: { title: 'Disable', class: 'badge-light-success' },  
+      1: { title: 'Enable', class: 'badge-light-success' },
+      2: { title: 'Disable', class: 'badge-light-warning' },  
     },
     
     
     servicetypeObj = {
-      1: { title: 'Car Rental', class: 'badge-light-warning' },
-      2: { title: 'Other', class: 'badge-light-success' },  
+      0: { title: 'Car Rental', class: 'badge-light-success' },
+      1: { title: 'Other', class: 'badge-light-warning' },  
     };
 
   var assetPath = '../../../app-assets/',
@@ -283,6 +283,29 @@ $(function () {
     });
   }
 
+  // Add Form Validation
+if (newUserForm.length) {
+  newUserForm.validate({
+    errorClass: 'error',
+    rules: {
+      'brand_name': {
+        required: true
+      },
+      'service_type': {
+        required: true
+      },
+      'brand_image': {
+        required: true
+      },
+      'updated_id': {
+        required: true
+      },
+      'description': {
+        required: true
+      }     
+    }
+  });
+}
   newUserForm.on('submit', function (e) {
     if (!e.isDefaultPrevented()) {
           e.preventDefault()

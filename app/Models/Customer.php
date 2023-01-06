@@ -9,11 +9,11 @@ use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\User;
 use App\Models\CustomerType;
-use Illuminate\Database\Eloquent\SoftDeletes;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends Model
 {  
-    use HasApiTokens, HasFactory, Organisationid, SoftDeletes;
+    use HasApiTokens, HasFactory, Organisationid ;
 
     protected $fillable = [
         'uuid',
@@ -24,6 +24,7 @@ class Customer extends Model
         'dob',
         'gender',
         'website',
+        'image',
         'language',
         'address1',
         'address2',
@@ -59,6 +60,6 @@ class Customer extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo (User::class, 'user_id', 'id');
     }
 }

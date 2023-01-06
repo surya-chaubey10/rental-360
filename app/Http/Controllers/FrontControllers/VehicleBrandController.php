@@ -87,12 +87,12 @@ class VehicleBrandController extends Controller
                {
                    $path = '';
                } 
- 
+              
                 $data->brand_name                   = $request->brand_name;
                 $data->service_type                 = $request->service_type;
                 $data->brand_image                  = $path;
                 $data->status                       = $request->status; 
-                $data->description                       = $request->description; 
+                $data->description                  = $request->description; 
                 $data->save();
  
             DB::commit();

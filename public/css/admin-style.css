@@ -1,0 +1,19 @@
+
+/*** Panjak HTML  CSS *********/
+
+
+.box-shodow-none .modal-content {
+    box-shadow: none !important;
+}
+
+.custom-margin .card {
+	margin-bottom:0px !important;
+}
+
+h4.card-title {
+    padding: 0.72rem 1.3rem;
+}
+
+.btn-group {
+    margin-right: 1.3rem;
+}

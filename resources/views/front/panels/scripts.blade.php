@@ -1,6 +1,7 @@
 @auth
     <script>
         var org_id = {{ Auth::user()->organisation_id }}
+        var app_path = '{{ env("APP_PATH") }}'
     </script>
 @endauth
 <!-- BEGIN: Vendor JS-->

@@ -35,7 +35,7 @@
 <section class="app-user-view-account">
   <div class="row">
     <!-- User Sidebar -->
-    <div class="col-xl-12 col-lg-5 col-md-5 order-1 order-md-0">
+    <div class="col-xl-12 col-lg-12 col-md-12 order-1 order-md-0">
       <!-- User Card -->
       <div class="card"> 
         <div class="card-body"> 
@@ -43,7 +43,7 @@
  
                 <div class="card-header">
                   <h4 style="font-size: 1.750rem;"><b>Create Vehicle</b></h4>
-                  <button  id="submit" name="submit" type="submit" class="btn btn-danger me-1 btn-form-block">Submit</button>
+                  <button disabled   id="submit" name="submit" type="submit" class="btn btn-danger me-1 btn-form-block">Submit</button>
                 </div>
                 <hr>
                 <div class="tab-content" id="pills-tabContent">
@@ -98,12 +98,10 @@
                                         id="description"
                                         class="form-control"
                                         name="description"
-
                                         rows="4"
-                                        value="" 
-                                      >     </textarea>                            
-                                    </div>
-                                  </div> 
+                                        value="">     </textarea>                            
+                                        </div>
+                                      </div> 
 
                                   <div class="col-md-4 col-12">
                                     <div class="mb-1">
@@ -348,7 +346,7 @@
            </div>
         </div>  
       </div> 
-      </form>
+    </form>
       <!-- /Invoice table -->
     </div>
     <!--/ User Content -->
